@@ -3,9 +3,11 @@ package com.chaos.forum.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.chaos.forum.entity.AdminUser;
+import com.chaos.forum.exception.DataException;
 import com.chaos.forum.mapper.AdminUserMapper;
+import com.chaos.forum.returnx.enumx.ResultEnum;
 import com.chaos.forum.service.AdminUserService;
-import com.chaos.forum.vo.FourmVO;
+import com.chaos.forum.vo.ResultVO;
 import org.springframework.stereotype.Service;
 
 /**
@@ -20,15 +22,14 @@ import org.springframework.stereotype.Service;
 public class AdminUserServiceImpl extends ServiceImpl<AdminUserMapper, AdminUser> implements AdminUserService {
 
     @Override
-    public boolean logIn(AdminUser user) {
+    public ResultVO logIn(AdminUser user) {
         AdminUser userOne = this.getOne(new QueryWrapper<AdminUser>().eq("name", user.getName()));
         if (userOne == null) {
-            throw new RuntimeException("user is not fond");
-
+            throw new DataException(ResultEnum.LIGIN__ERROR);
         }
         if (!userOne.getPassword().equals(user.getPassword())) {
-            throw new RuntimeException("密码不正确");
+            throw new DataException(ResultEnum.LIGIN__ERROR);
         }
-        return true;
+        return new ResultVO(ResultEnum.LIGIN__SUCCESS);
     }
 }

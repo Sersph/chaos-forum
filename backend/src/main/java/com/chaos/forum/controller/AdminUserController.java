@@ -2,7 +2,7 @@ package com.chaos.forum.controller;
 
 import com.chaos.forum.entity.AdminUser;
 import com.chaos.forum.service.AdminUserService;
-import com.chaos.forum.vo.FourmVO;
+import com.chaos.forum.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +26,7 @@ public class AdminUserController {
 
     @ResponseBody
     @PostMapping("/login")
-    public boolean logIn(AdminUser user) {
+    public ResultVO logIn(AdminUser user) {
         return this.userService.logIn(user);
     }
 }
