@@ -6,7 +6,6 @@ import com.chaos.forum.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * <p>
@@ -25,8 +24,7 @@ public class AdminUserController {
 
     @ResponseBody
     @PostMapping("/login")
-    public ResultVO logIn(AdminUser user, HttpServletRequest request) {
-        System.out.println(request);
+    public ResultVO logIn(AdminUser user) {
         return this.userService.logIn(user);
     }
 
