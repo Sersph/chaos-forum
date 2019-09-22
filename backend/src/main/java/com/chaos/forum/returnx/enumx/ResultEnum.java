@@ -11,12 +11,17 @@ package com.chaos.forum.returnx.enumx;
 public enum ResultEnum {
     LIGIN__SUCCESS(0, "登陆成功"),
     LIGIN__ERROR(1001,"用户名或密码不正确"),
+    LIGIN__NULL(1002,"用户名或密码不为空"),
+
 
     CREATE__SUCCESS(0, "创建成功"),
     CREATE__ERROR(1002, "创建失败"),
 
     UPDATE__SUCCESS(0, "修改成功"),
     UPDATE__ERROR(1003, "修改失败"),
+
+    DELETE__SUCCESS(0, "删除成功"),
+    DELETE__ERROR(1004, "删除失败")
     ;
 
     public Integer code;

@@ -4,10 +4,9 @@ import com.chaos.forum.entity.AdminUser;
 import com.chaos.forum.service.AdminUserService;
 import com.chaos.forum.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * <p>
@@ -26,7 +25,10 @@ public class AdminUserController {
 
     @ResponseBody
     @PostMapping("/login")
-    public ResultVO logIn(AdminUser user) {
+    public ResultVO logIn(AdminUser user, HttpServletRequest request) {
+        System.out.println(request);
         return this.userService.logIn(user);
     }
+
+
 }

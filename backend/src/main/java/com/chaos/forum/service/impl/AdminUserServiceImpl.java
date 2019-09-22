@@ -10,6 +10,8 @@ import com.chaos.forum.service.AdminUserService;
 import com.chaos.forum.vo.ResultVO;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * <p>
  * { describe }
@@ -23,7 +25,9 @@ public class AdminUserServiceImpl extends ServiceImpl<AdminUserMapper, AdminUser
 
     @Override
     public ResultVO logIn(AdminUser user) {
+
         AdminUser userOne = this.getOne(new QueryWrapper<AdminUser>().eq("name", user.getName()));
+
         if (userOne == null) {
             throw new DataException(ResultEnum.LIGIN__ERROR);
         }
@@ -32,4 +36,6 @@ public class AdminUserServiceImpl extends ServiceImpl<AdminUserMapper, AdminUser
         }
         return new ResultVO(ResultEnum.LIGIN__SUCCESS);
     }
+
+
 }
