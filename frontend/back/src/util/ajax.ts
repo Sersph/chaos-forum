@@ -44,7 +44,20 @@ export default function ajax(method: Method, url: string, data = {}): object {
           response = await axios({
             method,
             url,
-            data
+            data,
+            transformRequest: [
+              function (oldData) {
+                let newStr = '';
+                for (let item in oldData) {
+                  newStr += encodeURIComponent(item) + '=' + encodeURIComponent(oldData[item]) + '&';
+                }
+                newStr = newStr.slice(0, -1);
+                return newStr
+              }
+            ],
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+            }
           });
           break;
         case 'PUT':

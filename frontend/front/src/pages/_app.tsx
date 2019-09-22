@@ -1,6 +1,6 @@
 import React from 'react';
 import App, { Container } from 'next/app';
-import { withRouter, WithRouterProps } from 'next/router';
+import { withRouter } from 'next/router';
 import NProgress from 'nprogress';
 
 // ie11 兼容
@@ -26,7 +26,7 @@ NProgress.configure({
 });
 
 // 当前组件类型声明
-interface Props extends WithRouterProps {
+interface Props {
   store: any;
   error: any;
 }

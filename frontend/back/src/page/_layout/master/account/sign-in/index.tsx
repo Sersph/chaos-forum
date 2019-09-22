@@ -7,7 +7,7 @@ import { FormComponentProps } from 'antd/lib/form';
 import NProgress from 'nprogress';
 import { AppState } from '../../../../../store';
 import { updateUserInfo } from '../../../../../store/account';
-// import api from '../../../../../api';
+import api from '../../../../../api';
 import './index.less';
 
 // 当前组件的类型声明
@@ -54,12 +54,15 @@ export default compose<React.ComponentClass>(
       props.form.validateFields(async (error, valueList) => {
         if (!error) {
           NProgress.start();
-          // const result = await api.account.signIn(valueList);
+          const result: any = await api.account.signIn(valueList);
           // 写死结果集
-          const result: any = { "code": "0", "data": { "id": 1, "username": "admin", "password": "123456" } };
           if (parseInt(result.code) === 0) {
-            // 保存用户信息
-            props.updateUserInfo(result.data);
+            const result2: any = await api.account.selectUserInfo();
+            console.log(result2);
+            // 保存当前登录的用户信息
+            props.updateUserInfo({
+              userName: result2.data
+            });
             // 跳转
             setTimeout(() => {
               NProgress.done();
@@ -91,12 +94,12 @@ export default compose<React.ComponentClass>(
           <section className="sign-in-form-wrapper">
             <section className="sign-in-form-container">
               <section className="header-container">
-                <span>新创文化艺术品管理后台</span>
+                <span>混沌科技123321</span>
               </section>
               <Form onSubmit={this.handleSubmit}>
                 <Form.Item>
-                  {props.form.getFieldDecorator('username', {
-                    initialValue: 'admin',
+                  {props.form.getFieldDecorator('name', {
+                    initialValue: 'xxx',
                     rules: [
                       { required: true, message: '请输入用户名!' }
                     ]
@@ -109,7 +112,7 @@ export default compose<React.ComponentClass>(
                 </Form.Item>
                 <Form.Item>
                   {props.form.getFieldDecorator('password', {
-                    initialValue: '123456',
+                    initialValue: '111',
                     rules: [
                       { required: true, message: '请输入密码!' }
                     ]

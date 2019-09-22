@@ -39,9 +39,9 @@ export default compose<React.ComponentClass>(
     };
 
     public componentDidMount = async () => {
-      // const { props } = this;
+      const { props } = this;
       // 更新当前用户登陆状态
-      // await props.asyncUpdateUserInfo();
+      await props.asyncUpdateUserInfo();
       this.setState({
         isRender: true
       });

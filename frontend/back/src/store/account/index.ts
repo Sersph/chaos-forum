@@ -20,6 +20,7 @@ const initState: State = {
 // 操作函数
 // 修改当前登陆的用户信息
 export const updateUserInfo = (userInfo: any): object => {
+  console.log(userInfo);
   return {
     type: ActionType.UPDATE_USER_INFO,
     data: {
@@ -36,7 +37,9 @@ export const asyncUpdateUserInfo = (): object => {
       dispatch({
         type: ActionType.UPDATE_USER_INFO,
         data: {
-          userInfo: result.data
+          userInfo: {
+            userName: result.data
+          }
         }
       });
     }
