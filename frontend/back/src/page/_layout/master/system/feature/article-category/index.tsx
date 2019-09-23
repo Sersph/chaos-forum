@@ -9,12 +9,12 @@ interface State {
 }
 
 // 当前组件类
-export default class LayoutMasterSystemUser extends React.Component<Props, State> {
+export default class LayoutMasterSystemFeatureArticle extends React.Component<Props, State> {
   render = (): JSX.Element => {
     const { props } = this;
     if (props.route && props.route.routes) {
       return (
-        <section className="system-user-container">
+        <section className="system-feature-article-container">
           {renderRoutes(props.route.routes)}
         </section>
       );

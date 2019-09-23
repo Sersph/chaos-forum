@@ -20,27 +20,29 @@ interface State {
   searchCondition: any;
   // 表格加载状态
   loading: boolean;
+  // 表格搜索的排序
+  searchOrder: any;
 }
 
 // 当前组件类
 export default compose<React.ComponentClass>(
   Form.create()
 )(
-  class LayoutMasterSystemUserPersonList extends React.Component<Props, State> {
+  class LayoutMasterSystemFeatureArticleList extends React.Component<Props, State> {
     state: State = {
       columns: [
-        { title: '用户名', dataIndex: 'username' },
         {
-          title: '性别', dataIndex: 'gender', render: (text: any, record: any) => (
-            <span>{text === 1 ? '男' : '女'}</span>
-          )
+          title: '#',
+          render: (text: any, record: any, index: number) => `${index + 1}`,
         },
-        { title: '创建日期', dataIndex: 'createdAt' },
-        { title: '最后修改日期', dataIndex: 'updatedAt' },
+        { title: '标题', dataIndex: 'title', sorter: true },
+        { title: '所属分类', dataIndex: 'articleCategoryId', sorter: true },
+        { title: '创建日期', dataIndex: 'createTime', sorter: true },
+        { title: '最后修改日期', dataIndex: 'updateTime', sorter: true },
         {
           title: '操作', dataIndex: 'action', render: (text: any, record: any) => (
             <div className="table-data-action-container">
-              <Link to={`/system/user/person/operator/${record.id}`}>编辑</Link>
+              <Link to={`/system/feature/article/operator/${record.id}`}>编辑</Link>
               <Divider type="vertical"/>
               <span onClick={() => this.deleteData(record)}>删除</span>
             </div>
@@ -56,6 +58,7 @@ export default compose<React.ComponentClass>(
         pageSizeOptions: ['10', '20', '100']
       },
       searchCondition: {},
+      searchOrder: {},
       loading: false
     };
 
@@ -74,22 +77,28 @@ export default compose<React.ComponentClass>(
         loading: true
       });
 
-      // 获取表格数据
-      const result: any = await api.person.selectPersonList({
-        current: state.pagination.current,
-        size: state.pagination.pageSize,
+      const searchInfo = {
+        page: state.pagination.current,
+        pageSize: state.pagination.pageSize,
         ...state.searchCondition
-      });
+      };
+      if (state.searchOrder.hasOwnProperty('sortField')) {
+        searchInfo.sortField = state.searchOrder.sortField;
+        searchInfo.sortOrder = state.searchOrder.sortOrder;
+      }
+      // 获取表格数据
+      const result: any = await api.article.selectArticleList(searchInfo);
 
       // 获取成功, 刷新数据
-      const pagination = {
-        ...state.pagination
-      };
-      pagination.total = result.data.total;
       this.setState({
         loading: false,
         dataSource: result.data.records,
-        pagination
+        pagination: {
+          ...state.pagination,
+          current: result.data.current,
+          pageSize: result.data.size,
+          total: result.data.total
+        }
       });
     };
 
@@ -103,11 +112,11 @@ export default compose<React.ComponentClass>(
         okText: '确认',
         cancelText: '取消',
         title: '确认删除此条记录？',
-        content: <Tag color="#f50">{record.username}</Tag>,
+        content: <Tag color="#f50">{record.title}</Tag>,
         onOk: async () => {
           // loading
           this.setState({ loading: true });
-          await api.person.deletePersonById(record.id);
+          await api.article.deleteArticleById(record.id);
           // 刷新表格数据
           this.refreshData();
         },
@@ -127,10 +136,17 @@ export default compose<React.ComponentClass>(
       props.form.validateFields(async (error, valueList) => {
         if (!error) {
           // 保存搜索条件
-          state.pagination.current = 1;
-          state.searchCondition = valueList;
-          // 刷新表格数据
-          this.refreshData();
+          this.setState({
+            pagination: {
+              ...state.pagination,
+              current: 1,
+              pageSize: 10
+            },
+            searchCondition: valueList
+          }, () => {
+            // 刷新表格数据
+            this.refreshData();
+          });
         }
       });
     };
@@ -140,26 +156,51 @@ export default compose<React.ComponentClass>(
      *
      */
     handleReset = (): void => {
-      const { state, props } = this;
+      const { props } = this;
       // 保存搜索条件
-      state.pagination.current = 1;
-      state.searchCondition = {};
-      props.form.resetFields();
-      // 刷新表格数据
-      this.refreshData();
+      this.setState({
+        pagination: {
+          current: 1,
+          pageSize: 10
+        },
+        searchCondition: {}
+      }, () => {
+        // 清空表单
+        props.form.resetFields();
+        // 刷新表格数据
+        this.refreshData();
+      });
     };
 
     /**
      * 表格的数据搜索条件发送变化
      *
      */
-    handleTableChange = (currentPagination: any): void => {
+    handleTableChange = (currentPagination: any, filters: any, sorter: any): void => {
       const { state } = this;
-      // 刷新分页数据
-      state.pagination = currentPagination;
 
-      // 获取表格数据
-      this.refreshData();
+      // 保存搜索条件
+      const searchInfo: any = {
+        pagination: {
+          ...state.pagination,
+          current: currentPagination.current,
+          pageSize: currentPagination.pageSize
+        }
+      };
+
+      // 搜索排序
+      if (sorter.columnKey !== undefined) {
+        searchInfo.searchOrder = {
+          sortField: sorter.columnKey,
+          sortOrder: sorter.order === 'ascend' ? 'asc' : 'desc'
+        }
+      } else {
+        searchInfo.searchOrder = {};
+      }
+      this.setState(searchInfo, () => {
+        // 刷新表格数据
+        this.refreshData();
+      });
     };
 
     /**
@@ -174,8 +215,8 @@ export default compose<React.ComponentClass>(
             <Form onSubmit={this.handleSearch}>
               <Row className="search-field-container">
                 <Col md={8}>
-                  <Form.Item label="用户名称">
-                    {props.form.getFieldDecorator('username', {
+                  <Form.Item label="文章标题">
+                    {props.form.getFieldDecorator('title', {
                       rules: []
                     })(
                       <Input/>
@@ -184,13 +225,13 @@ export default compose<React.ComponentClass>(
                 </Col>
                 <Col md={8} className="search-action-container">
                   <Button type="primary" htmlType="submit">搜索</Button>
-                  <Button onClick={this.handleReset}>重置</Button>
+                  <Button onClick={this.handleReset}>清空</Button>
                 </Col>
               </Row>
             </Form>
           </section>
           <section className="data-action-container">
-            <Link to="/system/user/person/operator">
+            <Link to="/system/feature/article/operator">
               <Button icon="plus" type="primary">添加</Button>
             </Link>
           </section>
@@ -201,7 +242,7 @@ export default compose<React.ComponentClass>(
     render = (): JSX.Element => {
       const { state } = this;
       return (
-        <section className="person-list-container">
+        <section className="list-container">
           {this.getOperationContainer()}
           <section className="data-container">
             <Table

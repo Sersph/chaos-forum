@@ -1,11 +1,9 @@
 import oss from './oss';
 import account from './account';
-import person from './person';
-import collection from './collection';
+import article from './article';
 
 export default {
   oss,
   account,
-  person,
-  collection
+  article
 };

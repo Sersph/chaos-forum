@@ -66,26 +66,14 @@ export default compose<React.ComponentClass>(
           ]
         },
         {
-          key: '2',
-          icon: 'user',
-          name: '用户',
-          children: [
-            {
-              key: '2-1',
-              name: '个人用户',
-              path: '/system/user/person/list'
-            },
-          ]
-        },
-        {
           key: '3',
           icon: 'desktop',
-          name: '产品',
+          name: '文章',
           children: [
             {
               key: '3-1',
-              name: '收藏品',
-              path: '/system/product/collection/list'
+              name: '文章列表',
+              path: '/system/feature/article/list'
             }
           ]
         }

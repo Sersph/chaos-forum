@@ -19,15 +19,16 @@ import LayoutMasterSystem from '../page/_layout/master/system';
 // 工作台
 import LayoutMasterSystemHomeWelcome from '../page/_layout/master/system/home/welcome';
 
-// 个人用户
-import LayoutMasterSystemUserPerson from '../page/_layout/master/system/user/person';
-import LayoutMasterSystemUserPersonList from '../page/_layout/master/system/user/person/list';
-import LayoutMasterSystemUserPersonOperator from '../page/_layout/master/system/user/person/operator';
+// 文章
+import LayoutMasterSystemFeatureArticle from '../page/_layout/master/system/feature/article';
+import LayoutMasterSystemFeatureArticleList from '../page/_layout/master/system/feature/article/list';
+import LayoutMasterSystemFeatureArticleOperator from '../page/_layout/master/system/feature/article/operator';
 
-// 收藏品
-import LayoutMasterSystemProductCollection from '../page/_layout/master/system/product/collection';
-import LayoutMasterSystemProductCollectionList from '../page/_layout/master/system/product/collection/list';
-import LayoutMasterSystemProductCollectionOperator from '../page/_layout/master/system/product/collection/operator';
+// 文章分类
+import LayoutMasterSystemFeatureArticleCategory from '../page/_layout/master/system/feature/article-category';
+import LayoutMasterSystemFeatureArticleCategoryList from '../page/_layout/master/system/feature/article-category/list';
+import LayoutMasterSystemFeatureArticleCategoryOperator from '../page/_layout/master/system/feature/article-category/operator';
+
 
 // 懒加载模块
 // 仪表盘
@@ -36,17 +37,12 @@ const LayoutMasterSystemHome = Loadable({
   loading: () => <Loading/>
 });
 
-// 用户
-const LayoutMasterSystemUser = Loadable({
-  loader: () => import('../page/_layout/master/system/user'),
+// 功能
+const LayoutMasterSystemFeature = Loadable({
+  loader: () => import('../page/_layout/master/system/feature'),
   loading: () => <Loading/>
 });
 
-// 产品
-const LayoutMasterSystemProduct = Loadable({
-  loader: () => import('../page/_layout/master/system/product'),
-  loading: () => <Loading/>
-});
 
 // 当前组件的类型声明
 export interface MyRouteConfig extends RouteConfig {
@@ -105,60 +101,30 @@ export default class Router extends React.Component<Props, State> {
                   }
                 ]
               },
-              // 用户模块
+              // 功能模块
               {
-                path: '/system/user',
-                component: LayoutMasterSystemUser,
-                breadcrumb: '用户',
+                path: '/system/feature',
+                component: LayoutMasterSystemFeature,
+                breadcrumb: '文章管理',
                 routes: [
                   {
-                    path: '/system/user/person',
-                    component: LayoutMasterSystemUserPerson,
-                    breadcrumb: '个人用户',
+                    path: '/system/feature/article',
+                    component: LayoutMasterSystemFeatureArticle,
+                    breadcrumb: '文章列表',
                     routes: [
                       {
-                        path: '/system/user/person/list',
-                        component: LayoutMasterSystemUserPersonList,
+                        path: '/system/feature/article/list',
+                        component: LayoutMasterSystemFeatureArticleList,
                         breadcrumb: '列表'
                       },
                       {
-                        path: '/system/user/person/operator/:id',
-                        component: LayoutMasterSystemUserPersonOperator,
+                        path: '/system/feature/article/operator/:id',
+                        component: LayoutMasterSystemFeatureArticleOperator,
                         breadcrumb: '编辑'
                       },
                       {
-                        path: '/system/user/person/operator',
-                        component: LayoutMasterSystemUserPersonOperator,
-                        breadcrumb: '添加'
-                      }
-                    ]
-                  }
-                ]
-              },
-              // 产品模块
-              {
-                path: '/system/product',
-                component: LayoutMasterSystemProduct,
-                breadcrumb: '产品',
-                routes: [
-                  {
-                    path: '/system/product/collection',
-                    component: LayoutMasterSystemProductCollection,
-                    breadcrumb: '收藏品',
-                    routes: [
-                      {
-                        path: '/system/product/collection/list',
-                        component: LayoutMasterSystemProductCollectionList,
-                        breadcrumb: '列表'
-                      },
-                      {
-                        path: '/system/product/collection/operator/:id',
-                        component: LayoutMasterSystemProductCollectionOperator,
-                        breadcrumb: '编辑'
-                      },
-                      {
-                        path: '/system/product/collection/operator',
-                        component: LayoutMasterSystemProductCollectionOperator,
+                        path: '/system/feature/article/operator',
+                        component: LayoutMasterSystemFeatureArticleOperator,
                         breadcrumb: '添加'
                       }
                     ]

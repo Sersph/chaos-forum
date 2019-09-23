@@ -59,6 +59,9 @@ export default class TinymceUploadImage extends React.Component<Props, State> {
    */
   uploadFileChange = async (changeInfo: any) => {
     const { file } = changeInfo;
+    if (!this.uploadFileCheck(file)) {
+      return;
+    }
 
     // 不是删除操作 上传图片
     if (file.status !== 'removed') {
