@@ -1,5 +1,7 @@
 package com.chaos.forum.entity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -16,17 +18,26 @@ import java.sql.Date;
 @Data
 public class Article {
 
+    @ApiModelProperty(value = " 文章ID ")
     private int id;
 
+    @ApiModelProperty(value = " 文章标题 ")
     private String title;
 
+    @ApiModelProperty(value = " 文章内容 ")
     private String content;
 
+    @ApiModelProperty(value = " 文章创建时间 ")
     private Date createTime;
 
+    @ApiModelProperty(value = " 文章修改时间 ")
     private Date updateTime;
 
+    @ApiModelProperty(value = " 文章分类ID ")
     private int articleCategoryId;
 
-    private int adminUserId;
+    @ApiModelProperty(value = " 文章分类ID别名 ")
+    private String articleCategoryName;
+
+
 }
