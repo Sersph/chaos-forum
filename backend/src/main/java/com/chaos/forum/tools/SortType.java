@@ -1,9 +1,9 @@
 package com.chaos.forum.tools;
 
 /**
- * <p>
  * { 排序枚举 }
- * </p>
+ *
+ * @param sort 返回asd/desc
  *
  * @Author kay
  * 2019-09-23 17:55

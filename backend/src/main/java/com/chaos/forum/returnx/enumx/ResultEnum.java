@@ -1,11 +1,8 @@
 package com.chaos.forum.returnx.enumx;
 
-import lombok.Data;
 
 /**
- * <p>
  * { 统一返回枚举 }
- * </p>
  *
  * @Author kay
  * 2019-09-20 19:59

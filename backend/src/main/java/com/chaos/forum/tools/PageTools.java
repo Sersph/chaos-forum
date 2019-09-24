@@ -6,16 +6,18 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.chaos.forum.tools.lambda.PageMapperLambda;
 
 /**
- * <p>
  * { mybatis-plus 分页查询，模糊查询，排序等工具类}
- * </p>
+ *
+ * @param Page<T>/QueryWrapper<T> 接收两个对象
  *
  * @Author kay
  * @Author hiems
  * 2019-09-23 16:29
  */
 public class PageTools<T> {
+
     private Page<T> page;
+
     private QueryWrapper<T> wrapper = new QueryWrapper();
 
 
@@ -64,7 +66,6 @@ public class PageTools<T> {
 
     /**
      * 返回
-     *
      *
      * @param pageMapperLambda mapper 转换函数
      *

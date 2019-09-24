@@ -5,11 +5,10 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 /**
- * <p>
- * { describe }
- * </p>
+ * { 定义接收参数接口 }
  *
  * @Author kay
+ * @Author hiems
  * 2019-09-23 17:45
  */
 public interface PageMapperLambda<T> {

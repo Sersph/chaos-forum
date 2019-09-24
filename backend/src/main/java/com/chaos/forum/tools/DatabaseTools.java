@@ -4,7 +4,7 @@ import java.sql.Date;
 
 /**
  * <p>
- * { 数据库工具类 }
+ * { 数据工具类 }
  * </p>
  *
  * @Author kay
@@ -12,6 +12,9 @@ import java.sql.Date;
  */
 public class DatabaseTools {
 
+    /**
+     * 格式化时间
+     */
     public static Date getSqlDate() {
          return shiftDate(new java.util.Date());
     }
