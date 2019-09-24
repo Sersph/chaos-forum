@@ -21,5 +21,6 @@ public interface ArticleCategorySercvice extends IService<ArticleCategory> {
 
     ResultVO selectCategory(ArticleListPage articleListPage);
 
+    ResultVO selectArticleAll();
 
 }

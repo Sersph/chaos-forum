@@ -1,7 +1,9 @@
 package com.chaos.forum.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.chaos.forum.entity.ArticleCategory;
 import com.chaos.forum.entity.ArticleListPage;
@@ -55,11 +57,25 @@ public class ArticleCategoryServiceImpl extends ServiceImpl<ArticleCategoryMappe
 
     @Override
     public ResultVO selectCategory(ArticleListPage articleListPage) {
-        IPage iPage = new PageTools<ArticleCategory>(articleListPage.getPage(), articleListPage.getPageSize())
-                .like("title", articleListPage.getTitle())
-                .sort(articleListPage.getSortField(), articleListPage.getSortOrder() == "desc" ? SortType.DESC : SortType.ASD)
-                .result(((page, wrapper) -> this.articleCategoryMapper.selectPages(page, wrapper)));
+        PageTools pageTools = new PageTools<ArticleCategory>(articleListPage.getPage(), articleListPage.getPageSize());
+
+        if (articleListPage.getName() != null) {
+            pageTools.like("name", articleListPage.getName());
+        }
+
+        if (articleListPage.getSortField() != null) {
+            articleListPage.setSortField(DatabaseTools.humpIsUnderlined(articleListPage.getSortField()));
+            pageTools.sort(articleListPage.getSortField(), articleListPage.getSortOrder() == "desc" ? SortType.DESC : SortType.ASD);
+        }
+
+        IPage iPage = pageTools.result(((page, wrapper) -> this.articleCategoryMapper.selectPages(page, wrapper)));
 
         return new ResultVO(ResultEnum.SUCCESS, iPage);
+    }
+
+    @Override
+    public ResultVO selectArticleAll() {
+        articleCategoryMapper.selectList(new QueryWrapper<>());
+        return new ResultVO(ResultEnum.SUCCESS, articleCategoryMapper.selectList( new QueryWrapper()));
     }
 }

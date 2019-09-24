@@ -338,13 +338,13 @@
   }
   ```
 
-#### 查询所有文章分类
+#### 查询所有文章分类 
 
 - 请求方式 - 请求 URL
 
-  - `GET` - `/backend/articleCategory/all`
+  - `GET` - `/backend/articleCategoryAll`
 
-- 请求参数
+- 请求参数`xxx`
 
   - 无
 

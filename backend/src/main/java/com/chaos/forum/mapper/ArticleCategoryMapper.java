@@ -20,6 +20,7 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface ArticleCategoryMapper extends BaseMapper<ArticleCategory> {
 
+
     IPage<ArticleCategory> selectPages(Page<ArticleCategory> page, @Param(Constants.WRAPPER) Wrapper<ArticleCategory> queryWrapper);
 
 

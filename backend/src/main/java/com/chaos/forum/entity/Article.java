@@ -1,9 +1,11 @@
 package com.chaos.forum.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.beans.Transient;
 import java.io.Serializable;
 import java.sql.Date;
 
@@ -36,8 +38,8 @@ public class Article {
     @ApiModelProperty(value = " 文章分类ID ")
     private int articleCategoryId;
 
-    @ApiModelProperty(value = " 文章分类ID别名 ")
-    private String articleCategoryName;
-
+    @ApiModelProperty(value = " 文章分类名 ")
+    @TableField(exist = false)
+    private String  articleCategoryName;
 
 }

@@ -32,6 +32,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     @Autowired
     private ArticleMapper articleMapper;
 
+    /**
+     * 添加文章
+     * */
     @Override
     public ResultVO createArticle(Article article) {
 
@@ -44,6 +47,10 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         return new ResultVO(ResultEnum.CREATE_ERROR);
     }
 
+
+    /**
+     * 更新文章
+     * */
     @Override
     public ResultVO updateArticle(Article article) {
 
@@ -65,14 +72,16 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
      * */
     @Override
     public ResultVO selectArticle(ArticleListPage articleListPage) {
-
         /** 分页 */
         Page page = new Page<Article>(articleListPage.getPage(), articleListPage.getPageSize());
 
+
+
         if (articleListPage.getSortField() != null) {
 
-            //转换
             articleListPage.setSortField(DatabaseTools.humpIsUnderlined(articleListPage.getSortField()));
+            //转换
+
             this.logger.info(articleListPage.getSortField());
 
             //排序
@@ -85,11 +94,15 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
         /** 模糊查询 */
         QueryWrapper<Article> wrapper = new QueryWrapper();
-
         if (articleListPage.getTitle() != null) {
             wrapper.like("title", articleListPage.getTitle());
         }
-        IPage iPage = articleMapper.selectPages(page, wrapper);
+
+        if (articleListPage.getArticleCategoryId() != 0) {
+            wrapper.eq("article_category_id", articleListPage.getArticleCategoryId());
+        }
+
+        IPage iPage = articleMapper.selectPages(page, wrapper, articleListPage);
         return new ResultVO(ResultEnum.SUCCESS, iPage);
     }
 

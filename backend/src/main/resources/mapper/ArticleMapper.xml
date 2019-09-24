@@ -6,7 +6,12 @@
             resultType="com.chaos.forum.entity.Article">
       SELECT article.*, article_category.name as articleCategoryName
       FROM article, article_category ${ew.customSqlSegment}
-      WHERE  article_category.id = article.article_category_id
+      <if test="articleListPage.title   != null || articleListPage.articleCategoryId != 0">
+        AND article_category.id = article.article_category_id
+      </if>
+      <if test="articleListPage.title == null &amp;&amp; articleListPage.articleCategoryId == 0 ">
+        WHERE article_category.id = article.article_category_id
+      </if>
     </select>
 </mapper>
 

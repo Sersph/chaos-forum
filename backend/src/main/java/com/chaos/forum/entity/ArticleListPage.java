@@ -30,4 +30,11 @@ public class ArticleListPage {
 
     @ApiModelProperty(value = " 文章标题 ")
     private String title;
+
+    @ApiModelProperty(value = " 文章分类标题 ")
+    private String name;
+
+    @ApiModelProperty(value = " 文章分类ID ")
+    private int articleCategoryId;
+
 }
