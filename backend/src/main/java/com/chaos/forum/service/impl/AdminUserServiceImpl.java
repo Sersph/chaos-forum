@@ -10,10 +10,12 @@ import com.chaos.forum.service.AdminUserService;
 import com.chaos.forum.vo.ResultVO;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
+
 
 /**
  * <p>
- * { describe }
+ * { 用户登陆 }
  * </p>
  *
  * @Author kay
@@ -23,18 +25,17 @@ import org.springframework.stereotype.Service;
 public class AdminUserServiceImpl extends ServiceImpl<AdminUserMapper, AdminUser> implements AdminUserService {
 
     @Override
-    public ResultVO logIn(AdminUser user) {
-
-
+    public ResultVO logIn(AdminUser user,HttpSession session) {
         AdminUser userOne = this.getOne(new QueryWrapper<AdminUser>().eq("name", user.getName()));
-
         if (userOne == null) {
-            throw new DataException(ResultEnum.LIGIN__ERROR);
+            throw new DataException(ResultEnum.LI_GIN_ERROR);
         }
         if (!userOne.getPassword().equals(user.getPassword())) {
-            throw new DataException(ResultEnum.LIGIN__ERROR);
+            throw new DataException(ResultEnum.LI_GIN_ERROR);
         }
-        return new ResultVO(ResultEnum.LIGIN__SUCCESS);
+        /** 保存用户登陆信息 */
+        session.setAttribute("adminUser", userOne);
+        return new ResultVO(ResultEnum.SUCCESS);
     }
 
 }

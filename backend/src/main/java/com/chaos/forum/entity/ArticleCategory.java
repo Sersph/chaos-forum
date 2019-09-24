@@ -6,7 +6,7 @@ import java.sql.Date;
 
 /**
  * <p>
- * { 分类实体类 }
+ * { 文章分类实体类 }
  * </p>
  *
  * @Author kay
@@ -22,6 +22,5 @@ public class ArticleCategory {
     private Date createTime;
 
     private Date updateTime;
-
 
 }

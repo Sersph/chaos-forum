@@ -25,4 +25,9 @@ public class ResultVO {
         this.message = resultEnum.message;
     }
 
+    public ResultVO(ResultEnum resultEnum, Object data) {
+        this.code = resultEnum.code;
+        this.message = resultEnum.message;
+        this.data = data;
+    }
 }

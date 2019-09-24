@@ -1,6 +1,7 @@
 package com.chaos.forum.controller;
 
 import com.chaos.forum.entity.Article;
+import com.chaos.forum.entity.ArticleListPage;
 import com.chaos.forum.returnx.enumx.ResultEnum;
 import com.chaos.forum.service.ArticleService;
 import com.chaos.forum.vo.ResultVO;
@@ -22,32 +23,52 @@ public class ArticleController {
     @Autowired
     ArticleService articleService;
 
-    @ResponseBody
+    /**
+     * 创建文章
+     * */
     @PostMapping("/article")
     public ResultVO createArticle(Article article) {
         return this.articleService.createArticle(article);
     }
 
-
-    @ResponseBody
-    @GetMapping("/article/{id}")
+    /**
+     * 修改文章
+     * */
+    @PutMapping("/article/{id}")
     public ResultVO updateArticle(Article article, @PathVariable int id) {
         article.setId(id);
         return this.articleService.updateArticle(article);
     }
 
-    @ResponseBody
+    /**
+     * 删除文章
+     * */
     @DeleteMapping("/article/{id}")
     public ResultVO deleteArticle(@PathVariable int id) {
         if (articleService.removeById(id)) {
-            return new ResultVO(ResultEnum.CREATE__SUCCESS);
+            return new ResultVO(ResultEnum.SUCCESS);
         }
-        return new ResultVO(ResultEnum.CREATE__ERROR);
+        return new ResultVO(ResultEnum.CREATE_ERROR);
     }
 
-    @ResponseBody
-    @GetMapping("article")
-    public ResultVO selectArticle() {
-        return null;
+    /**
+     * 查询单一文章
+     * */
+    @GetMapping("/article/{id}")
+    public ResultVO selectArticle(@PathVariable int id) {
+        if (articleService.getById(id) != null) {
+            return new ResultVO(ResultEnum.SUCCESS, articleService.getById(id));
+        }
+        return new ResultVO(ResultEnum.LI_GIN_PAST);
     }
+
+
+    /**
+     * 文章查询-分页
+     */
+    @GetMapping("article")
+    public ResultVO selectArticle(ArticleListPage articleListPage) {
+        return this.articleService.selectArticle(articleListPage);
+    }
+
 }

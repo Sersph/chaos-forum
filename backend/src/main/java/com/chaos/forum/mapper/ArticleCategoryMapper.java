@@ -5,8 +5,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.chaos.forum.entity.Article;
-import com.chaos.forum.entity.ArticleListPage;
+import com.chaos.forum.entity.ArticleCategory;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -16,13 +15,13 @@ import org.apache.ibatis.annotations.Param;
  * </p>
  *
  * @Author kay
- * 2019-09-20 10:33
+ * 2019-09-23 14:44
  */
 @Mapper
-public interface ArticleMapper extends BaseMapper<Article> {
+public interface ArticleCategoryMapper extends BaseMapper<ArticleCategory> {
 
-
-    IPage<Article> selectPages(Page<Article> page, @Param(Constants.WRAPPER) Wrapper<Article> queryWrapper);
+    IPage<ArticleCategory> selectPages(Page<ArticleCategory> page, @Param(Constants.WRAPPER) Wrapper<ArticleCategory> queryWrapper);
 
 
 }
+

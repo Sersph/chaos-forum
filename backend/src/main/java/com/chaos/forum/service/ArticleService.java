@@ -2,6 +2,7 @@ package com.chaos.forum.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.chaos.forum.entity.Article;
+import com.chaos.forum.entity.ArticleListPage;
 import com.chaos.forum.vo.ResultVO;
 
 /**
@@ -14,9 +15,10 @@ import com.chaos.forum.vo.ResultVO;
  */
 public interface ArticleService extends IService<Article> {
 
-
     ResultVO createArticle(Article article);
 
     ResultVO updateArticle(Article article);
+
+    ResultVO selectArticle(ArticleListPage articleListPage);
 
 }

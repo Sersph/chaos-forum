@@ -1,5 +1,7 @@
 package com.chaos.forum.entity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -18,6 +20,7 @@ public class Article {
 
     private int id;
 
+    @ApiModelProperty(value = " ")
     private String title;
 
     private String content;
@@ -28,5 +31,7 @@ public class Article {
 
     private int articleCategoryId;
 
-    private int adminUserId;
+    private String articleCategoryName;
+
+
 }
