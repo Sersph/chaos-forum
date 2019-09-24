@@ -72,18 +72,9 @@ export default compose<React.ComponentClass>(
         });
       }
       // 获取所有文章分类
-
+      const result2: any = await api.articleCategory.selectArticleCategoryAll();
       this.setState({
-        articleCategoryList: [
-          {
-            id: 1,
-            name: '科技'
-          },
-          {
-            id: 2,
-            name: '汽车'
-          }
-        ]
+        articleCategoryList: result2.data
       });
     };
 
@@ -178,10 +169,10 @@ export default compose<React.ComponentClass>(
                   initialValue: state.formInitialValue.title,
                   rules: [
                     { required: true, message: '请输入文章标题' },
-                    { min: 2, max: 20, message: '文章标题由2~30个字符组成！' }
+                    { min: 2, max: 64, message: '文章标题由2~64个字符组成！' }
                   ]
                 })(
-                  <Input type="text" placeholder="请输入文章标题名称"/>
+                  <Input type="text" placeholder="请输入文章标题"/>
                 )}
               </Form.Item>
 
@@ -202,22 +193,30 @@ export default compose<React.ComponentClass>(
                     }}
                   >
                     {state.articleCategoryList.map((articleCategory: any) => (
-                      <Select.Option key={articleCategory.id}
-                                     value={articleCategory.id}>{articleCategory.name}</Select.Option>
+                      <Select.Option
+                        key={articleCategory.id}
+                        value={articleCategory.id}
+                      >{articleCategory.name}</Select.Option>
                     ))}
                   </Select>
                 )}
               </Form.Item>
 
               {/* 文章内容 */}
-              <Form.Item {...baseFormItemLayout} label="文章内容" className="content-form-item">
-                {props.form.getFieldDecorator('content', {})(
-                  <TinyMce
-                    initialValue={state.formInitialValue.content || ''}
-                    onEditorChange={value => this.handlerContentChange(value)}
-                  />
-                )}
-              </Form.Item>
+              {
+                state.actionType !== ''
+                  ? (
+                    <Form.Item {...baseFormItemLayout} label="文章内容" className="des1cription-form-item">
+                      {props.form.getFieldDecorator('content', {})(
+                        <TinyMce
+                          initialValue={state.formInitialValue.content || ''}
+                          onEditorChange={value => this.handlerContentChange(value)}
+                        />
+                      )}
+                    </Form.Item>
+                  )
+                  : ''
+              }
 
               {/* 提交 */}
               <Form.Item {...tailFormItemLayout}>

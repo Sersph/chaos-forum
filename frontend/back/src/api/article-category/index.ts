@@ -6,6 +6,8 @@ import config from '../../config';
  *
  */
 interface Api {
+  // 获取所有记录
+  selectArticleCategoryAll: () => object;
   // 获取多条记录
   selectArticleCategoryList: (data: any) => object;
   // 获取单条记录
@@ -23,7 +25,13 @@ interface Api {
  *
  */
 const api: Api = {
-  selectArticleCategoryList(data: any): object {
+  selectArticleCategoryAll: (): object => {
+    return ajax(
+      'GET',
+      `${config.API_ROOT}/backend/articleCategoryAll`
+    );
+  },
+  selectArticleCategoryList: (data: any): object => {
     return ajax(
       'GET',
       `${config.API_ROOT}/backend/articleCategory`,
@@ -36,21 +44,21 @@ const api: Api = {
       `${config.API_ROOT}/backend/articleCategory/${id}`
     );
   },
-  insertArticleCategory(data: any): object {
+  insertArticleCategory: (data: any): object => {
     return ajax(
       'POST',
       `${config.API_ROOT}/backend/articleCategory`,
       data
     );
   },
-  updateArticleCategoryById(id: any, data: any): object {
+  updateArticleCategoryById: (id: any, data: any): object => {
     return ajax(
       'PUT',
       `${config.API_ROOT}/backend/articleCategory/${id}`,
       data
     );
   },
-  deleteArticleCategoryById(id: any): object {
+  deleteArticleCategoryById: (id: any): object => {
     return ajax(
       'DELETE',
       `${config.API_ROOT}/backend/articleCategory/${id}`

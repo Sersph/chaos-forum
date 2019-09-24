@@ -1,4 +1,4 @@
-// import api from '../../api';
+import api from '../../api';
 
 // 当前模块的类型声明
 export interface State {
@@ -32,11 +32,11 @@ export const updateUserInfo = (userInfo: any): object => {
 // 异步修改当前登陆的用户信息
 export const asyncUpdateUserInfo = (): object => {
   return async (dispatch: any) => {
-    // const result: any = await api.account.selectUserInfo();
-    const result: any = {
-      code: 0,
-      data: 'xxx'
-    };
+    const result: any = await api.account.selectUserInfo();
+    // const result: any = {
+    //   code: 0,
+    //   data: 'xxx'
+    // };
     if (parseInt(result.code) === 0) {
       dispatch({
         type: ActionType.UPDATE_USER_INFO,

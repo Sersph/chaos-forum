@@ -1,10 +1,9 @@
 import React from 'react';
 import { compose } from 'redux';
 import { RouteConfigComponentProps } from 'react-router-config';
-import { Form, Input, Button, Select } from 'antd';
+import { Form, Input, Button } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
 import NProgress from 'nprogress';
-import TinyMce from '../../../../../../../component/tinymce';
 import api from '../../../../../../../api';
 import './index.less';
 
@@ -19,8 +18,6 @@ interface State {
   actionType: string;
   // 表单默认值[操作类型为修改异步获取]
   formInitialValue: any;
-  // 文章分类列表
-  articleCategoryList: any;
 }
 
 // 当前组件类
@@ -34,14 +31,9 @@ export default compose<React.ComponentClass>(
       formInitialValue: {
         // 只有修改操作才有的 id
         id: '',
-        // 文章标题
-        title: '',
-        // 文章分类id
-        articleCategoryId: null,
-        // 文章内容
-        content: ''
+        // 文章分类名称
+        name: ''
       },
-      articleCategoryList: []
     };
 
     componentDidMount = (): void => {
@@ -59,7 +51,7 @@ export default compose<React.ComponentClass>(
         // 修改操作
         // 获取当前数据
         NProgress.start();
-        const result: any = await api.article.selectArticleById(id);
+        const result: any = await api.articleCategory.selectArticleCategoryById(id);
         NProgress.done();
         this.setState({
           actionType: 'update',
@@ -71,33 +63,6 @@ export default compose<React.ComponentClass>(
           actionType: 'insert'
         });
       }
-      // 获取所有文章分类
-      this.setState({
-        articleCategoryList: [
-          {
-            id: 1,
-            name: '科技'
-          },
-          {
-            id: 2,
-            name: '汽车'
-          }
-        ]
-      });
-    };
-
-    /**
-     * 富文本的描述信息发生改变
-     *
-     */
-    handlerContentChange = (value: string): void => {
-      const { state } = this;
-      // 更新收藏品描述信息
-      const formInitialValue = state.formInitialValue;
-      formInitialValue.content = value;
-      this.setState({
-        formInitialValue
-      });
     };
 
     /**
@@ -118,19 +83,17 @@ export default compose<React.ComponentClass>(
 
           // 封装请求数据
           const requestData = {
-            title: valueList.title,
-            articleCategoryId: valueList.articleCategoryId,
-            content: state.formInitialValue.content
+            name: valueList.name
           };
           console.log(requestData);
 
           // 保存数据
           if (state.actionType === 'insert') {
             // 添加操作
-            await api.article.insertArticle(requestData);
+            await api.articleCategory.insertArticleCategory(requestData);
           } else {
             // 修改操作
-            await api.article.updateArticleById(state.formInitialValue.id, requestData);
+            await api.articleCategory.updateArticleCategoryById(state.formInitialValue.id, requestData);
           }
 
           // 取消加载状态
@@ -140,7 +103,7 @@ export default compose<React.ComponentClass>(
           });
 
           // 跳转到列表页
-          props.history.push('/system/feature/article/list');
+          props.history.push('/system/feature/articleCategory/list');
         }
       });
     };
@@ -171,50 +134,16 @@ export default compose<React.ComponentClass>(
         <section className="operation-wrapper">
           <section className="operation-container">
             <Form onSubmit={this.handleSubmit}>
-              {/* 文章标题 */}
-              <Form.Item {...baseFormItemLayout} label="文章标题">
-                {props.form.getFieldDecorator('title', {
-                  initialValue: state.formInitialValue.title,
+              {/* 分类名称 */}
+              <Form.Item {...baseFormItemLayout} label="分类名称">
+                {props.form.getFieldDecorator('name', {
+                  initialValue: state.formInitialValue.name,
                   rules: [
-                    { required: true, message: '请输入文章标题' },
-                    { min: 2, max: 20, message: '文章标题由2~30个字符组成！' }
+                    { required: true, message: '请输入文章分类名称' },
+                    { min: 2, max: 64, message: '文章分类名称由2~64个字符组成！' }
                   ]
                 })(
-                  <Input type="text" placeholder="请输入文章标题名称"/>
-                )}
-              </Form.Item>
-
-              {/* 文章分类 */}
-              <Form.Item {...baseFormItemLayout} label="文章标题">
-                {props.form.getFieldDecorator('articleCategoryId', {
-                  initialValue: state.formInitialValue.articleCategoryId,
-                  rules: [
-                    { required: true, message: '请选择文章所属分类' },
-                  ]
-                })(
-                  <Select
-                    showSearch
-                    placeholder="请选择文章所属分类"
-                    optionFilterProp="children"
-                    filterOption={(input: any, option: any): boolean => {
-                      return option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                    }}
-                  >
-                    {state.articleCategoryList.map((articleCategory: any) => (
-                      <Select.Option key={articleCategory.id}
-                                     value={articleCategory.id}>{articleCategory.name}</Select.Option>
-                    ))}
-                  </Select>
-                )}
-              </Form.Item>
-
-              {/* 文章内容 */}
-              <Form.Item {...baseFormItemLayout} label="文章内容" className="content-form-item">
-                {props.form.getFieldDecorator('content', {})(
-                  <TinyMce
-                    initialValue={state.formInitialValue.content || ''}
-                    onEditorChange={value => this.handlerContentChange(value)}
-                  />
+                  <Input type="text" placeholder="请输入文章分类名称"/>
                 )}
               </Form.Item>
 

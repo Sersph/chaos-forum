@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { compose } from 'redux';
-import { Divider, Table, Modal, Button, Col, Form, Row, Input, Tag } from 'antd';
+import { Divider, Table, Modal, Button, Col, Form, Row, Input, Tag,Select } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
 import api from '../../../../../../../api';
 
@@ -22,6 +22,8 @@ interface State {
   loading: boolean;
   // 表格搜索的排序
   searchOrder: any;
+  // 文章分类列表
+  articleCategoryList: any;
 }
 
 // 当前组件类
@@ -36,7 +38,7 @@ export default compose<React.ComponentClass>(
           dataIndex: 'id',
           render: (text: any, record: any, index: number) => `${index + 1}`,
         },
-        { title: '标题', dataIndex: 'title', sorter: true },
+        { title: '文章标题', dataIndex: 'title', sorter: true },
         {
           title: '所属分类',
           dataIndex: 'articleCategoryId',
@@ -65,7 +67,8 @@ export default compose<React.ComponentClass>(
       },
       searchCondition: {},
       searchOrder: {},
-      loading: false
+      loading: false,
+      articleCategoryList: []
     };
 
     componentDidMount = (): void => {
@@ -105,6 +108,16 @@ export default compose<React.ComponentClass>(
           pageSize: result.data.size,
           total: result.data.total
         }
+      });
+
+      // 获取所有文章分类
+      const result2: any = await api.articleCategory.selectArticleCategoryAll();
+      result2.data.unshift({
+        id: 0,
+        name: '全部'
+      });
+      this.setState({
+        articleCategoryList: result2.data
       });
     };
 
@@ -217,13 +230,13 @@ export default compose<React.ComponentClass>(
      *
      */
     getOperationContainer = (): JSX.Element => {
-      const { props } = this;
+      const { props, state } = this;
       return (
         <section className="data-operation-container">
           <section className="search-container">
             <Form onSubmit={this.handleSearch}>
               <Row className="search-field-container">
-                <Col md={8}>
+                <Col md={5}>
                   <Form.Item label="文章标题">
                     {props.form.getFieldDecorator('title', {
                       rules: []
@@ -232,7 +245,31 @@ export default compose<React.ComponentClass>(
                     )}
                   </Form.Item>
                 </Col>
-                <Col md={8} className="search-action-container">
+                <Col md={5}>
+                  <Form.Item label="文章分类">
+                    {props.form.getFieldDecorator('articleCategoryId', {
+                      rules: [
+                      ]
+                    })(
+                      <Select
+                        showSearch
+                        placeholder="请选择文章所属分类"
+                        optionFilterProp="children"
+                        filterOption={(input: any, option: any): boolean => {
+                          return option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                        }}
+                      >
+                        {state.articleCategoryList.map((articleCategory: any) => (
+                          <Select.Option
+                            key={articleCategory.id}
+                            value={articleCategory.id}
+                          >{articleCategory.name}</Select.Option>
+                        ))}
+                      </Select>
+                    )}
+                  </Form.Item>
+                </Col>
+                <Col md={5} className="search-action-container">
                   <Button type="primary" htmlType="submit">搜索</Button>
                   <Button onClick={this.handleReset}>清空</Button>
                 </Col>

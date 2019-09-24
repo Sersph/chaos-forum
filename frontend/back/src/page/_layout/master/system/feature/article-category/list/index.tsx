@@ -36,19 +36,13 @@ export default compose<React.ComponentClass>(
           dataIndex: 'id',
           render: (text: any, record: any, index: number) => `${index + 1}`,
         },
-        { title: '标题', dataIndex: 'title', sorter: true },
-        {
-          title: '所属分类',
-          dataIndex: 'articleCategoryId',
-          sorter: true,
-          render: (text: any, record: any) => record.articleCategoryName
-        },
+        { title: '名称', dataIndex: 'name', sorter: true },
         { title: '创建日期', dataIndex: 'createTime', sorter: true },
         { title: '最后修改日期', dataIndex: 'updateTime', sorter: true },
         {
           title: '操作', dataIndex: 'action', render: (text: any, record: any) => (
             <div className="table-data-action-container">
-              <Link to={`/system/feature/article/operator/${record.id}`}>编辑</Link>
+              <Link to={`/system/feature/articleCategory/operator/${record.id}`}>编辑</Link>
               <Divider type="vertical"/>
               <span onClick={() => this.deleteData(record)}>删除</span>
             </div>
@@ -93,7 +87,7 @@ export default compose<React.ComponentClass>(
         searchInfo.sortOrder = state.searchOrder.sortOrder;
       }
       // 获取表格数据
-      const result: any = await api.article.selectArticleList(searchInfo);
+      const result: any = await api.articleCategory.selectArticleCategoryList(searchInfo);
 
       // 获取成功, 刷新数据
       this.setState({
@@ -122,7 +116,7 @@ export default compose<React.ComponentClass>(
         onOk: async () => {
           // loading
           this.setState({ loading: true });
-          await api.article.deleteArticleById(record.id);
+          await api.articleCategory.deleteArticleCategoryById(record.id);
           // 刷新表格数据
           this.refreshData();
         },
@@ -223,16 +217,16 @@ export default compose<React.ComponentClass>(
           <section className="search-container">
             <Form onSubmit={this.handleSearch}>
               <Row className="search-field-container">
-                <Col md={8}>
-                  <Form.Item label="文章标题">
-                    {props.form.getFieldDecorator('title', {
+                <Col md={5}>
+                  <Form.Item label="分类名称">
+                    {props.form.getFieldDecorator('name', {
                       rules: []
                     })(
                       <Input/>
                     )}
                   </Form.Item>
                 </Col>
-                <Col md={8} className="search-action-container">
+                <Col md={5} className="search-action-container">
                   <Button type="primary" htmlType="submit">搜索</Button>
                   <Button onClick={this.handleReset}>清空</Button>
                 </Col>
@@ -240,7 +234,7 @@ export default compose<React.ComponentClass>(
             </Form>
           </section>
           <section className="data-action-container">
-            <Link to="/system/feature/article/operator">
+            <Link to="/system/feature/articleCategory/operator">
               <Button icon="plus" type="primary">添加</Button>
             </Link>
           </section>
