@@ -2,7 +2,7 @@ import ajax from '../../util/ajax';
 import config from '../../config';
 
 /**
- * 用户相关接口
+ * 接口约束
  *
  */
 interface Api {
@@ -19,7 +19,7 @@ interface Api {
 }
 
 /**
- * 用户相关接口实现
+ * 接口实现
  *
  */
 const api: Api = {

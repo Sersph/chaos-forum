@@ -68,12 +68,17 @@ export default compose<React.ComponentClass>(
         {
           key: '3',
           icon: 'desktop',
-          name: '文章',
+          name: '内容管理',
           children: [
             {
               key: '3-1',
-              name: '文章列表',
+              name: '文章',
               path: '/system/feature/article/list'
+            },
+            {
+              key: '3-2',
+              name: '文章分类',
+              path: '/system/feature/articleCategory/list'
             }
           ]
         }

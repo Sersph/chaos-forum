@@ -72,6 +72,7 @@ export default compose<React.ComponentClass>(
         });
       }
       // 获取所有文章分类
+
       this.setState({
         articleCategoryList: [
           {
@@ -151,20 +152,19 @@ export default compose<React.ComponentClass>(
       const baseFormItemLayout = {
         labelCol: {
           xs: { span: 24 },
-          sm: { span: 7 }
+          sm: { span: 4 }
         },
         wrapperCol: {
           xs: { span: 24 },
-          sm: { span: 12 },
-          md: { span: 10 }
+          sm: { span: 16 }
         }
       };
 
       const tailFormItemLayout = {
         wrapperCol: {
           xs: { span: 24, offset: 0 },
-          sm: { span: 12, offset: 7 },
-          md: { span: 10, offset: 7 }
+          sm: { span: 12, offset: 4 },
+          md: { span: 10, offset: 4 }
         }
       };
 
@@ -186,9 +186,9 @@ export default compose<React.ComponentClass>(
               </Form.Item>
 
               {/* 文章分类 */}
-              <Form.Item {...baseFormItemLayout} label="文章标题">
+              <Form.Item {...baseFormItemLayout} label="文章分类">
                 {props.form.getFieldDecorator('articleCategoryId', {
-                  initialValue:  state.formInitialValue.articleCategoryId,
+                  initialValue: state.formInitialValue.articleCategoryId,
                   rules: [
                     { required: true, message: '请选择文章所属分类' },
                   ]
@@ -210,20 +210,14 @@ export default compose<React.ComponentClass>(
               </Form.Item>
 
               {/* 文章内容 */}
-              {
-                state.actionType !== ''
-                  ? (
-                    <Form.Item {...baseFormItemLayout} label="文章内容" className="content-form-item">
-                      {props.form.getFieldDecorator('content', {})(
-                        <TinyMce
-                          initialValue={state.formInitialValue.content || ''}
-                          onEditorChange={value => this.handlerContentChange(value)}
-                        />
-                      )}
-                    </Form.Item>
-                  )
-                  : ''
-              }
+              <Form.Item {...baseFormItemLayout} label="文章内容" className="content-form-item">
+                {props.form.getFieldDecorator('content', {})(
+                  <TinyMce
+                    initialValue={state.formInitialValue.content || ''}
+                    onEditorChange={value => this.handlerContentChange(value)}
+                  />
+                )}
+              </Form.Item>
 
               {/* 提交 */}
               <Form.Item {...tailFormItemLayout}>

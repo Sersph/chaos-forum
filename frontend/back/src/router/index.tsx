@@ -27,7 +27,8 @@ import LayoutMasterSystemFeatureArticleOperator from '../page/_layout/master/sys
 // 文章分类
 import LayoutMasterSystemFeatureArticleCategory from '../page/_layout/master/system/feature/article-category';
 import LayoutMasterSystemFeatureArticleCategoryList from '../page/_layout/master/system/feature/article-category/list';
-import LayoutMasterSystemFeatureArticleCategoryOperator from '../page/_layout/master/system/feature/article-category/operator';
+import LayoutMasterSystemFeatureArticleCategoryOperator
+  from '../page/_layout/master/system/feature/article-category/operator';
 
 
 // 懒加载模块
@@ -105,12 +106,12 @@ export default class Router extends React.Component<Props, State> {
               {
                 path: '/system/feature',
                 component: LayoutMasterSystemFeature,
-                breadcrumb: '文章管理',
+                breadcrumb: '内容管理',
                 routes: [
                   {
                     path: '/system/feature/article',
                     component: LayoutMasterSystemFeatureArticle,
-                    breadcrumb: '文章列表',
+                    breadcrumb: '文章',
                     routes: [
                       {
                         path: '/system/feature/article/list',
@@ -120,11 +121,33 @@ export default class Router extends React.Component<Props, State> {
                       {
                         path: '/system/feature/article/operator/:id',
                         component: LayoutMasterSystemFeatureArticleOperator,
-                        breadcrumb: '编辑'
+                        breadcrumb: '修改'
                       },
                       {
                         path: '/system/feature/article/operator',
                         component: LayoutMasterSystemFeatureArticleOperator,
+                        breadcrumb: '添加'
+                      }
+                    ]
+                  },
+                  {
+                    path: '/system/feature/articleCategory',
+                    component: LayoutMasterSystemFeatureArticleCategory,
+                    breadcrumb: '文章分类',
+                    routes: [
+                      {
+                        path: '/system/feature/articleCategory/list',
+                        component: LayoutMasterSystemFeatureArticleCategoryList,
+                        breadcrumb: '列表'
+                      },
+                      {
+                        path: '/system/feature/articleCategory/operator/:id',
+                        component: LayoutMasterSystemFeatureArticleCategoryOperator,
+                        breadcrumb: '修改'
+                      },
+                      {
+                        path: '/system/feature/articleCategory/operator',
+                        component: LayoutMasterSystemFeatureArticleCategoryOperator,
                         breadcrumb: '添加'
                       }
                     ]

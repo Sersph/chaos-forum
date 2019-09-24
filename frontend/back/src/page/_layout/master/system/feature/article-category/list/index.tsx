@@ -33,10 +33,16 @@ export default compose<React.ComponentClass>(
       columns: [
         {
           title: '#',
+          dataIndex: 'id',
           render: (text: any, record: any, index: number) => `${index + 1}`,
         },
         { title: '标题', dataIndex: 'title', sorter: true },
-        { title: '所属分类', dataIndex: 'articleCategoryId', sorter: true },
+        {
+          title: '所属分类',
+          dataIndex: 'articleCategoryId',
+          sorter: true,
+          render: (text: any, record: any) => record.articleCategoryName
+        },
         { title: '创建日期', dataIndex: 'createTime', sorter: true },
         { title: '最后修改日期', dataIndex: 'updateTime', sorter: true },
         {
@@ -175,6 +181,9 @@ export default compose<React.ComponentClass>(
     /**
      * 表格的数据搜索条件发送变化
      *
+     * @param currentPagination antd 分页对象
+     * @param filters antd 过滤对象
+     * @param sorter antd 排序对象
      */
     handleTableChange = (currentPagination: any, filters: any, sorter: any): void => {
       const { state } = this;

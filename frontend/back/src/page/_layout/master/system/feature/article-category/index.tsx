@@ -14,7 +14,7 @@ export default class LayoutMasterSystemFeatureArticle extends React.Component<Pr
     const { props } = this;
     if (props.route && props.route.routes) {
       return (
-        <section className="system-feature-article-container">
+        <section className="system-feature-article-category-container">
           {renderRoutes(props.route.routes)}
         </section>
       );
