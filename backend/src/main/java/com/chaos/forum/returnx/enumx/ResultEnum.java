@@ -21,6 +21,7 @@ public enum ResultEnum {
     DELETE_ERROR(1003, "删除失败"),
     UPDATE_ERROR(1004, "修改失败"),
     SELECT_ERROR(1005,"查询失败"),
+    FILE_ERROR(2002, "文件上传失败"),
     ;
 
     public Integer code;
