@@ -1,6 +1,7 @@
 package com.chaos.forum.controller;
 
 import com.chaos.forum.entity.AdminUser;
+import com.chaos.forum.exception.DataException;
 import com.chaos.forum.returnx.enumx.ResultEnum;
 import com.chaos.forum.service.AdminUserService;
 import com.chaos.forum.vo.ResultVO;
@@ -32,7 +33,7 @@ public class AdminUserController {
      * @param session  用户登陆信息
      */
     @PostMapping("/login")
-    public ResultVO logIn(AdminUser user, HttpSession session) {
+    public ResultVO logIn(AdminUser user, HttpSession session) throws DataException {
         return this.userService.logIn(user,session);
     }
 

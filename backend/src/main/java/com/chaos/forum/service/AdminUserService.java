@@ -2,6 +2,7 @@ package com.chaos.forum.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.chaos.forum.entity.AdminUser;
+import com.chaos.forum.exception.DataException;
 import com.chaos.forum.vo.ResultVO;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,5 +24,5 @@ public interface AdminUserService extends IService<AdminUser> {
      * @param user 用户实体
      * @param session 状态（用户）
      * */
-    ResultVO logIn(AdminUser user, HttpSession session);
+    ResultVO logIn(AdminUser user, HttpSession session) throws DataException;
 }

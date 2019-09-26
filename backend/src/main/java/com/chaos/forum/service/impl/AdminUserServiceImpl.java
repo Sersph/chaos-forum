@@ -32,7 +32,7 @@ public class AdminUserServiceImpl extends ServiceImpl<AdminUserMapper, AdminUser
      * */
 
     @Override
-    public ResultVO logIn(AdminUser user,HttpSession session) {
+    public ResultVO logIn(AdminUser user,HttpSession session) throws DataException {
         AdminUser userOne = this.getOne(new QueryWrapper<AdminUser>().eq("name", user.getName()));
 
         /** 判断数据库记录
