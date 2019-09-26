@@ -12,6 +12,8 @@ public enum ResultEnum {
     SUCCESS(0),
 
     LI_GIN_ERROR(101,"用户名或密码不正确"),
+    LI_GIN_NULL(102,"用户未注册"),
+
     LI_GIN_NOT(108,"用户未登录"),
     LI_GIN_PAST(109,"用户登陆过期"),
 

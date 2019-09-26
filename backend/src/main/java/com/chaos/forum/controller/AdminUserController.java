@@ -44,7 +44,6 @@ public class AdminUserController {
      * */
     @DeleteMapping("/logOut")
     public ResultVO logOut(HttpSession session) {
-        System.out.println(session);
         session.removeAttribute("adminUser");
         return new ResultVO(ResultEnum.SUCCESS);
     }

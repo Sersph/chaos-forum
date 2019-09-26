@@ -1,6 +1,6 @@
 export default {
   // API 请求 url
-  API_ROOT: 'http://10.0.18.37:8080',
+  API_ROOT: 'http://127.0.0.1:8080',
   // OSS API 请求的 url
   API_OSS_ROOT: 'https://project.yyccyy.com/auction-frontend/api/oss',
   // Tinymce 富文本启用的功能

@@ -20,7 +20,8 @@ public class MyExceptionHandle {
     @ExceptionHandler(value = DataException.class)
     @ResponseBody
     public ResultVO handle(DataException e) {
-        DataException dataException = (DataException) e;
+        DataException dataException = e;
         return new ResultVO(dataException.getResultEnum());
     }
+
 }

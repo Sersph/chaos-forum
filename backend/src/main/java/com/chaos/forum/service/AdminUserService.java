@@ -9,9 +9,6 @@ import javax.servlet.http.HttpSession;
 
 /**
  * <p>
- *
- * @param user 用户实体
- * @param session
  * { 用户登陆信息接口 }
  * </p>
  *
@@ -20,5 +17,11 @@ import javax.servlet.http.HttpSession;
  */
 public interface AdminUserService extends IService<AdminUser> {
 
+    /**
+     * 用户登陆接口
+     *
+     * @param user 用户实体
+     * @param session 状态（用户）
+     * */
     ResultVO logIn(AdminUser user, HttpSession session);
 }

@@ -12,13 +12,18 @@ import com.chaos.forum.returnx.enumx.ResultEnum;
  */
 public class DataException extends RuntimeException {
 
+
+
     private ResultEnum resultEnum;
 
     public DataException(ResultEnum resultEnum){
+
         this.resultEnum = resultEnum;
     }
 
-    public ResultEnum getResultEnum() {
+    public ResultEnum getResultEnum()
+    {
+
         return resultEnum;
     }
 }

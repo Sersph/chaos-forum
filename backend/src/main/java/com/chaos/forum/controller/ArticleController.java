@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
- * { describe }
+ * { 文章管理器 }
  * </p>
  *
  * @Author kay
@@ -25,6 +25,9 @@ public class ArticleController {
 
     /**
      * 创建文章
+     *
+     * @param article 文章实体
+     * @return SUCCESS / CREATE_ERROR
      * */
     @PostMapping("/article")
     public ResultVO createArticle(Article article) {
@@ -33,6 +36,10 @@ public class ArticleController {
 
     /**
      * 修改文章
+     *
+     * @param article 文章实体
+     * @param id 修改文章的对应ID
+     * @return SUCCESS / UPDATE_ERROR
      * */
     @PutMapping("/article/{id}")
     public ResultVO updateArticle(Article article, @PathVariable int id) {
@@ -42,6 +49,9 @@ public class ArticleController {
 
     /**
      * 删除文章
+     *
+     * @param id 删除文章的对应ID
+     * @return SUCCESS / DELETE_ERROR
      * */
     @DeleteMapping("/article/{id}")
     public ResultVO deleteArticle(@PathVariable int id) {
@@ -53,6 +63,8 @@ public class ArticleController {
 
     /**
      * 查询单一文章
+     * @param id 查询文章的对应ID
+     * @return SUCCESS,Date / SELECT_ERROR
      * */
     @GetMapping("/article/{id}")
     public ResultVO selectArticle(@PathVariable int id) {
@@ -65,6 +77,9 @@ public class ArticleController {
 
     /**
      * 文章查询-分页
+     *
+     * @param articleListPage 分页实体
+     * @return SUCCESS ,iPage /  LI_GIN_PAST
      */
     @GetMapping("article")
     public ResultVO selectArticle(ArticleListPage articleListPage) {

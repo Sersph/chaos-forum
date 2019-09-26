@@ -13,7 +13,7 @@ import java.sql.Date;
 public class DatabaseTools {
 
     /**
-     * 格式化时间
+     * 格式化时间工具
      */
     public static Date getSqlDate() {
          return shiftDate(new java.util.Date());
