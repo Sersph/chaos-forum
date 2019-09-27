@@ -12,5 +12,5 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
  * 2019-09-23 17:45
  */
 public interface PageMapperLambda<T> {
-    IPage select(Page<T> page, QueryWrapper<T> wrapper);
+    IPage<T> select(Page<T> page, QueryWrapper<T> wrapper);
 }

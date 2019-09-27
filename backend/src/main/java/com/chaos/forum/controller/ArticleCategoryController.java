@@ -3,7 +3,7 @@ package com.chaos.forum.controller;
 import com.chaos.forum.entity.ArticleCategory;
 import com.chaos.forum.entity.ArticleListPage;
 import com.chaos.forum.returnx.enumx.ResultEnum;
-import com.chaos.forum.service.ArticleCategorySercvice;
+import com.chaos.forum.service.ArticleCategoryService;
 import com.chaos.forum.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 public class ArticleCategoryController {
 
     @Autowired
-    private ArticleCategorySercvice categorySercvice;
+    private ArticleCategoryService categorySercvice;
 
     @PostMapping("/articleCategory")
     public ResultVO createCategory(ArticleCategory articleCategoryName) {

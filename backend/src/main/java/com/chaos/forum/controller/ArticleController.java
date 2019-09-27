@@ -83,7 +83,7 @@ public class ArticleController {
      */
     @GetMapping("article")
     public ResultVO selectArticle(ArticleListPage articleListPage) {
-        return this.articleService.selectArticle(articleListPage);
+        return this.articleService.paging(articleListPage);
     }
 
 }

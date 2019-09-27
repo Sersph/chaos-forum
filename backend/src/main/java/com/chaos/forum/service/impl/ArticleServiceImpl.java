@@ -6,11 +6,13 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.chaos.forum.entity.Article;
+import com.chaos.forum.entity.ArticleCategory;
 import com.chaos.forum.entity.ArticleListPage;
 import com.chaos.forum.mapper.ArticleMapper;
 import com.chaos.forum.returnx.enumx.ResultEnum;
 import com.chaos.forum.service.ArticleService;
 import com.chaos.forum.tools.DatabaseTools;
+import com.chaos.forum.tools.PageTools;
 import com.chaos.forum.vo.ResultVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -83,13 +85,25 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         return new ResultVO(ResultEnum.UPDATE_ERROR);
     }
 
-
-
     /**
      * 文章分页
      *
      * */
     @Override
+    public ResultVO paging(ArticleListPage articleListPage) {
+        PageTools pageTools = new PageTools<ArticleCategory>(articleListPage.getPage(), articleListPage.getPageSize());
+        return new ResultVO(ResultEnum.SUCCESS,
+                pageTools.autoPaging(articleListPage,
+                        (page, wrapper) -> articleMapper.selectPages(page, wrapper, articleListPage)
+                ));
+    }
+
+    /**
+     * 文章分页
+     * 废弃
+     * */
+    @Override
+    @Deprecated
     public ResultVO selectArticle(ArticleListPage articleListPage) {
         /** 分页 */
         Page page = new Page<Article>(articleListPage.getPage(), articleListPage.getPageSize());

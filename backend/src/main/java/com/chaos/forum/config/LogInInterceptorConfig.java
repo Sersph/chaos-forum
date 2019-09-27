@@ -20,8 +20,10 @@ public class LogInInterceptorConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new LogInInterceptor()).addPathPatterns("/backend/**")
-        .excludePathPatterns("/backend/manager/**");
+        registry
+            .addInterceptor(new LogInInterceptor())
+            .addPathPatterns("/backend/**")
+            .excludePathPatterns("/backend/manager/**");
     }
 
     /**
@@ -29,7 +31,9 @@ public class LogInInterceptorConfig implements WebMvcConfigurer {
      * */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/image/**").addResourceLocations("file:D:/date/images/");
+        registry
+            .addResourceHandler("/image/**")
+            .addResourceLocations("classpath:/static/");
     }
 }
 
