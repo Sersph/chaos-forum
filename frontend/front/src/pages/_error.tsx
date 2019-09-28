@@ -9,7 +9,7 @@ interface State {
 }
 
 export default class Error extends React.Component<Props, State> {
-  render = (): JSX.Element => {
+  public render = (): JSX.Element => {
     return (
       <section className="error-container">
         <h3>服务器正在开小差, 请稍后重试！</h3>

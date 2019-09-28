@@ -50,7 +50,7 @@ export default compose<React.ComponentClass>(
   )
 )(
   class LayoutMasterSystemSidebar extends React.Component<Props, State> {
-    state: State = {
+    public state: State = {
       systemSidebarIsCollapse: false,
       sideBarMenuList: [
         {
@@ -85,7 +85,7 @@ export default compose<React.ComponentClass>(
       ]
     };
 
-    componentDidMount = (): void => {
+    public componentDidMount = (): void => {
       const { props } = this;
       setTimeout(() => {
         this.setState({
@@ -94,7 +94,7 @@ export default compose<React.ComponentClass>(
       }, 1);
     };
 
-    shouldComponentUpdate = (nextProps: Props): boolean => {
+    public shouldComponentUpdate = (nextProps: Props): boolean => {
       const { state } = this;
       // 侧边栏折叠状态菜单样式问题
       // 利用定时器从不折叠状态变为折叠状态, 防止一开始就为折叠状态的样式问题
@@ -112,7 +112,7 @@ export default compose<React.ComponentClass>(
      * 获取当前的 url 对应的菜单 key
      *
      */
-    getSidebarMenuSelectKey = (): string => {
+    public getSidebarMenuSelectKey = (): string => {
       NProgress.start();
       const { state, props } = this;
       let currentMenuPathName = '';
@@ -145,7 +145,7 @@ export default compose<React.ComponentClass>(
       return currentRouteMenu != null ? currentRouteMenu.key : '1';
     };
 
-    render = (): JSX.Element => {
+    public render = (): JSX.Element => {
       const { state, props } = this;
       return (
         <section

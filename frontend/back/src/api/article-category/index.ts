@@ -1,30 +1,8 @@
 import ajax from '../../util/ajax';
 import config from '../../config';
+import { ArticleCategoryAPI } from '../../type/api';
 
-/**
- * 接口约束
- *
- */
-interface Api {
-  // 获取所有记录
-  selectArticleCategoryAll: () => object;
-  // 获取多条记录
-  selectArticleCategoryList: (data: any) => object;
-  // 获取单条记录
-  selectArticleCategoryById: (id: any) => object;
-  // 新增
-  insertArticleCategory: (data: any) => object;
-  // 修改
-  updateArticleCategoryById: (id: any, data: any) => object
-  // 删除
-  deleteArticleCategoryById: (id: any) => object
-}
-
-/**
- * 接口实现
- *
- */
-const api: Api = {
+const api: ArticleCategoryAPI = {
   selectArticleCategoryAll: (): object => {
     return ajax(
       'GET',

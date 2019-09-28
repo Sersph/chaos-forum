@@ -29,7 +29,7 @@ export default compose<React.ComponentClass>(
   Form.create()
 )(
   class LayoutMasterSystemFeatureArticleList extends React.Component<Props, State> {
-    state: State = {
+    public state: State = {
       columns: [
         {
           title: '#',
@@ -62,7 +62,7 @@ export default compose<React.ComponentClass>(
       loading: false
     };
 
-    componentDidMount = (): void => {
+    public componentDidMount = (): void => {
       this.refreshData();
     };
 
@@ -70,7 +70,7 @@ export default compose<React.ComponentClass>(
      * 刷新表格数据
      *
      */
-    refreshData = async () => {
+    public refreshData = async () => {
       const { state } = this;
 
       this.setState({
@@ -107,7 +107,7 @@ export default compose<React.ComponentClass>(
      *
      * @param record
      */
-    deleteData = (record: any): void => {
+    public deleteData = (record: any): void => {
       Modal.confirm({
         okText: '确认',
         cancelText: '取消',
@@ -130,7 +130,7 @@ export default compose<React.ComponentClass>(
      * 搜索表格数据
      *
      */
-    handleSearch = (e: React.FormEvent): void => {
+    public handleSearch = (e: React.FormEvent): void => {
       e.preventDefault();
       const { state, props } = this;
       props.form.validateFields(async (error, valueList) => {
@@ -155,7 +155,7 @@ export default compose<React.ComponentClass>(
      * 重置搜索参数
      *
      */
-    handleReset = (): void => {
+    public handleReset = (): void => {
       const { props } = this;
       // 保存搜索条件
       this.setState({
@@ -179,7 +179,7 @@ export default compose<React.ComponentClass>(
      * @param filters antd 过滤对象
      * @param sorter antd 排序对象
      */
-    handleTableChange = (currentPagination: any, filters: any, sorter: any): void => {
+    public handleTableChange = (currentPagination: any, filters: any, sorter: any): void => {
       const { state } = this;
 
       // 保存搜索条件
@@ -210,7 +210,7 @@ export default compose<React.ComponentClass>(
      * 顶部操作容器
      *
      */
-    getOperationContainer = (): JSX.Element => {
+    public getOperationContainer = (): JSX.Element => {
       const { props } = this;
       return (
         <section className="data-operation-container">
@@ -242,7 +242,7 @@ export default compose<React.ComponentClass>(
       );
     };
 
-    render = (): JSX.Element => {
+    public render = (): JSX.Element => {
       const { state } = this;
       return (
         <section className="list-container">

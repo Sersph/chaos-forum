@@ -9,7 +9,7 @@ interface State {
 
 // 当前组件类
 export default class LayoutMasterSystemHomeWelcome extends React.Component<Props, State> {
-  render = (): JSX.Element => {
+  public render = (): JSX.Element => {
     return (
       <section className="home-welcome-container">
         空空如也~1

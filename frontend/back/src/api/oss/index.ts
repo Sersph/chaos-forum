@@ -1,20 +1,8 @@
 import ajax from '../../util/ajax';
 import config from '../../config';
+import { OSSAPI } from '../../type/api';
 
-/**
- * oss 相关接口
- *
- */
-interface Api {
-  // 查询 oss sts token
-  selectOssStsToken: (data: any) => object;
-}
-
-/**
- * oss 相关接口实现
- *
- */
-const api: Api = {
+const api: OSSAPI = {
   // 查询 oss sts token
   selectOssStsToken(data: any): object {
     return ajax(

@@ -9,7 +9,7 @@ interface State {
 
 // 当前组件类
 export default class ErrorNotFound extends React.Component<Props, State> {
-  render = (): JSX.Element => {
+  public render = (): JSX.Element => {
     return (
       <section className="error-not-found-container">
         404

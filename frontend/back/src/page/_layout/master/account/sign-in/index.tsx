@@ -54,6 +54,7 @@ export default compose<React.ComponentClass>(
       props.form.validateFields(async (error, valueList) => {
         if (!error) {
           NProgress.start();
+
           const result: any = await api.account.signIn(valueList);
           // 写死结果集
           if (parseInt(result.code) === 0) {

@@ -17,7 +17,7 @@ interface State {
 
 // 当前组件类
 export default class LayoutHeader extends React.Component<Props, State> {
-  render = (): JSX.Element => {
+  public render = (): JSX.Element => {
     return (
       <section className="layout-header-container">
         <Head>

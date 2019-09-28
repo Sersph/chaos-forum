@@ -25,7 +25,7 @@ export default compose<React.ComponentClass>(
   Form.create()
 )(
   class LayoutMasterSystemFeatureArticleOperator extends React.Component<Props, State> {
-    state: State = {
+    public state: State = {
       submitButtonLoading: false,
       actionType: '',
       formInitialValue: {
@@ -36,7 +36,7 @@ export default compose<React.ComponentClass>(
       },
     };
 
-    componentDidMount = (): void => {
+    public componentDidMount = (): void => {
       this.initPage();
     };
 
@@ -44,7 +44,7 @@ export default compose<React.ComponentClass>(
      * 初始化页面数据
      *
      */
-    initPage = async () => {
+    public initPage = async () => {
       const { props } = this;
       const id = (props.match.params as any).id;
       if (id) {
@@ -69,7 +69,7 @@ export default compose<React.ComponentClass>(
      * 处理表单提交
      *
      */
-    handleSubmit = (e: React.FormEvent): void => {
+    public handleSubmit = (e: React.FormEvent): void => {
       e.preventDefault();
       const { state, props } = this;
       props.form.validateFields(async (error, valueList) => {
@@ -108,7 +108,7 @@ export default compose<React.ComponentClass>(
       });
     };
 
-    render = (): JSX.Element => {
+    public render = (): JSX.Element => {
       const { state, props } = this;
 
       const baseFormItemLayout = {

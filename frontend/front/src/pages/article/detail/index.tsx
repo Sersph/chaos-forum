@@ -20,7 +20,7 @@ interface State {
 
 // 当前组件类
 export default class NoticeDetail extends React.Component<Props, State> {
-  static getInitialProps = async ({ query }: any) => {
+  public static getInitialProps = async ({ query }: any) => {
     // 获取文章 id
     const id: string = query.id;
 
@@ -29,7 +29,7 @@ export default class NoticeDetail extends React.Component<Props, State> {
     };
   };
 
-  render = (): JSX.Element => {
+  public render = (): JSX.Element => {
     const { props } = this;
     return (
       <section className="app-container">

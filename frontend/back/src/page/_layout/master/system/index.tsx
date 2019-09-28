@@ -36,12 +36,12 @@ export default compose<React.ComponentClass>(
   )
 )(
   class LayoutMasterSystem extends React.Component<Props, State> {
-    state: State = {
+    public state: State = {
       // 控制是否可以渲染
       isRender: false
     };
 
-    componentDidMount = (): void => {
+    public componentDidMount = (): void => {
       const { props } = this;
       // 验证是否登陆
       if (!props.userInfo.hasOwnProperty('userName')) {
@@ -53,7 +53,7 @@ export default compose<React.ComponentClass>(
       }
     };
 
-    render = (): JSX.Element => {
+    public render = (): JSX.Element => {
       const { state, props } = this;
 
       if (state.isRender && props.route && props.route.routes) {

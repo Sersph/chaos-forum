@@ -2,7 +2,7 @@ import Document, { Head, Main, NextScript } from 'next/document';
 
 // 当前组件类
 export default class _document extends Document {
-  render = (): JSX.Element => {
+  public render = (): JSX.Element => {
     return (
       <html lang="zh-CN">
         <Head>

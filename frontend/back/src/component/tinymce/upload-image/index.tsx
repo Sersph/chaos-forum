@@ -19,7 +19,7 @@ interface State {
 
 // 当前组件类
 export default class TinymceUploadImage extends React.Component<Props, State> {
-  state: State = {
+  public state: State = {
     visibleUploadModel: false,
     imageUploadFileType: 'image/jpg,image/jpeg,image/png,image/bmp',
     successUploadFileList: []
@@ -29,7 +29,7 @@ export default class TinymceUploadImage extends React.Component<Props, State> {
    * 显示上传文件模态框
    *
    */
-  visibleUploadModel = (): void => {
+  public visibleUploadModel = (): void => {
     this.setState({
       visibleUploadModel: true
     });
@@ -39,7 +39,7 @@ export default class TinymceUploadImage extends React.Component<Props, State> {
    * 验证上传文件的类型和大小
    *
    */
-  uploadFileCheck = (file: any): boolean => {
+  public uploadFileCheck = (file: any): boolean => {
     const { state } = this;
     const imageUploadFileTypeList = state.imageUploadFileType.split(',');
     if (imageUploadFileTypeList.indexOf(file.type) < 0) {
@@ -57,7 +57,7 @@ export default class TinymceUploadImage extends React.Component<Props, State> {
    * 上传文件发送改变
    *
    */
-  uploadFileChange = async (changeInfo: any) => {
+  public uploadFileChange = async (changeInfo: any) => {
     const { file } = changeInfo;
     if (!this.uploadFileCheck(file)) {
       return;
@@ -96,7 +96,7 @@ export default class TinymceUploadImage extends React.Component<Props, State> {
    * 上传图片确认按钮
    *
    */
-  handleOk = (): void => {
+  public handleOk = (): void => {
     const { props, state } = this;
     // 拼接已上传成功的 img 标签
     const imageHTML = state.successUploadFileList.map((item: any) => {
@@ -115,7 +115,7 @@ export default class TinymceUploadImage extends React.Component<Props, State> {
    * 上传图片取消按钮
    *
    */
-  handleCancel = (): void => {
+  public handleCancel = (): void => {
     // 隐藏上传模态框, 清空已上传文件
     this.setState({
       visibleUploadModel: false,
@@ -123,7 +123,7 @@ export default class TinymceUploadImage extends React.Component<Props, State> {
     });
   };
 
-  render = (): JSX.Element => {
+  public render = (): JSX.Element => {
     const { state } = this;
     return (
       <section className="tinymce-editor-image-container">

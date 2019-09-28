@@ -18,11 +18,11 @@ interface State {
 
 // 当前组件类
 export default class Tinymce extends React.Component<Props, State> {
-  state: State = {
+  public state: State = {
     value: ''
   };
 
-  componentDidMount = (): void => {
+  public componentDidMount = (): void => {
     const { props } = this;
     this.setState({
       value: props.initialValue
@@ -33,7 +33,7 @@ export default class Tinymce extends React.Component<Props, State> {
    * 文件上传成功回调
    *
    */
-  appendValue = (imgHTML: string): void => {
+  public appendValue = (imgHTML: string): void => {
     const { state } = this;
     // 拼接 img 标签到富文本值得后方
     this.setState({
@@ -45,7 +45,7 @@ export default class Tinymce extends React.Component<Props, State> {
    * 富文本的值发送改变
    *
    */
-  handlerEditorChange = (value: string): void => {
+  public handlerEditorChange = (value: string): void => {
     const { props } = this;
     // 更新富文本的状态
     this.setState({
@@ -55,7 +55,7 @@ export default class Tinymce extends React.Component<Props, State> {
     props.onEditorChange(value);
   };
 
-  render = (): JSX.Element => {
+  public render = (): JSX.Element => {
     const { state } = this;
     return (
       <section className="tinymce-container">

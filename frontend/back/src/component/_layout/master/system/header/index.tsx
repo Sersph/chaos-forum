@@ -50,7 +50,7 @@ export default compose<React.ComponentClass>(
      * 用户退出操作
      *
      */
-    signOut = async () => {
+    public signOut = async () => {
       const { props } = this;
       NProgress.start();
       await api.account.signOut();
@@ -63,7 +63,7 @@ export default compose<React.ComponentClass>(
       }, 500);
     };
 
-    render = (): JSX.Element => {
+    public render = (): JSX.Element => {
       const { props } = this;
       return (
         <section className="layout-master-system-header-container">

@@ -28,7 +28,7 @@ export default compose<React.ComponentClass>(
   Form.create()
 )(
   class LayoutMasterSystemFeatureArticleOperator extends React.Component<Props, State> {
-    state: State = {
+    public state: State = {
       submitButtonLoading: false,
       actionType: '',
       formInitialValue: {
@@ -44,7 +44,7 @@ export default compose<React.ComponentClass>(
       articleCategoryList: []
     };
 
-    componentDidMount = (): void => {
+    public componentDidMount = (): void => {
       this.initPage();
     };
 
@@ -52,7 +52,7 @@ export default compose<React.ComponentClass>(
      * 初始化页面数据
      *
      */
-    initPage = async () => {
+    public initPage = async () => {
       const { props } = this;
       const id = (props.match.params as any).id;
       if (id) {
@@ -82,7 +82,7 @@ export default compose<React.ComponentClass>(
      * 富文本的描述信息发生改变
      *
      */
-    handlerContentChange = (value: string): void => {
+    public handlerContentChange = (value: string): void => {
       const { state } = this;
       // 更新收藏品描述信息
       const formInitialValue = state.formInitialValue;
@@ -96,7 +96,7 @@ export default compose<React.ComponentClass>(
      * 处理表单提交
      *
      */
-    handleSubmit = (e: React.FormEvent): void => {
+    public handleSubmit = (e: React.FormEvent): void => {
       e.preventDefault();
       const { state, props } = this;
       props.form.validateFields(async (error, valueList) => {
@@ -137,7 +137,7 @@ export default compose<React.ComponentClass>(
       });
     };
 
-    render = (): JSX.Element => {
+    public render = (): JSX.Element => {
       const { state, props } = this;
 
       const baseFormItemLayout = {

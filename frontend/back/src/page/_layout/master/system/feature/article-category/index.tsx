@@ -10,7 +10,7 @@ interface State {
 
 // 当前组件类
 export default class LayoutMasterSystemFeatureArticle extends React.Component<Props, State> {
-  render = (): JSX.Element => {
+  public render = (): JSX.Element => {
     const { props } = this;
     if (props.route && props.route.routes) {
       return (

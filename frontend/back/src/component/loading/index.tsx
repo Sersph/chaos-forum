@@ -9,7 +9,7 @@ interface State {
 
 // 当前组件类
 export default class Loading extends React.Component<Props, State> {
-  render = (): JSX.Element => {
+  public render = (): JSX.Element => {
     return (
       <section className="loading-container">
         loading...

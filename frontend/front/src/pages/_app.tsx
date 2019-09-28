@@ -35,7 +35,7 @@ interface Props {
 export default withRouter(
   withReduxStore(
     class _app extends App<Props> {
-      render = (): JSX.Element => {
+      public render = (): JSX.Element => {
         const { props } = this;
         const { Component, pageProps, store, error } = props;
         if (error) {

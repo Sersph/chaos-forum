@@ -1,28 +1,12 @@
 import ajax from '../../util/ajax';
 import config from '../../config';
+import { AccountAPI } from '../../type/api';
 
-/**
- * 账户相关接口
- *
- */
-interface Api {
-  // 登陆
-  signIn: (data: any) => object;
-  // 退出
-  signOut: () => object;
-  // 获取当前登陆的用户信息
-  selectUserInfo: () => object;
-}
-
-/**
- * 账户相关接口实现
- *
- */
-const api: Api = {
+const api: AccountAPI = {
   signIn: (data: any): object => {
     return ajax(
       'POST',
-      `${config.API_ROOT}/backend/manager/login`,
+      `${config.API_ROOT}/backend/manager/logIn`,
       data
     );
   },

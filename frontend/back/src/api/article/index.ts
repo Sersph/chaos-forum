@@ -1,28 +1,8 @@
 import ajax from '../../util/ajax';
 import config from '../../config';
+import { ArticleAPI } from '../../type/api';
 
-/**
- * 接口约束
- *
- */
-interface Api {
-  // 获取多条记录
-  selectArticleList: (data: any) => object;
-  // 获取单条记录
-  selectArticleById: (id: any) => object;
-  // 新增
-  insertArticle: (data: any) => object;
-  // 修改
-  updateArticleById: (id: any, data: any) => object
-  // 删除
-  deleteArticleById: (id: any) => object
-}
-
-/**
- * 接口实现
- *
- */
-const api: Api = {
+const api: ArticleAPI = {
   selectArticleList: (data: any): object => {
     return ajax(
       'GET',

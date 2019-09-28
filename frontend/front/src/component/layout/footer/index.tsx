@@ -16,7 +16,7 @@ interface State {
 
 // 当前组件类
 export default class LayoutFooter extends React.Component<Props, State> {
-  render = (): JSX.Element => {
+  public render = (): JSX.Element => {
     return (
       <section className="layout-footer-container">
         footer
