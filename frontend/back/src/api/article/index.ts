@@ -1,4 +1,5 @@
 import ajax from '../../util/ajax';
+import axios from 'axios';
 import config from '../../config';
 import { ArticleAPI } from '../../type/api';
 
@@ -35,6 +36,17 @@ const api: ArticleAPI = {
       'DELETE',
       `${config.API_ROOT}/backend/article/${id}`
     );
+  },
+  fileUpload: (data: any): object => {
+    // 单独用 axios 原生方法请求
+    return axios({
+      method: 'POST',
+      url: `${config.API_ROOT}/file`,
+      data,
+      headers: {
+        'content-type': 'multipart/form-data'
+      }
+    });
   }
 };
 

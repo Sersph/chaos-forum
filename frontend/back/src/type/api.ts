@@ -20,6 +20,8 @@ export interface ArticleAPI {
   updateArticleById: (id: any, data: any) => object;
   // 删除
   deleteArticleById: (id: any) => object;
+  // 文件上传
+  fileUpload: (data: any) => object;
 }
 
 // 文章分类接口声明

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Modal, Upload, Icon, message } from 'antd';
-import oss from '../../../util/oss';
+// import oss from '../../../util/oss';
+import api from '../../../api';
 
 // 当前组件的类型声明
 interface Props {
@@ -67,22 +68,28 @@ export default class TinymceUploadImage extends React.Component<Props, State> {
     if (file.status !== 'removed') {
       if (this.uploadFileCheck(file)) {
         // 获取 sts oss token
-        const stsToken = await oss.selectOssStsToken();
+        // const stsToken = await oss.selectOssStsToken();
 
         // 实例化 oss SDK
-        const client = new (window as any).OSS({
-          region: stsToken.region,
-          bucket: stsToken.bucket,
-          accessKeyId: stsToken.accessKeyId,
-          accessKeySecret: stsToken.accessKeySecret,
-          stsToken: stsToken.securityToken,
-        });
+        // const client = new (window as any).OSS({
+        //   region: stsToken.region,
+        //   bucket: stsToken.bucket,
+        //   accessKeyId: stsToken.accessKeyId,
+        //   accessKeySecret: stsToken.accessKeySecret,
+        //   stsToken: stsToken.securityToken,
+        // });
 
         // 将 file 对象, 上传到 oss
-        const result = await client.put('collection/description-image/' + file.uid, file);
+        // const result = await client.put('collection/description-image/' + file.uid, file);
+
+        const formData = new FormData();
+        formData.append('file', file);
+        const result: any = await api.article.fileUpload(formData);
 
         // 保存 oss 结果集到已上传的文件列表
-        changeInfo.fileList[changeInfo.fileList.length - 1].ossResult = result;
+        changeInfo.fileList[changeInfo.fileList.length - 1].ossResult = {
+          url: result.data.data
+        };
       }
     }
 
