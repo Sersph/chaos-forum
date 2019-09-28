@@ -39,7 +39,6 @@ public class LogInInterceptor implements HandlerInterceptor {
         if (null != request.getSession().getAttribute("adminUser")) {
             return true;
         }
-
         HashMap map = new HashMap(1000);
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html; charset=utf-8");

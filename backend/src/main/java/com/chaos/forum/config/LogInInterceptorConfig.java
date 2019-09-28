@@ -3,6 +3,7 @@ package com.chaos.forum.config;
 import com.chaos.forum.interceptor.LogInInterceptor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
@@ -19,9 +20,20 @@ public class LogInInterceptorConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new LogInInterceptor()).addPathPatterns("/backend/**")
-        .excludePathPatterns("/backend/manager/**");
+        registry
+            .addInterceptor(new LogInInterceptor())
+            .addPathPatterns("/backend/**")
+            .excludePathPatterns("/backend/manager/**");
+    }
 
+    /**
+     * 图片路径转换
+     * */
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry
+            .addResourceHandler("/image/**")
+            .addResourceLocations("classpath:/static/");
     }
 }
 

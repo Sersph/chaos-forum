@@ -13,6 +13,7 @@ public enum ResultEnum {
 
     LI_GIN_ERROR(101,"用户名或密码不正确"),
     LI_GIN_NULL(102,"用户未注册"),
+    SIGN_IN_NOT(103,"用户注册失败"),
 
     LI_GIN_NOT(108,"用户未登录"),
     LI_GIN_PAST(109,"用户登陆过期"),
@@ -21,6 +22,7 @@ public enum ResultEnum {
     DELETE_ERROR(1003, "删除失败"),
     UPDATE_ERROR(1004, "修改失败"),
     SELECT_ERROR(1005,"查询失败"),
+    FILE_ERROR(2002, "文件上传失败"),
     ;
 
     public Integer code;

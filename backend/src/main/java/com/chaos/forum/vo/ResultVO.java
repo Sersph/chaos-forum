@@ -14,7 +14,7 @@ import lombok.Data;
  * 2019-09-20 16:17
  */
 @Data
-public class ResultVO {
+public class ResultVO extends Throwable {
 
     private Integer code;
 

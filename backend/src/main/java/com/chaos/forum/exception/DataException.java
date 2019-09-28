@@ -10,20 +10,15 @@ import com.chaos.forum.returnx.enumx.ResultEnum;
  * @Author kay
  * 2019-09-20 20:20
  */
-public class DataException extends RuntimeException {
-
-
+public class DataException extends Throwable {
 
     private ResultEnum resultEnum;
 
     public DataException(ResultEnum resultEnum){
-
         this.resultEnum = resultEnum;
     }
 
-    public ResultEnum getResultEnum()
-    {
-
+    public ResultEnum getResultEnum() {
         return resultEnum;
     }
 }

@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * 2019-09-20 20:31
  */
 @ControllerAdvice
-public class MyExceptionHandle {
+public class MyExceptionHandle extends RuntimeException {
 
     @ExceptionHandler(value = DataException.class)
     @ResponseBody
-    public ResultVO handle(DataException e) {
+    protected ResultVO handle(DataException e) {
         DataException dataException = e;
         return new ResultVO(dataException.getResultEnum());
     }

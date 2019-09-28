@@ -7,6 +7,7 @@ import com.chaos.forum.exception.DataException;
 import com.chaos.forum.mapper.AdminUserMapper;
 import com.chaos.forum.returnx.enumx.ResultEnum;
 import com.chaos.forum.service.AdminUserService;
+import com.chaos.forum.tools.DatabaseTools;
 import com.chaos.forum.vo.ResultVO;
 import org.springframework.stereotype.Service;
 
@@ -25,14 +26,34 @@ import javax.servlet.http.HttpSession;
 public class AdminUserServiceImpl extends ServiceImpl<AdminUserMapper, AdminUser> implements AdminUserService {
 
     /**
-     * 用户登陆
+     * 用户注册
      *
      * @param user 用户对象
-     * @param session 用户情况（登陆情况）
-     * */
-
+     */
     @Override
-    public ResultVO logIn(AdminUser user,HttpSession session) {
+    public ResultVO signIn(AdminUser user) {
+        user.setCreateTime(DatabaseTools.getSqlDate());
+        user.setUpdateTime(DatabaseTools.getSqlDate());
+        user.setFinallyLoginTime(DatabaseTools.getSqlDate());
+
+        if (this.getOne(new QueryWrapper<AdminUser>().eq("name", user.getName())) != null) {
+            return new ResultVO(ResultEnum.SIGN_IN_NOT);
+        }
+
+        if (this.save(user)) {
+            return new ResultVO(ResultEnum.SUCCESS);
+        }
+        return new ResultVO(ResultEnum.SIGN_IN_NOT);
+    }
+
+    /**
+     * 用户登陆
+     *
+     * @param user    用户对象
+     * @param session 用户情况（登陆情况）
+     */
+    @Override
+    public ResultVO logIn(AdminUser user, HttpSession session) throws DataException {
         AdminUser userOne = this.getOne(new QueryWrapper<AdminUser>().eq("name", user.getName()));
 
         /** 判断数据库记录
@@ -49,10 +70,11 @@ public class AdminUserServiceImpl extends ServiceImpl<AdminUserMapper, AdminUser
             throw new DataException(ResultEnum.LI_GIN_ERROR);
         }
 
-        /** 保存用户登陆信息 */
 
+        /** 保存用户登陆信息 */
         session.setAttribute("adminUser", userOne);
         return new ResultVO(ResultEnum.SUCCESS);
+
     }
 
 }

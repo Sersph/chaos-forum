@@ -19,7 +19,10 @@ public interface ArticleService extends IService<Article> {
 
     ResultVO updateArticle(Article article);
 
+    @Deprecated
     ResultVO selectArticle(ArticleListPage articleListPage);
+
+    ResultVO paging(ArticleListPage articleListPage);
 
 
 

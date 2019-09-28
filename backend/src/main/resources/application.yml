@@ -7,13 +7,18 @@ spring:
 
   jackson:
     default-property-inclusion: non_null
-#  mvc:
-#    throw-exception-if-no-handler-found: true
-
+  mvc:
+    throw-exception-if-no-handler-found: true
 mybatis-plus:
   mapper-locations: classpath:mapper/*.xml
   configuration:
     #开启驼峰转换
     map-underscore-to-camel-case: true
+
+    #文件上传路径
+forum:
+  file:
+    upload: E:/project/chaos-forum/backend/src/main/resources/static/
+    static-url: http://10.0.18.37:8080/image/
 
 
