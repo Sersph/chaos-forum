@@ -18,6 +18,8 @@ import javax.servlet.http.HttpSession;
  */
 public interface AdminUserService extends IService<AdminUser> {
 
+    ResultVO signIn(AdminUser user);
+
     /**
      * 用户登陆接口
      *

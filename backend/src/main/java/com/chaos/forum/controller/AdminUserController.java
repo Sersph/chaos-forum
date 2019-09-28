@@ -27,12 +27,22 @@ public class AdminUserController {
     AdminUserService userService;
 
     /**
+     * 用户注册
+     *
+     * @param user 用户实体
+     */
+    @PostMapping("/signIn")
+    public ResultVO signIn(AdminUser user) {
+        return userService.signIn(user);
+    }
+
+    /**
      * 用户登陆
      *
      * @param user 用户实体
      * @param session  用户登陆信息
      */
-    @PostMapping("/login")
+    @PostMapping("/logIn")
     public ResultVO logIn(AdminUser user, HttpSession session) throws DataException {
         return this.userService.logIn(user,session);
     }
