@@ -33,7 +33,8 @@ public class LogInInterceptorConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry
             .addResourceHandler("/image/**")
-            .addResourceLocations("classpath:/static/");
+            //.addResourceLocations("classpath:/static/");
+            .addResourceLocations("file:E:/project/chaos-forum/backend/src/main/resources/static/");
     }
 }
 

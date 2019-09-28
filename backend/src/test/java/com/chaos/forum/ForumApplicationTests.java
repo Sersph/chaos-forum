@@ -30,3 +30,28 @@ public class ForumApplicationTests {
 interface Tt {
     String tttt(String n);
 }
+//spring:
+//        datasource:
+//        url: jdbc:mysql://127.0.0.1:3306/forum?serverTimezone=UTC
+//        username: root
+//        password: 123456
+//        driver-class-name: com.mysql.cj.jdbc.Driver
+//
+//        jackson:
+//default-property-inclusion: non_null
+//        mvc:
+//        throw-exception-if-no-handler-found: true
+//        mybatis-plus:
+//        mapper-locations: classpath:mapper/*.xml
+//  configuration:
+//    #开启驼峰转换
+//    map-underscore-to-camel-case: true
+//
+//    #文件上传路径
+//forum:
+//  file:
+//    upload: E:/project/chaos-forum/backend/src/main/resources/static/
+//
+//    static-url: http://10.0.18.37:8080/image/
+
+

@@ -3,6 +3,7 @@ package com.chaos.forum.controller;
 import com.chaos.forum.returnx.enumx.ResultEnum;
 import com.chaos.forum.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,7 +37,7 @@ public class FileController {
     @Value("${forum.file.static-url}")
     private String staticUrl;
 
-    @RequestMapping("/file")
+    @PostMapping("/file")
     public ResultVO upload(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
 
         if (file.isEmpty()) {
