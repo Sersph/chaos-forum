@@ -90,6 +90,7 @@ export default class TinymceUploadImage extends React.Component<Props, State> {
         changeInfo.fileList[changeInfo.fileList.length - 1].ossResult = {
           url: result.data.data
         };
+        // changeInfo.fileList[changeInfo.fileList.length - 1].ossResult = result;
       }
     }
 

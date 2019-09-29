@@ -34,11 +34,8 @@ export default class Tinymce extends React.Component<Props, State> {
    *
    */
   public appendValue = (imgHTML: string): void => {
-    const { state } = this;
-    // 拼接 img 标签到富文本值得后方
-    this.setState({
-      value: state.value + imgHTML
-    });
+    // 用 tinymce 自带的方法添加内容，会从光标处添加
+    (window as any).tinymce.activeEditor.execCommand('mceInsertContent', false, imgHTML);
   };
 
   /**
@@ -60,6 +57,7 @@ export default class Tinymce extends React.Component<Props, State> {
     return (
       <section className="tinymce-container">
         <Editor
+          ref="hellow"
           cloudChannel="dev"
           value={state.value}
           plugins={config.TINYMCE_PLUGINS}
