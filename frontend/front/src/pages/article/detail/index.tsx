@@ -21,7 +21,7 @@ interface State {
 // 当前组件类
 export default class NoticeDetail extends React.Component<Props, State> {
   public static getInitialProps = async ({ query }: any) => {
-    // 获取文章 id
+    // 获取帖子 id
     const id: string = query.id;
 
     return {
@@ -35,7 +35,7 @@ export default class NoticeDetail extends React.Component<Props, State> {
       <section className="app-container">
         <LayoutHeader/>
         <Head>
-          <title>文章详情</title>
+          <title>帖子详情</title>
         </Head>
         <section className="article-container">
           <section className="article-wrapper-container">

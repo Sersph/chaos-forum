@@ -84,7 +84,7 @@ export default class TinymceUploadImage extends React.Component<Props, State> {
 
         const formData = new FormData();
         formData.append('file', file);
-        const result: any = await api.article.fileUpload(formData);
+        const result: any = await api.post.fileUpload(formData);
 
         // 保存 oss 结果集到已上传的文件列表
         changeInfo.fileList[changeInfo.fileList.length - 1].ossResult = {

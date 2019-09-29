@@ -7,5 +7,5 @@ export default {
     : prod.API_ROOT,
   MOCK_API_ROOT: process.env.NODE_ENV === 'development'
     ? dev.MOCK_API_ROOT
-    : prod.MOCK_API_ROOT,
+    : prod.MOCK_API_ROOT
 };

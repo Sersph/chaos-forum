@@ -71,14 +71,9 @@ export default compose<React.ComponentClass>(
           name: '内容管理',
           children: [
             {
-              key: '3-1',
-              name: '文章',
-              path: '/system/feature/article/list'
-            },
-            {
               key: '3-2',
-              name: '文章分类',
-              path: '/system/feature/articleCategory/list'
+              name: '帖子分类',
+              path: '/system/feature/postCategory/list'
             }
           ]
         }
@@ -151,7 +146,7 @@ export default compose<React.ComponentClass>(
         <section
           className={`layout-master-system-sidebar-container ${props.systemSidebarIsCollapse ? 'collapse' : ''}`}>
           <section className="logo-container">
-            <NavLink to="/">混沌</NavLink>
+            <NavLink to="/">混沌论坛</NavLink>
           </section>
           <Menu
             // 折叠状态默认不展开菜单

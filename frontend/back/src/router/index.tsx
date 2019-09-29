@@ -19,16 +19,11 @@ import LayoutMasterSystem from '../page/_layout/master/system';
 // 工作台
 import LayoutMasterSystemHomeWelcome from '../page/_layout/master/system/home/welcome';
 
-// 文章
-import LayoutMasterSystemFeatureArticle from '../page/_layout/master/system/feature/article';
-import LayoutMasterSystemFeatureArticleList from '../page/_layout/master/system/feature/article/list';
-import LayoutMasterSystemFeatureArticleOperator from '../page/_layout/master/system/feature/article/operator';
-
-// 文章分类
-import LayoutMasterSystemFeatureArticleCategory from '../page/_layout/master/system/feature/article-category';
-import LayoutMasterSystemFeatureArticleCategoryList from '../page/_layout/master/system/feature/article-category/list';
-import LayoutMasterSystemFeatureArticleCategoryOperator
-  from '../page/_layout/master/system/feature/article-category/operator';
+// 帖子分类
+import LayoutMasterSystemFeaturePostCategory from '../page/_layout/master/system/feature/post-category';
+import LayoutMasterSystemFeaturePostCategoryList from '../page/_layout/master/system/feature/post-category/list';
+import LayoutMasterSystemFeaturePostCategoryOperator
+  from '../page/_layout/master/system/feature/post-category/operator';
 
 
 // 懒加载模块
@@ -109,45 +104,23 @@ export default class Router extends React.Component<Props, State> {
                 breadcrumb: '内容管理',
                 routes: [
                   {
-                    path: '/system/feature/article',
-                    component: LayoutMasterSystemFeatureArticle,
-                    breadcrumb: '文章',
+                    path: '/system/feature/postCategory',
+                    component: LayoutMasterSystemFeaturePostCategory,
+                    breadcrumb: '帖子分类',
                     routes: [
                       {
-                        path: '/system/feature/article/list',
-                        component: LayoutMasterSystemFeatureArticleList,
+                        path: '/system/feature/postCategory/list',
+                        component: LayoutMasterSystemFeaturePostCategoryList,
                         breadcrumb: '列表'
                       },
                       {
-                        path: '/system/feature/article/operator/:id',
-                        component: LayoutMasterSystemFeatureArticleOperator,
+                        path: '/system/feature/postCategory/operator/:id',
+                        component: LayoutMasterSystemFeaturePostCategoryOperator,
                         breadcrumb: '修改'
                       },
                       {
-                        path: '/system/feature/article/operator',
-                        component: LayoutMasterSystemFeatureArticleOperator,
-                        breadcrumb: '添加'
-                      }
-                    ]
-                  },
-                  {
-                    path: '/system/feature/articleCategory',
-                    component: LayoutMasterSystemFeatureArticleCategory,
-                    breadcrumb: '文章分类',
-                    routes: [
-                      {
-                        path: '/system/feature/articleCategory/list',
-                        component: LayoutMasterSystemFeatureArticleCategoryList,
-                        breadcrumb: '列表'
-                      },
-                      {
-                        path: '/system/feature/articleCategory/operator/:id',
-                        component: LayoutMasterSystemFeatureArticleCategoryOperator,
-                        breadcrumb: '修改'
-                      },
-                      {
-                        path: '/system/feature/articleCategory/operator',
-                        component: LayoutMasterSystemFeatureArticleCategoryOperator,
+                        path: '/system/feature/postCategory/operator',
+                        component: LayoutMasterSystemFeaturePostCategoryOperator,
                         breadcrumb: '添加'
                       }
                     ]

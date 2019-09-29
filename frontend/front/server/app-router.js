@@ -6,9 +6,9 @@ module.exports = (router, app) => {
     ctx.respond = false;
   });
 
-  // 文章详情
-  router.get('/article/detail/:id', async ctx => {
-    await app.render(ctx.req, ctx.res, '/article/detail', {
+  // 帖子详情
+  router.get('/p/:id', async ctx => {
+    await app.render(ctx.req, ctx.res, '/post/detail', {
       id: ctx.params.id
     });
     ctx.respond = false;

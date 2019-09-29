@@ -95,7 +95,7 @@ export default compose<React.ComponentClass>(
           <section className="sign-in-form-wrapper">
             <section className="sign-in-form-container">
               <section className="header-container">
-                <span>混沌管理中心</span>
+                <span>混沌论坛管理中心</span>
               </section>
               <Form onSubmit={this.handleSubmit}>
                 <Form.Item>

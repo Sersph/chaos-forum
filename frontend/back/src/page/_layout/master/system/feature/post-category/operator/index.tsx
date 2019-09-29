@@ -24,14 +24,14 @@ interface State {
 export default compose<React.ComponentClass>(
   Form.create()
 )(
-  class LayoutMasterSystemFeatureArticleOperator extends React.Component<Props, State> {
+  class LayoutMasterSystemFeaturePostCategoryOperator extends React.Component<Props, State> {
     public state: State = {
       submitButtonLoading: false,
       actionType: '',
       formInitialValue: {
         // 只有修改操作才有的 id
         id: '',
-        // 文章分类名称
+        // 帖子分类名称
         name: ''
       },
     };
@@ -51,7 +51,7 @@ export default compose<React.ComponentClass>(
         // 修改操作
         // 获取当前数据
         NProgress.start();
-        const result: any = await api.articleCategory.selectArticleCategoryById(id);
+        const result: any = await api.postCategory.selectPostCategoryById(id);
         NProgress.done();
         this.setState({
           actionType: 'update',
@@ -90,10 +90,10 @@ export default compose<React.ComponentClass>(
           // 保存数据
           if (state.actionType === 'insert') {
             // 添加操作
-            await api.articleCategory.insertArticleCategory(requestData);
+            await api.postCategory.insertPostCategory(requestData);
           } else {
             // 修改操作
-            await api.articleCategory.updateArticleCategoryById(state.formInitialValue.id, requestData);
+            await api.postCategory.updatePostCategoryById(state.formInitialValue.id, requestData);
           }
 
           // 取消加载状态
@@ -103,7 +103,7 @@ export default compose<React.ComponentClass>(
           });
 
           // 跳转到列表页
-          props.history.push('/system/feature/articleCategory/list');
+          props.history.push('/system/feature/postCategory/list');
         }
       });
     };
@@ -139,11 +139,11 @@ export default compose<React.ComponentClass>(
                 {props.form.getFieldDecorator('name', {
                   initialValue: state.formInitialValue.name,
                   rules: [
-                    { required: true, message: '请输入文章分类名称' },
-                    { min: 2, max: 64, message: '文章分类名称由2~64个字符组成！' }
+                    { required: true, message: '请输入分类名称' },
+                    { min: 2, max: 64, message: '分类名称由2~64个字符组成！' }
                   ]
                 })(
-                  <Input type="text" placeholder="请输入文章分类名称"/>
+                  <Input type="text" placeholder="请输入分类名称"/>
                 )}
               </Form.Item>
 

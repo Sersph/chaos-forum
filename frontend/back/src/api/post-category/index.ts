@@ -1,42 +1,42 @@
 import ajax from '../../util/ajax';
 import config from '../../config';
-import { ArticleCategoryAPI } from '../../type/api';
+import { PostCategoryAPI } from '../../type/api';
 
-const api: ArticleCategoryAPI = {
-  selectArticleCategoryAll: (): object => {
+const api: PostCategoryAPI = {
+  selectPostCategoryAll: (): object => {
     return ajax(
       'GET',
       `${config.API_ROOT}/backend/articleCategoryAll`
     );
   },
-  selectArticleCategoryList: (data: any): object => {
+  selectPostCategoryList: (data: any): object => {
     return ajax(
       'GET',
       `${config.API_ROOT}/backend/articleCategory`,
       data
     );
   },
-  selectArticleCategoryById(id: any): object {
+  selectPostCategoryById(id: any): object {
     return ajax(
       'GET',
       `${config.API_ROOT}/backend/articleCategory/${id}`
     );
   },
-  insertArticleCategory: (data: any): object => {
+  insertPostCategory: (data: any): object => {
     return ajax(
       'POST',
       `${config.API_ROOT}/backend/articleCategory`,
       data
     );
   },
-  updateArticleCategoryById: (id: any, data: any): object => {
+  updatePostCategoryById: (id: any, data: any): object => {
     return ajax(
       'PUT',
       `${config.API_ROOT}/backend/articleCategory/${id}`,
       data
     );
   },
-  deleteArticleCategoryById: (id: any): object => {
+  deletePostCategoryById: (id: any): object => {
     return ajax(
       'DELETE',
       `${config.API_ROOT}/backend/articleCategory/${id}`

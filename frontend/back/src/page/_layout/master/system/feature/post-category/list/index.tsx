@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { compose } from 'redux';
-import { Divider, Table, Modal, Button, Col, Form, Row, Input, Tag,Select } from 'antd';
+import { Divider, Table, Modal, Button, Col, Form, Row, Input, Tag } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
 import api from '../../../../../../../api';
 
@@ -22,15 +22,13 @@ interface State {
   loading: boolean;
   // 表格搜索的排序
   searchOrder: any;
-  // 文章分类列表
-  articleCategoryList: any;
 }
 
 // 当前组件类
 export default compose<React.ComponentClass>(
   Form.create()
 )(
-  class LayoutMasterSystemFeatureArticleList extends React.Component<Props, State> {
+  class LayoutMasterSystemFeaturePostCategoryList extends React.Component<Props, State> {
     public state: State = {
       columns: [
         {
@@ -38,19 +36,13 @@ export default compose<React.ComponentClass>(
           dataIndex: 'id',
           render: (text: any, record: any, index: number) => `${index + 1}`,
         },
-        { title: '文章标题', dataIndex: 'title', sorter: true },
-        {
-          title: '所属分类',
-          dataIndex: 'articleCategoryId',
-          sorter: true,
-          render: (text: any, record: any) => record.articleCategoryName
-        },
+        { title: '名称', dataIndex: 'name', sorter: true },
         { title: '创建日期', dataIndex: 'createTime', sorter: true },
         { title: '最后修改日期', dataIndex: 'updateTime', sorter: true },
         {
           title: '操作', dataIndex: 'action', render: (text: any, record: any) => (
             <div className="table-data-action-container">
-              <Link to={`/system/feature/article/operator/${record.id}`}>编辑</Link>
+              <Link to={`/system/feature/postCategory/operator/${record.id}`}>编辑</Link>
               <Divider type="vertical"/>
               <span onClick={() => this.deleteData(record)}>删除</span>
             </div>
@@ -67,8 +59,7 @@ export default compose<React.ComponentClass>(
       },
       searchCondition: {},
       searchOrder: {},
-      loading: false,
-      articleCategoryList: []
+      loading: false
     };
 
     public componentDidMount = (): void => {
@@ -96,7 +87,7 @@ export default compose<React.ComponentClass>(
         searchInfo.sortOrder = state.searchOrder.sortOrder;
       }
       // 获取表格数据
-      const result: any = await api.article.selectArticleList(searchInfo);
+      const result: any = await api.postCategory.selectPostCategoryList(searchInfo);
 
       // 获取成功, 刷新数据
       this.setState({
@@ -108,16 +99,6 @@ export default compose<React.ComponentClass>(
           pageSize: result.data.size,
           total: result.data.total
         }
-      });
-
-      // 获取所有文章分类
-      const result2: any = await api.articleCategory.selectArticleCategoryAll();
-      result2.data.unshift({
-        id: 0,
-        name: '全部'
-      });
-      this.setState({
-        articleCategoryList: result2.data
       });
     };
 
@@ -135,7 +116,7 @@ export default compose<React.ComponentClass>(
         onOk: async () => {
           // loading
           this.setState({ loading: true });
-          await api.article.deleteArticleById(record.id);
+          await api.postCategory.deletePostCategoryById(record.id);
           // 刷新表格数据
           this.refreshData();
         },
@@ -230,42 +211,18 @@ export default compose<React.ComponentClass>(
      *
      */
     public getOperationContainer = (): JSX.Element => {
-      const { props, state } = this;
+      const { props } = this;
       return (
         <section className="data-operation-container">
           <section className="search-container">
             <Form onSubmit={this.handleSearch}>
               <Row className="search-field-container">
                 <Col md={5}>
-                  <Form.Item label="文章标题">
-                    {props.form.getFieldDecorator('title', {
+                  <Form.Item label="分类名称">
+                    {props.form.getFieldDecorator('name', {
                       rules: []
                     })(
                       <Input/>
-                    )}
-                  </Form.Item>
-                </Col>
-                <Col md={5}>
-                  <Form.Item label="文章分类">
-                    {props.form.getFieldDecorator('articleCategoryId', {
-                      rules: [
-                      ]
-                    })(
-                      <Select
-                        showSearch
-                        placeholder="请选择文章所属分类"
-                        optionFilterProp="children"
-                        filterOption={(input: any, option: any): boolean => {
-                          return option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                        }}
-                      >
-                        {state.articleCategoryList.map((articleCategory: any) => (
-                          <Select.Option
-                            key={articleCategory.id}
-                            value={articleCategory.id}
-                          >{articleCategory.name}</Select.Option>
-                        ))}
-                      </Select>
                     )}
                   </Form.Item>
                 </Col>
@@ -277,7 +234,7 @@ export default compose<React.ComponentClass>(
             </Form>
           </section>
           <section className="data-action-container">
-            <Link to="/system/feature/article/operator">
+            <Link to="/system/feature/postCategory/operator">
               <Button icon="plus" type="primary">添加</Button>
             </Link>
           </section>
