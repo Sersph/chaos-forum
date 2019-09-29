@@ -2,16 +2,14 @@ package com.chaos.forum.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.chaos.forum.entity.ArticleCategory;
 import com.chaos.forum.entity.ArticleListPage;
 import com.chaos.forum.mapper.ArticleCategoryMapper;
 import com.chaos.forum.returnx.enumx.ResultEnum;
-import com.chaos.forum.service.ArticleCategoryService;
+import com.chaos.forum.service.IArticleCategoryService;
 import com.chaos.forum.tools.DatabaseTools;
 import com.chaos.forum.tools.PageTools;
-import com.chaos.forum.tools.SortType;
 import com.chaos.forum.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,12 +23,18 @@ import org.springframework.stereotype.Service;
  * 2019-09-23 14:46
  */
 @Service
-public class ArticleCategoryServiceImpl extends ServiceImpl<ArticleCategoryMapper, ArticleCategory> implements ArticleCategoryService {
+public class ArticleCategoryServiceImpl extends ServiceImpl<ArticleCategoryMapper, ArticleCategory> implements IArticleCategoryService {
 
 
     @Autowired
     private ArticleCategoryMapper articleCategoryMapper;
 
+    /**
+     * 创建文章分类
+     *
+     * @param articleCategoryName
+     * @return
+     */
     @Override
     public ResultVO createCategory(ArticleCategory articleCategoryName) {
 
@@ -43,6 +47,12 @@ public class ArticleCategoryServiceImpl extends ServiceImpl<ArticleCategoryMappe
         return new ResultVO(ResultEnum.CREATE_ERROR);
     }
 
+    /**
+     * 修改文章分类名
+     *
+     * @param articleCategoryName
+     * @return
+     */
     @Override
     public ResultVO updateCategory(ArticleCategory articleCategoryName) {
 
@@ -54,6 +64,12 @@ public class ArticleCategoryServiceImpl extends ServiceImpl<ArticleCategoryMappe
         return new ResultVO(ResultEnum.SUCCESS);
     }
 
+    /**
+     * 查询单一文章分类
+     *
+     * @param articleListPage
+     * @return
+     */
     @Override
     public ResultVO selectCategory(ArticleListPage articleListPage) {
         PageTools pageTools = new PageTools<ArticleCategory>(articleListPage.getPage(), articleListPage.getPageSize());
@@ -64,6 +80,11 @@ public class ArticleCategoryServiceImpl extends ServiceImpl<ArticleCategoryMappe
                 ));
     }
 
+    /**
+     * 查询所有文章
+     *
+     * @return
+     */
     @Override
     public ResultVO selectArticleAll() {
         articleCategoryMapper.selectList(new QueryWrapper<>());

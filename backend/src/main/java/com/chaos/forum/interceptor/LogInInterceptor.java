@@ -22,7 +22,6 @@ public class LogInInterceptor implements HandlerInterceptor {
     /**
      * 拦截（Controller方法调用之前）
      *
-     * @param o        o
      * @param request  request
      * @param response response
      * @return 通过与否

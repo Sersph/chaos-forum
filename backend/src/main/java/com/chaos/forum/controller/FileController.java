@@ -1,8 +1,11 @@
 package com.chaos.forum.controller;
 
 import com.chaos.forum.returnx.enumx.ResultEnum;
+import com.chaos.forum.service.IFileService;
 import com.chaos.forum.vo.ResultVO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,7 +21,7 @@ import java.util.UUID;
 
 /**
  * <p>
- * { describe }
+ * { 文件上传管理 }
  * </p>
  *
  * @Author kay
@@ -27,47 +30,20 @@ import java.util.UUID;
 @RestController
 public class FileController {
 
+    @Autowired
+    private IFileService fileService;
+
     /**
-     * 上传的文件名
+     * 文件上传管理
+     *
+     * @param file
+     * @param request
+     * @return
      */
-    @Value("${forum.file.upload}")
-    private String upload;
 
-    @Value("${forum.file.static-url}")
-    private String staticUrl;
-
-    @RequestMapping("/file")
+    @PostMapping("/file")
     public ResultVO upload(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
-
-        if (file.isEmpty()) {
-            return new ResultVO(ResultEnum.FILE_ERROR);
-        }
-
-        //获取文件名
-        String fileName = file.getOriginalFilename();
-        System.out.println(fileName);
-
-        //获取文件后缀
-        String suffixName = fileName.substring(fileName.lastIndexOf("."));
-        System.out.println("文件后缀名： " + suffixName);
-
-        //new日期对象
-        Date date = new Date();
-        String newFileName = date.getTime() + "-" + UUID.randomUUID() + suffixName;
-        System.out.println("新的文件名： " + newFileName);
-
-
-
-        //创建文件
-        File dest = new File(this.upload + newFileName);
-
-        //写入文件目录
-        try {
-            file.transferTo(dest);
-            return new ResultVO(ResultEnum.SUCCESS, this.staticUrl + newFileName);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResultVO(ResultEnum.FILE_ERROR);
-        }
+        return this.fileService.upload(file, request);
     }
+
 }

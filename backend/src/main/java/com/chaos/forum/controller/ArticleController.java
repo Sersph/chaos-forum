@@ -3,7 +3,7 @@ package com.chaos.forum.controller;
 import com.chaos.forum.entity.Article;
 import com.chaos.forum.entity.ArticleListPage;
 import com.chaos.forum.returnx.enumx.ResultEnum;
-import com.chaos.forum.service.ArticleService;
+import com.chaos.forum.service.IArticleService;
 import com.chaos.forum.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 public class ArticleController {
 
     @Autowired
-    ArticleService articleService;
+    IArticleService articleService;
 
     /**
      * 创建文章

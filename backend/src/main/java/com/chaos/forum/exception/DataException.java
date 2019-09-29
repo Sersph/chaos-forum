@@ -4,7 +4,7 @@ import com.chaos.forum.returnx.enumx.ResultEnum;
 
 /**
  * <p>
- * { describe }
+ * { 自定义数据异常类 }
  * </p>
  *
  * @Author kay
