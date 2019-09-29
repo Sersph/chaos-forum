@@ -79,32 +79,7 @@
   }
   ```
 
-#### 管理员账户退出
 
-- 请求方式 - 请求 URL
-
-  - `GET` - `/backend/manager/signIn`
-
-- 请求参数
-
-  | 参数     | 必填 | 类型   | 备注     |
-  | -------- | ---- | ------ | -------- |
-  | name     | yes  | string | 用户名   |
-  | password | yes  | string | 用户密码 |
-
-- 返回示例
-
-  ```json
-  // 成功
-  {
-      "code": 0
-  }
-  
-  // 失败
-  {
-      "code": 1001
-  }
-  ```
 
 ## 文章
 
@@ -430,7 +405,7 @@
 
 - 请求方式 - 请求 URL
 
-  - `POST` - `/backend/fileUpload`
+  - `POST` - `/file`
 
 - 请求参数
 

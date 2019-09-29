@@ -50,6 +50,8 @@ public class WebControllerAop {
 
         //获取session信息
         HttpSession session = (HttpSession) requestAttributes.resolveReference(RequestAttributes.REFERENCE_SESSION);
+
+
     }
 
 
