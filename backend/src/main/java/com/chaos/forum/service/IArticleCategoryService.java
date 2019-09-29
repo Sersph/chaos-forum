@@ -13,7 +13,7 @@ import com.chaos.forum.vo.ResultVO;
  * @Author kay
  * 2019-09-23 14:46
  */
-public interface ArticleCategoryService extends IService<ArticleCategory> {
+public interface IArticleCategoryService extends IService<ArticleCategory> {
 
     ResultVO createCategory(ArticleCategory articleCategoryName);
 

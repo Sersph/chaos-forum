@@ -16,8 +16,14 @@ import javax.servlet.http.HttpSession;
  * @Author kay
  * 2019-09-20 10:36
  */
-public interface AdminUserService extends IService<AdminUser> {
+public interface IAdminUserService extends IService<AdminUser> {
 
+    /**
+     * 用户注册接口
+     *
+     * @param user
+     * @return
+     */
     ResultVO signIn(AdminUser user);
 
     /**

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * <p>
- * { describe }
+ * { 自定义异常处理类 }
  * </p>
  *
  * @Author kay

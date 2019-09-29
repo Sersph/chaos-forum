@@ -10,7 +10,7 @@ import com.chaos.forum.entity.ArticleCategory;
 import com.chaos.forum.entity.ArticleListPage;
 import com.chaos.forum.mapper.ArticleMapper;
 import com.chaos.forum.returnx.enumx.ResultEnum;
-import com.chaos.forum.service.ArticleService;
+import com.chaos.forum.service.IArticleService;
 import com.chaos.forum.tools.DatabaseTools;
 import com.chaos.forum.tools.PageTools;
 import com.chaos.forum.vo.ResultVO;
@@ -29,7 +29,7 @@ import org.springframework.stereotype.Service;
  * 2019-09-21 13:41
  */
 @Service
-public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> implements ArticleService {
+public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> implements IArticleService {
 
     @Autowired
     private ArticleMapper articleMapper;
@@ -61,7 +61,6 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         }
         return new ResultVO(ResultEnum.CREATE_ERROR);
     }
-
 
     /**
      * 更新文章

@@ -3,7 +3,7 @@ package com.chaos.forum.controller;
 import com.chaos.forum.entity.AdminUser;
 import com.chaos.forum.exception.DataException;
 import com.chaos.forum.returnx.enumx.ResultEnum;
-import com.chaos.forum.service.AdminUserService;
+import com.chaos.forum.service.IAdminUserService;
 import com.chaos.forum.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +24,7 @@ import javax.servlet.http.HttpSession;
 public class AdminUserController {
 
     @Autowired
-    AdminUserService userService;
+    IAdminUserService userService;
 
     /**
      * 用户注册

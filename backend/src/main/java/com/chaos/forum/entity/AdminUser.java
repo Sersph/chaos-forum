@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.NonNull;
 
+import javax.validation.constraints.NotNull;
 import java.sql.Date;
 
 /**
@@ -21,11 +22,11 @@ public class AdminUser {
     private int id;
 
     @ApiModelProperty(value = " 用户名 ")
-    @NonNull
+    @NotNull(message = "用户名不为空")
     private String name;
 
     @ApiModelProperty(value = " 用户密码 ")
-    @NonNull
+    @NotNull(message = "密码不为空")
     private String password;
 
     @ApiModelProperty(value = " 用户最后登陆时间 ")

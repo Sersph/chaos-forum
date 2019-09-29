@@ -13,7 +13,7 @@ import com.chaos.forum.vo.ResultVO;
  * @Author kay
  * 2019-09-20 10:36
  */
-public interface ArticleService extends IService<Article> {
+public interface IArticleService extends IService<Article> {
 
     ResultVO createArticle(Article article);
 
