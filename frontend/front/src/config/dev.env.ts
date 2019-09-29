@@ -1,6 +1,8 @@
 export default {
   // API 请求 url
   API_ROOT: 'http://www.gdxcart.com/api',
+  // OSS API 请求的 url
+  API_OSS_ROOT: 'https://project.yyccyy.com/auction-frontend/api/oss',
   // 模拟 API 请求 url
   MOCK_API_ROOT: 'http://mock.yyccyy.com/mock/5c89ee1c51962650daa7ce45/auction-frontend-front-desk-mock-api',  // Tinymce 富文本启用的功能
   // Tinymce 富文本启用的功能
