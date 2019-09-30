@@ -1,7 +1,7 @@
 ## 基本环境
 
 ## 基本环境 (前台为 SSR 服务端渲染)
-### `TypeScript` + `NEXT.js` + `Koa` + `React` + `Redux` + `Less` + `Antd`
+### `TypeScript` + `NEXT.js` + `Koa` + `React` + `Redux` + `Less` + `Material UI`
 
 ## 前台安装流程
 

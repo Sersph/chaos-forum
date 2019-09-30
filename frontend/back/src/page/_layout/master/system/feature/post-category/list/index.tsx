@@ -29,38 +29,41 @@ export default compose<React.ComponentClass>(
   Form.create()
 )(
   class LayoutMasterSystemFeaturePostCategoryList extends React.Component<Props, State> {
-    public state: State = {
-      columns: [
-        {
-          title: '#',
-          dataIndex: 'id',
-          render: (text: any, record: any, index: number) => `${index + 1}`,
+    public constructor(props: Props) {
+      super(props);
+      this.state = {
+        columns: [
+          {
+            title: '#',
+            dataIndex: 'id',
+            render: (text: any, record: any, index: number) => `${index + 1}`,
+          },
+          { title: '名称', dataIndex: 'name', sorter: true },
+          { title: '创建日期', dataIndex: 'createTime', sorter: true },
+          { title: '最后修改日期', dataIndex: 'updateTime', sorter: true },
+          {
+            title: '操作', dataIndex: 'action', render: (text: any, record: any) => (
+              <div className="table-data-action-container">
+                <Link to={`/system/feature/postCategory/operator/${record.id}`}>编辑</Link>
+                <Divider type="vertical"/>
+                <span onClick={() => this.deleteData(record)}>删除</span>
+              </div>
+            )
+          }
+        ],
+        dataSource: [],
+        pagination: {
+          total: 0,
+          current: 1,
+          pageSize: 10,
+          showSizeChanger: true,
+          pageSizeOptions: ['10', '20', '100']
         },
-        { title: '名称', dataIndex: 'name', sorter: true },
-        { title: '创建日期', dataIndex: 'createTime', sorter: true },
-        { title: '最后修改日期', dataIndex: 'updateTime', sorter: true },
-        {
-          title: '操作', dataIndex: 'action', render: (text: any, record: any) => (
-            <div className="table-data-action-container">
-              <Link to={`/system/feature/postCategory/operator/${record.id}`}>编辑</Link>
-              <Divider type="vertical"/>
-              <span onClick={() => this.deleteData(record)}>删除</span>
-            </div>
-          )
-        }
-      ],
-      dataSource: [],
-      pagination: {
-        total: 0,
-        current: 1,
-        pageSize: 10,
-        showSizeChanger: true,
-        pageSizeOptions: ['10', '20', '100']
-      },
-      searchCondition: {},
-      searchOrder: {},
-      loading: false
-    };
+        searchCondition: {},
+        searchOrder: {},
+        loading: false
+      }
+    }
 
     public componentDidMount = (): void => {
       this.refreshData();
@@ -121,7 +124,6 @@ export default compose<React.ComponentClass>(
           this.refreshData();
         },
         onCancel() {
-          console.log('Cancel');
         },
       });
     };

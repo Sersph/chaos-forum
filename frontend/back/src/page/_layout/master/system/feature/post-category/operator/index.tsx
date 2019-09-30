@@ -25,16 +25,19 @@ export default compose<React.ComponentClass>(
   Form.create()
 )(
   class LayoutMasterSystemFeaturePostCategoryOperator extends React.Component<Props, State> {
-    public state: State = {
-      submitButtonLoading: false,
-      actionType: '',
-      formInitialValue: {
-        // 只有修改操作才有的 id
-        id: '',
-        // 帖子分类名称
-        name: ''
-      },
-    };
+    public constructor(props: Props) {
+      super(props);
+      this.state = {
+        submitButtonLoading: false,
+        actionType: '',
+        formInitialValue: {
+          // 只有修改操作才有的 id
+          id: '',
+          // 帖子分类名称
+          name: ''
+        },
+      };
+    }
 
     public componentDidMount = (): void => {
       this.initPage();
@@ -85,7 +88,6 @@ export default compose<React.ComponentClass>(
           const requestData = {
             name: valueList.name
           };
-          console.log(requestData);
 
           // 保存数据
           if (state.actionType === 'insert') {

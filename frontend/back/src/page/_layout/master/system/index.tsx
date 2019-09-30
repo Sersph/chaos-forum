@@ -36,10 +36,14 @@ export default compose<React.ComponentClass>(
   )
 )(
   class LayoutMasterSystem extends React.Component<Props, State> {
-    public state: State = {
-      // 控制是否可以渲染
-      isRender: false
-    };
+    public constructor(props: Props) {
+      super(props);
+      this.state = {
+        // 控制是否可以渲染
+        isRender: false
+      };
+    }
+
 
     public componentDidMount = (): void => {
       const { props } = this;

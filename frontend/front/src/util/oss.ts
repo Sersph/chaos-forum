@@ -1,4 +1,3 @@
-import { notification } from 'antd';
 import { Base64 } from 'js-base64';
 import api from '../api';
 
@@ -30,11 +29,6 @@ export default {
         // 返回 oss sts token
         return ossStsToken;
       } else {
-        notification.open({
-          message: '获取 oss token 出错 请联系开发人员查看控制台错误信息',
-          duration: 20,
-          placement: 'bottomLeft'
-        });
         console.error(result);
         return {};
       }

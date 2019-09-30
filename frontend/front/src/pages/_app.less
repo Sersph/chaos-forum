@@ -1,9 +1,43 @@
 html {
   font-family: 'OptimaLTStd', 'Arial', 'Microsoft JhengHei';
   font-size: 15px;
+
+  .error-container {
+    text-align: center;
+  }
 }
 
 // 移动端适配
-@media (max-width: 767px) {
+@media (max-width: 600px) {
 
+}
+
+// nprogress
+html {
+  #nprogress {
+    z-index: 9999;
+  }
+
+  #nprogress .bar {
+    z-index: 9999;
+    height: .3rem;
+    background: #a9b8eb;
+  }
+
+  #nprogress .peg {
+    box-shadow: 0 0 10px #a9b8eb, 0 0 5px #a9b8eb;
+  }
+
+  #nprogress .spinner-icon {
+    border-top-color: #a9b8eb;
+    border-left-color: #a9b8eb;
+  }
+
+  // notification 移动端适配
+  @media (max-width: 600px) {
+    #nprogress .bar {
+      height: 0.5rem;
+      background: #a9b8eb;
+    }
+  }
 }

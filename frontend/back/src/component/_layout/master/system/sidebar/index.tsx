@@ -50,35 +50,39 @@ export default compose<React.ComponentClass>(
   )
 )(
   class LayoutMasterSystemSidebar extends React.Component<Props, State> {
-    public state: State = {
-      systemSidebarIsCollapse: false,
-      sideBarMenuList: [
-        {
-          key: '1',
-          icon: 'pie-chart',
-          name: '仪表盘',
-          children: [
-            {
-              key: '1-1',
-              name: '工作台',
-              path: '/system/home/welcome'
-            }
-          ]
-        },
-        {
-          key: '3',
-          icon: 'desktop',
-          name: '内容管理',
-          children: [
-            {
-              key: '3-2',
-              name: '帖子分类',
-              path: '/system/feature/postCategory/list'
-            }
-          ]
-        }
-      ]
-    };
+    public constructor(props: Props) {
+      super(props);
+      this.state = {
+        systemSidebarIsCollapse: false,
+        sideBarMenuList: [
+          {
+            key: '1',
+            icon: 'pie-chart',
+            name: '仪表盘',
+            children: [
+              {
+                key: '1-1',
+                name: '工作台',
+                path: '/system/home/welcome'
+              }
+            ]
+          },
+          {
+            key: '3',
+            icon: 'desktop',
+            name: '内容管理',
+            children: [
+              {
+                key: '3-2',
+                name: '帖子分类',
+                path: '/system/feature/postCategory/list'
+              }
+            ]
+          }
+        ]
+      }
+    }
+
 
     public componentDidMount = (): void => {
       const { props } = this;
@@ -146,7 +150,7 @@ export default compose<React.ComponentClass>(
         <section
           className={`layout-master-system-sidebar-container ${props.systemSidebarIsCollapse ? 'collapse' : ''}`}>
           <section className="logo-container">
-            <NavLink to="/">混沌论坛</NavLink>
+            <NavLink to="/">混沌论坛管理中心</NavLink>
           </section>
           <Menu
             // 折叠状态默认不展开菜单

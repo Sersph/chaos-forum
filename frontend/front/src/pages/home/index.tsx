@@ -1,6 +1,5 @@
 import React from 'react';
-import LayoutHeader from '../../component/layout/header';
-import LayoutFooter from '../../component/layout/footer';
+import LayoutMaster from '../../component/_layout/master';
 import './index.less';
 import Head from 'next/head';
 
@@ -21,15 +20,13 @@ interface State {
 export default class Home extends React.Component<Props, State> {
   public render = (): JSX.Element => {
     return (
-      <section className="app-container">
-        <LayoutHeader/>
+      <section className="home-container">
         <Head>
           <title>混沌论坛 - 首页</title>
         </Head>
-        <section className="home-container">
-          首页
-        </section>
-        <LayoutFooter/>
+        <LayoutMaster>
+          123
+        </LayoutMaster>
       </section>
     );
   };

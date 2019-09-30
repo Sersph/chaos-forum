@@ -1,0 +1,66 @@
+.layout-master-container {
+  display: flex;
+  width: 100%;
+
+  .app-bar-container {
+    z-index: 1250;
+    .menu-button {
+      display: none;
+      margin-right: 16px;
+    }
+  }
+
+  .sidebar-container {
+    width: 250px;
+    flex-shrink: 0;
+  }
+
+  .content-container {
+    flex-grow: 1;
+    padding: 86px 25px 25px;
+  }
+}
+
+html {
+  .menu-wrapper {
+    width: 250px;
+    .menu-header-display {
+      height: 64px;
+    }
+  }
+
+  // 菜单激活
+  .menu-active {
+    text-decoration: none;
+    background-color: rgba(0, 0, 0, 0.08);
+  }
+
+  .menu-link {
+    color: rgba(0, 0, 0, 0.87);
+    text-decoration: none;
+  }
+}
+
+// 移动端适配
+@media (max-width: 600px) {
+  .layout-master-container {
+    .app-bar-container {
+      .menu-button {
+        display: block;
+      }
+    }
+
+    .sidebar-container {
+      width: 0;
+      flex-shrink: 0;
+    }
+  }
+
+  html {
+    .menu-wrapper {
+      .menu-header-display {
+        height: 0;
+      }
+    }
+  }
+}

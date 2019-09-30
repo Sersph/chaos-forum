@@ -20,11 +20,15 @@ interface State {
 
 // 当前组件类
 export default class TinymceUploadImage extends React.Component<Props, State> {
-  public state: State = {
-    visibleUploadModel: false,
-    imageUploadFileType: 'image/jpg,image/jpeg,image/png,image/bmp',
-    successUploadFileList: []
-  };
+  public constructor(props: Props) {
+    super(props);
+    this.state = {
+      visibleUploadModel: false,
+      imageUploadFileType: 'image/jpg,image/jpeg,image/png,image/bmp',
+      successUploadFileList: []
+    }
+  }
+
 
   /**
    * 显示上传文件模态框

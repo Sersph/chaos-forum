@@ -18,9 +18,13 @@ interface State {
 
 // 当前组件类
 export default class Tinymce extends React.Component<Props, State> {
-  public state: State = {
-    value: ''
-  };
+  public constructor(props: Props) {
+    super(props);
+    this.state = {
+      value: ''
+    };
+  }
+
 
   public componentDidMount = (): void => {
     const { props } = this;

@@ -1,6 +1,7 @@
 import React from 'react';
-import Head from 'next/head';
+import LayoutMaster from '../../component/_layout/master';
 import './index.less';
+import Head from 'next/head';
 
 // 当前组件的类型声明
 interface ConnectState {
@@ -16,15 +17,17 @@ interface State {
 }
 
 // 当前组件类
-export default class LayoutHeader extends React.Component<Props, State> {
+export default class PostCategory extends React.Component<Props, State> {
   public render = (): JSX.Element => {
     return (
-      <section className="layout-header-container">
+      <section className="post-category-container">
         <Head>
-          <title>默认标题</title>
+          <title>混沌论坛 - 全部分区</title>
         </Head>
-        header
+        <LayoutMaster>
+          233
+        </LayoutMaster>
       </section>
     );
   };
-};
+}
