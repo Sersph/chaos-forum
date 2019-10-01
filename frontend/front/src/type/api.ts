@@ -4,7 +4,7 @@ export interface OSSAPI {
   selectOssStsToken: (data: any) => object;
 }
 
-// 账户相关 API
+// 账户相关接口声明
 export interface AccountAPI {
   // 注册
   signUp: (data: any) => object;
@@ -18,7 +18,7 @@ export interface AccountAPI {
   updateUserInfo: (data: any) => object;
 }
 
-// API 接口合集
+// 整合所有接口
 export interface API {
   oss: OSSAPI;
   account: AccountAPI;

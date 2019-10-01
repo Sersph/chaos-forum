@@ -1,22 +1,18 @@
-// 当前模块的类型声明
-export interface State {
-  // 侧边栏折叠状态
-  systemSidebarIsCollapse: boolean;
-}
+import {SystemStyleState} from '../../type/state';
 
-// 操作类型
+// action type
 enum ActionType {
   TOGGLE_SYSTEM_SIDEBAR_IS_COLLAPSE = 'toggleSystemSidebarIsCollapse',
   CLEAR_SYSTEM_STYLE_STATE = 'clearSystemStyleState'
 }
 
-// 状态
-const initState: State = {
+// state
+const initState: SystemStyleState = {
   // 获取侧边栏折叠状态
   systemSidebarIsCollapse: window.localStorage.getItem('systemSidebarIsCollapse') === 'true'
 };
 
-// 操作函数
+// action
 // toggle 侧边栏折叠状态
 export const toggleSystemSidebarIsCollapse = (): object => {
   return {

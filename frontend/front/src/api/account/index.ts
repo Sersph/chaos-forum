@@ -20,7 +20,7 @@ const api: AccountAPI = {
   signOut: (): object => {
     return ajax(
       'GET',
-      `${config.MOCK_API_ROOT}/check`,
+      `${config.MOCK_API_ROOT}/frontend/signOut`,
       {}
     );
   },

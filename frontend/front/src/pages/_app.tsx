@@ -9,8 +9,9 @@ import Router from 'next/router';
 import api from '../api';
 import { updateUserInfo } from '../store/account';
 
-// ie11 兼容
-import '@babel/polyfill';
+// ie11 兼容1
+// import '@babel/polyfill';
+
 
 // react-redux 高阶组件
 import { Provider } from 'react-redux';
@@ -44,7 +45,12 @@ export default withReduxStore(
       public componentDidMount = async () => {
         const { props } = this;
 
-        // Remove the server-side injected CSS.
+        // IE 11 兼容
+        if ((window as any).NodeList && !NodeList.prototype.forEach) {
+          (NodeList as any).prototype.forEach = Array.prototype.forEach;
+        }
+
+        // Material ui 删除服务端注入 css
         const jssStyles = document.querySelector('#jss-server-side');
         if (jssStyles) {
           jssStyles.parentNode!.removeChild(jssStyles);
@@ -59,9 +65,11 @@ export default withReduxStore(
         // 初始化用户登陆信息(因为每个页面都可能需要用到) (全局只需获取一次, 从 redux 中获取, 如果获取了就无需再次获取)
         if (props.store.getState().account.userInfo.isGet === undefined) {
           let result1: any = await api.account.selectUserInfo();
-          let userInfo: any = {};
+          let userInfo: any = {
+            isGet: true
+          };
           if (parseInt(result1.code) === 0) {
-            userInfo = result1.data;
+            userInfo = Object.assign(userInfo, result1.data);
           }
           // 保存登陆状态到 redux
           props.store.dispatch(updateUserInfo(userInfo));

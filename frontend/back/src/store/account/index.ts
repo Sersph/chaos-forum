@@ -1,23 +1,18 @@
 import api from '../../api';
+import { AccountState } from '../../type/state';
 
-// 当前模块的类型声明
-export interface State {
-  // 当前登陆的用户信息
-  userInfo: object;
-}
-
-// 操作类型
+// action type
 enum ActionType {
   UPDATE_USER_INFO = 'updateUserInfo',
   CLEAR_ACCOUNT_STATE = 'clearAccountState'
 }
 
-// 状态
-const initState: State = {
+// state
+const initState: AccountState = {
   userInfo: {}
 };
 
-// 操作函数
+// action
 // 修改当前登陆的用户信息
 export const updateUserInfo = (userInfo: any): object => {
   return {

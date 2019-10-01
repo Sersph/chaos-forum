@@ -5,7 +5,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { Menu, Icon } from 'antd';
 import NProgress from 'nprogress';
-import { AppState } from '../../../../../store';
+import { AppState } from '../../../../../type/state';
 import './index.less';
 
 // 当前组件的类型声明
@@ -41,13 +41,13 @@ interface State {
 
 // 当前组件类
 export default compose<React.ComponentClass>(
-  withRouter,
   connect<ConnectState, ConnectDispatch, Props>(
     (state: any | AppState) => ({
       systemSidebarIsCollapse: state.systemStyle.systemSidebarIsCollapse
     }),
     {}
-  )
+  ),
+  withRouter
 )(
   class LayoutMasterSystemSidebar extends React.Component<Props, State> {
     public constructor(props: Props) {

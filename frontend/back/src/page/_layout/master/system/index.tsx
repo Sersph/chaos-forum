@@ -4,7 +4,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { Switch } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from "react-transition-group";
-import { AppState } from '../../../../store';
+import { AppState } from '../../../../type/state';
 import LayoutSystemSidebar from '../../../../component/_layout/master/system/sidebar';
 import LayoutSystemHeader from '../../../../component/_layout/master/system/header';
 import './index.less';

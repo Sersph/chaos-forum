@@ -8,7 +8,7 @@ import { Dropdown, Menu, Breadcrumb, Icon } from 'antd';
 import NProgress from 'nprogress';
 import { toggleSystemSidebarIsCollapse } from '../../../../../store/system-style';
 import { clearAccountState } from '../../../../../store/account';
-import { AppState } from '../../../../../store';
+import { AppState } from '../../../../../type/state';
 import api from '../../../../../api';
 import './index.less';
 

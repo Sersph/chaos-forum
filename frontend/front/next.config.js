@@ -1,7 +1,4 @@
-const fs = require('fs');
-const path = require('path');
 const withCss = require('@zeit/next-css');
-const withTypescript = require('@zeit/next-typescript');
 const withLess = require('@zeit/next-less');
 const FilterWarningsPlugin = require('webpack-filter-warnings-plugin');
 

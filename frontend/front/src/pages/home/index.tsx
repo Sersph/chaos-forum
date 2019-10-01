@@ -22,7 +22,7 @@ export default class Home extends React.Component<Props, State> {
     return (
       <section className="home-container">
         <Head>
-          <title>混沌论坛 - 首页</title>
+          <title>混沌论坛 - 混沌社区,复读机爱好者的聚集地</title>
         </Head>
         <LayoutMaster>
           123

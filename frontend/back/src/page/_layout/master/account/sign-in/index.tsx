@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Form, Input, Icon, Button, notification } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
 import NProgress from 'nprogress';
-import { AppState } from '../../../../../store';
+import { AppState } from '../../../../../type/state';
 import { updateUserInfo } from '../../../../../store/account';
 import api from '../../../../../api';
 import './index.less';

@@ -3,12 +3,12 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import Router from './router';
 import { asyncUpdateUserInfo } from './store/account';
-import { AppState } from './store';
+import { AppState } from './type/state';
 import './App.less';
 
 // 当前组件的类型声明
 interface ConnectState {
-  userInfo: object;
+  userInfo: any;
 }
 
 interface ConnectDispatch {

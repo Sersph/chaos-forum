@@ -1,8 +1,4 @@
-// 当前模块的类型声明
-export interface State {
-  // 当前登陆的用户信息
-  userInfo: any;
-}
+import { AccountState } from '../../type/state';
 
 // action type
 enum ActionType {
@@ -11,7 +7,7 @@ enum ActionType {
 }
 
 // state
-const initState: State = {
+const initState: AccountState = {
   userInfo: {}
 };
 
