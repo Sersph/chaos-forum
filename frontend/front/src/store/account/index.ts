@@ -1,50 +1,27 @@
-import api from '../../api';
-
 // 当前模块的类型声明
 export interface State {
   // 当前登陆的用户信息
-  userInfo: object;
+  userInfo: any;
 }
 
-// 操作类型
+// action type
 enum ActionType {
   UPDATE_USER_INFO = 'updateUserInfo',
   CLEAR_ACCOUNT_STATE = 'clearAccountState'
 }
 
-// 状态
+// state
 const initState: State = {
   userInfo: {}
 };
 
-// 操作函数
+// action
 // 修改当前登陆的用户信息
 export const updateUserInfo = (userInfo: any): object => {
   return {
     type: ActionType.UPDATE_USER_INFO,
     data: {
       userInfo
-    }
-  };
-};
-
-// 异步修改当前登陆的用户信息
-export const asyncUpdateUserInfo = (): object => {
-  return async (dispatch: any) => {
-    const result: any = await api.account.selectUserInfo();
-    // const result: any = {
-    //   code: 0,
-    //   data: 'xxx'
-    // };
-    if (parseInt(result.code) === 0) {
-      dispatch({
-        type: ActionType.UPDATE_USER_INFO,
-        data: {
-          userInfo: {
-            userName: result.data
-          }
-        }
-      });
     }
   };
 };

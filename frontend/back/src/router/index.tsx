@@ -19,16 +19,11 @@ import LayoutMasterSystem from '../page/_layout/master/system';
 // 工作台
 import LayoutMasterSystemHomeWelcome from '../page/_layout/master/system/home/welcome';
 
-// 文章
-import LayoutMasterSystemFeatureArticle from '../page/_layout/master/system/feature/article';
-import LayoutMasterSystemFeatureArticleList from '../page/_layout/master/system/feature/article/list';
-import LayoutMasterSystemFeatureArticleOperator from '../page/_layout/master/system/feature/article/operator';
-
-// 文章分类
-import LayoutMasterSystemFeatureArticleCategory from '../page/_layout/master/system/feature/article-category';
-import LayoutMasterSystemFeatureArticleCategoryList from '../page/_layout/master/system/feature/article-category/list';
-import LayoutMasterSystemFeatureArticleCategoryOperator
-  from '../page/_layout/master/system/feature/article-category/operator';
+// 帖子分类
+import LayoutMasterSystemFeaturePostCategory from '../page/_layout/master/system/feature/post-category';
+import LayoutMasterSystemFeaturePostCategoryList from '../page/_layout/master/system/feature/post-category/list';
+import LayoutMasterSystemFeaturePostCategoryOperator
+  from '../page/_layout/master/system/feature/post-category/operator';
 
 
 // 懒加载模块
@@ -62,108 +57,90 @@ interface State {
 
 // 当前组件类
 export default class Router extends React.Component<Props, State> {
-  public state: State = {
-    routeList: [
-      {
-        // 根模块
-        path: '/',
-        component: LayoutMaster,
-        routes: [
-          // 账户登陆模块
-          {
-            path: '/account',
-            component: LayoutMasterAccount,
-            routes: [
-              {
-                path: '/account/signIn',
-                component: LayoutMasterAccountSignIn
-              }
-            ]
-          },
-          {
-            // 系统模块
-            path: '/system',
-            component: LayoutMasterSystem,
-            routes: [
-              // 仪表盘模块
-              {
-                path: '/system/home',
-                component: LayoutMasterSystemHome,
-                breadcrumb: '仪表盘',
-                routes: [
-                  {
-                    path: '/system/home/welcome',
-                    component: LayoutMasterSystemHomeWelcome,
-                    breadcrumb: '工作台'
-                  },
-                  {
-                    path: '',
-                    component: ErrorNotFound
-                  }
-                ]
-              },
-              // 功能模块
-              {
-                path: '/system/feature',
-                component: LayoutMasterSystemFeature,
-                breadcrumb: '内容管理',
-                routes: [
-                  {
-                    path: '/system/feature/article',
-                    component: LayoutMasterSystemFeatureArticle,
-                    breadcrumb: '文章',
-                    routes: [
-                      {
-                        path: '/system/feature/article/list',
-                        component: LayoutMasterSystemFeatureArticleList,
-                        breadcrumb: '列表'
-                      },
-                      {
-                        path: '/system/feature/article/operator/:id',
-                        component: LayoutMasterSystemFeatureArticleOperator,
-                        breadcrumb: '修改'
-                      },
-                      {
-                        path: '/system/feature/article/operator',
-                        component: LayoutMasterSystemFeatureArticleOperator,
-                        breadcrumb: '添加'
-                      }
-                    ]
-                  },
-                  {
-                    path: '/system/feature/articleCategory',
-                    component: LayoutMasterSystemFeatureArticleCategory,
-                    breadcrumb: '文章分类',
-                    routes: [
-                      {
-                        path: '/system/feature/articleCategory/list',
-                        component: LayoutMasterSystemFeatureArticleCategoryList,
-                        breadcrumb: '列表'
-                      },
-                      {
-                        path: '/system/feature/articleCategory/operator/:id',
-                        component: LayoutMasterSystemFeatureArticleCategoryOperator,
-                        breadcrumb: '修改'
-                      },
-                      {
-                        path: '/system/feature/articleCategory/operator',
-                        component: LayoutMasterSystemFeatureArticleCategoryOperator,
-                        breadcrumb: '添加'
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            path: '',
-            component: () => <Redirect to='/system/home/welcome'/>
-          }
-        ]
-      }
-    ]
-  };
+  public constructor(props: Props) {
+    super(props);
+    this.state = {
+      routeList: [
+        {
+          // 根模块
+          path: '/',
+          component: LayoutMaster,
+          routes: [
+            // 账户登陆模块
+            {
+              path: '/account',
+              component: LayoutMasterAccount,
+              routes: [
+                {
+                  path: '/account/signIn',
+                  component: LayoutMasterAccountSignIn
+                }
+              ]
+            },
+            {
+              // 系统模块
+              path: '/system',
+              component: LayoutMasterSystem,
+              routes: [
+                // 仪表盘模块
+                {
+                  path: '/system/home',
+                  component: LayoutMasterSystemHome,
+                  breadcrumb: '仪表盘',
+                  routes: [
+                    {
+                      path: '/system/home/welcome',
+                      component: LayoutMasterSystemHomeWelcome,
+                      breadcrumb: '工作台'
+                    },
+                    {
+                      path: '',
+                      component: ErrorNotFound
+                    }
+                  ]
+                },
+                // 功能模块
+                {
+                  path: '/system/feature',
+                  component: LayoutMasterSystemFeature,
+                  breadcrumb: '内容管理',
+                  routes: [
+                    {
+                      path: '/system/feature/postCategory',
+                      component: LayoutMasterSystemFeaturePostCategory,
+                      breadcrumb: '帖子分类',
+                      routes: [
+                        {
+                          path: '/system/feature/postCategory/list',
+                          component: LayoutMasterSystemFeaturePostCategoryList,
+                          breadcrumb: '列表'
+                        },
+                        {
+                          path: '/system/feature/postCategory/operator/:id',
+                          component: LayoutMasterSystemFeaturePostCategoryOperator,
+                          breadcrumb: '修改'
+                        },
+                        {
+                          path: '/system/feature/postCategory/operator',
+                          component: LayoutMasterSystemFeaturePostCategoryOperator,
+                          breadcrumb: '添加'
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              path: '',
+              component: () => <Redirect to='/system/home/welcome'/>
+            }
+          ]
+        }
+      ]
+    };
+  }
+
 
   public render = (): JSX.Element => {
     const { state } = this;

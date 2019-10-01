@@ -34,9 +34,14 @@ export default compose<React.ComponentClass>(
   )
 )(
   class App extends React.Component<Props, State> {
-    public state: State = {
-      isRender: false
-    };
+
+    constructor(props: Props) {
+      super(props);
+      this.state = {
+        isRender: false
+      };
+    }
+
 
     public componentDidMount = async () => {
       const { props } = this;
@@ -51,12 +56,12 @@ export default compose<React.ComponentClass>(
       const { state } = this;
       if (state.isRender) {
         return (
-          <section className='app-container'>
+          <section className="app-container">
             <Router/>
           </section>
         );
       } else {
-        return <section>加载中!</section>;
+        return <section className="loading-container">加载中!</section>;
       }
     }
   }

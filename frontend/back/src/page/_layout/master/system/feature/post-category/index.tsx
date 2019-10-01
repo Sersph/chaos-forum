@@ -9,12 +9,12 @@ interface State {
 }
 
 // 当前组件类
-export default class LayoutMasterSystemFeature extends React.Component<Props, State> {
+export default class LayoutMasterSystemFeaturePostCategory extends React.Component<Props, State> {
   public render = (): JSX.Element => {
     const { props } = this;
     if (props.route && props.route.routes) {
       return (
-        <section className="system-wrapper-container">
+        <section className="system-wrapper-post-category-container">
           {renderRoutes(props.route.routes)}
         </section>
       );

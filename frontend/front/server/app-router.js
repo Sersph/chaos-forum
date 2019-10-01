@@ -6,9 +6,15 @@ module.exports = (router, app) => {
     ctx.respond = false;
   });
 
-  // 文章详情
-  router.get('/article/detail/:id', async ctx => {
-    await app.render(ctx.req, ctx.res, '/article/detail', {
+  // 全部分区
+  router.get('/post-category', async ctx => {
+    await app.render(ctx.req, ctx.res, '/post-category', ctx.query);
+    ctx.respond = false;
+  });
+
+  // 帖子详情
+  router.get('/post/:id', async ctx => {
+    await app.render(ctx.req, ctx.res, '/post', {
       id: ctx.params.id
     });
     ctx.respond = false;

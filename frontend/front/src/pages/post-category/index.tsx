@@ -17,15 +17,15 @@ interface State {
 }
 
 // 当前组件类
-export default class Home extends React.Component<Props, State> {
+export default class PostCategory extends React.Component<Props, State> {
   public render = (): JSX.Element => {
     return (
-      <section className="home-container">
+      <section className="post-category-container">
         <Head>
-          <title>混沌论坛 - 首页</title>
+          <title>混沌论坛 - 全部分区</title>
         </Head>
         <LayoutMaster>
-          123
+          233
         </LayoutMaster>
       </section>
     );

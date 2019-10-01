@@ -1,6 +1,7 @@
 ## 基本环境
 
-### `TypeScript` + `NEXT.js` + `Koa` + `React` + `Redux` + `Less` + `Antd`
+## 基本环境 (前台为 SSR 服务端渲染)
+### `TypeScript` + `NEXT.js` + `Koa` + `React` + `Redux` + `Less` + `Material UI`
 
 ## 前台安装流程
 
@@ -15,7 +16,7 @@
    git clone https://github.com/MiDouShiTongTong/auction-frontend.git
    ```
 
-3. 进入  `frontend-desk `目录，运行 `cmd` 执行以下命令
+3. 进入  `frontend/front `目录，运行 `cmd` 执行以下命令
 
    ```shell
    npm config set registry https://registry.npm.taobao.org
@@ -42,9 +43,6 @@
 运行生产环境 运行生产环境需要先`打包项目`
 
 ## 目录说明
-
-front-desk
-
 |── server `服务端文件`
 
 ​	|── app-router.js `应用的路由`
@@ -65,7 +63,7 @@ front-desk
 
 ​	|── util `工具库`
 
-
+​	|── type `typescript 类型声明`
 
 
 

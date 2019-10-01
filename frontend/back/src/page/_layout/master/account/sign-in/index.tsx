@@ -38,7 +38,7 @@ export default compose<React.ComponentClass>(
   )
 )(
   class LayoutMasterAccountSignIn extends React.Component<Props, State> {
-    componentDidMount = (): void => {
+    public componentDidMount = (): void => {
       // 鼠标移动效果
       new (window as any).Parallax(document.querySelector('.parallax-container'));
     };
@@ -48,7 +48,7 @@ export default compose<React.ComponentClass>(
      *
      * @param e
      */
-    handleSubmit = (e: React.FormEvent): void => {
+    public handleSubmit = (e: React.FormEvent): void => {
       e.preventDefault();
       const { props } = this;
       props.form.validateFields(async (error, valueList) => {
@@ -59,7 +59,6 @@ export default compose<React.ComponentClass>(
           // 写死结果集
           if (parseInt(result.code) === 0) {
             const result2: any = await api.account.selectUserInfo();
-            console.log(result2);
             // 保存当前登录的用户信息
             props.updateUserInfo({
               userName: result2.data
@@ -81,7 +80,7 @@ export default compose<React.ComponentClass>(
       });
     };
 
-    render = (): JSX.Element => {
+    public render = (): JSX.Element => {
       const { props } = this;
       return (
         <section className="account-sign-in-container">
@@ -95,7 +94,7 @@ export default compose<React.ComponentClass>(
           <section className="sign-in-form-wrapper">
             <section className="sign-in-form-container">
               <section className="header-container">
-                <span>混沌管理中心</span>
+                <span>混沌论坛管理中心</span>
               </section>
               <Form onSubmit={this.handleSubmit}>
                 <Form.Item>
