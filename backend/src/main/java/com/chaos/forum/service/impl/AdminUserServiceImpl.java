@@ -9,6 +9,8 @@ import com.chaos.forum.returnx.enumx.ResultEnum;
 import com.chaos.forum.service.IAdminUserService;
 import com.chaos.forum.tools.DatabaseTools;
 import com.chaos.forum.vo.ResultVO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
@@ -24,6 +26,9 @@ import javax.servlet.http.HttpSession;
  */
 @Service
 public class AdminUserServiceImpl extends ServiceImpl<AdminUserMapper, AdminUser> implements IAdminUserService {
+
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     /**
      * 用户注册
@@ -53,13 +58,14 @@ public class AdminUserServiceImpl extends ServiceImpl<AdminUserMapper, AdminUser
      * @param session 用户情况（登陆情况）
      */
     @Override
-    public ResultVO logIn(AdminUser user, HttpSession session) throws DataException {
+    public ResultVO logIn(AdminUser user, HttpSession session) {
         AdminUser userOne = this.getOne(new QueryWrapper<AdminUser>().eq("name", user.getName()));
-
+        this.logger.info("in logIn");
         /** 判断数据库记录
          *      抛出异常：LI_GIN_NULL（用户未注册）
          * */
         if (userOne == null) {
+            this.logger.info("throw DataException LI_GIN_NULL");
             throw new DataException(ResultEnum.LI_GIN_NULL);
         }
 
@@ -67,14 +73,15 @@ public class AdminUserServiceImpl extends ServiceImpl<AdminUserMapper, AdminUser
          *      抛出异常：LI_GIN_ERROR（用户名或密码不正确）
          * */
         if (!userOne.getPassword().equals(user.getPassword())) {
+            this.logger.info("throw DataException LI_GIN_ERROR");
             throw new DataException(ResultEnum.LI_GIN_ERROR);
         }
 
 
         /** 保存用户登陆信息 */
         session.setAttribute("adminUser", userOne);
+        this.logger.info("login SUCCESS");
         return new ResultVO(ResultEnum.SUCCESS);
-
     }
 
 }

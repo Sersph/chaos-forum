@@ -32,5 +32,5 @@ public interface IAdminUserService extends IService<AdminUser> {
      * @param user 用户实体
      * @param session 状态（用户）
      * */
-    ResultVO logIn(AdminUser user, HttpSession session) throws DataException;
+    ResultVO logIn(AdminUser user, HttpSession session);
 }

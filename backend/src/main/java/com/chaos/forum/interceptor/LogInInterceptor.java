@@ -5,6 +5,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.alibaba.fastjson.JSON;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.HashMap;
 
 
@@ -30,11 +31,10 @@ public class LogInInterceptor implements HandlerInterceptor {
 
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         /**
          *  TODO 我这里是通过用户是否登陆进行拦截，我的用户信息存储在session中，名称为userInfo，大家可以自行实现
-         * */
+//         * */
         if (null != request.getSession().getAttribute("adminUser")) {
             return true;
         }
@@ -44,7 +44,11 @@ public class LogInInterceptor implements HandlerInterceptor {
         map.put("code" ,"108");
         map.put("message" ,"用户未登陆");
         String  param= JSON.toJSONString(map);
-        response.getWriter().write(param);
+        try {
+            response.getWriter().write(param);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return false;
     }
 

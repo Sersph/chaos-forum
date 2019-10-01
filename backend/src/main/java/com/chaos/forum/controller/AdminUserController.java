@@ -31,10 +31,10 @@ public class AdminUserController {
      *
      * @param user 用户实体
      */
-    @PostMapping("/signIn")
+   /* @PostMapping("/signIn")
     public ResultVO signIn(AdminUser user) {
         return userService.signIn(user);
-    }
+    }*/
 
     /**
      * 用户登陆
@@ -43,7 +43,7 @@ public class AdminUserController {
      * @param session  用户登陆信息
      */
     @PostMapping("/logIn")
-    public ResultVO logIn(AdminUser user, HttpSession session) throws DataException {
+    public ResultVO logIn(AdminUser user, HttpSession session) {
         return this.userService.logIn(user,session);
     }
 

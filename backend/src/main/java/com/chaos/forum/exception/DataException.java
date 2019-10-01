@@ -10,7 +10,7 @@ import com.chaos.forum.returnx.enumx.ResultEnum;
  * @Author kay
  * 2019-09-20 20:20
  */
-public class DataException extends Throwable {
+public class DataException extends RuntimeException {
 
     private ResultEnum resultEnum;
 

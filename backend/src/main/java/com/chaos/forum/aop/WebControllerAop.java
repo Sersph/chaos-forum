@@ -43,13 +43,13 @@ public class WebControllerAop {
     public void verify(JoinPoint joinPoint) {
 
         //获取RequestAttributes(请求属性)
-        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
-
-        //从获取RequestAttributes中获取HttpServletRequest的信息  
-        HttpServletRequest request = (HttpServletRequest) requestAttributes.resolveReference(RequestAttributes.REFERENCE_REQUEST);
-
-        //获取session信息
-        HttpSession session = (HttpSession) requestAttributes.resolveReference(RequestAttributes.REFERENCE_SESSION);
+//        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+//
+//        //从获取RequestAttributes中获取HttpServletRequest的信息  
+//        HttpServletRequest request = (HttpServletRequest) requestAttributes.resolveReference(RequestAttributes.REFERENCE_REQUEST);
+//
+//        //获取session信息
+//        HttpSession session = (HttpSession) requestAttributes.resolveReference(RequestAttributes.REFERENCE_SESSION);
 
 
     }
@@ -84,14 +84,14 @@ public class WebControllerAop {
      * 环绕通知
      *   控制目标方法的执行
      */
-    public void aroundMethod(ProceedingJoinPoint joinPoint) throws Throwable{
+    public void aroundMethod(ProceedingJoinPoint joinPoint) {
         //获取目标方法的名称
-        String methodName = joinPoint.getSignature().getName();
-        if(methodName.equals("savePerson")){
-            joinPoint.proceed();//调用目标方法
-        }else{
-            System.out.println("权限不足");
-        }
+//        String methodName = joinPoint.getSignature().getName();
+//        if(methodName.equals("savePerson")){
+//            joinPoint.proceed();//调用目标方法
+//        }else{
+//            System.out.println("权限不足");
+//        }
     }
 
 }
