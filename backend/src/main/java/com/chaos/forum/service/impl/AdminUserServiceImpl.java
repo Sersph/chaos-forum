@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  * <p>
- * { 用户登陆服务层 }
+ * { 管理员用户服务层 }
  * </p>
  *
  * @Author kay
@@ -31,40 +31,19 @@ public class AdminUserServiceImpl extends ServiceImpl<AdminUserMapper, AdminUser
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     /**
-     * 用户注册
+     * 管理员用户登陆
      *
-     * @param user 用户对象
-     */
-    @Override
-    public ResultVO signIn(AdminUser user) {
-        user.setCreateTime(DatabaseTools.getSqlDate());
-        user.setUpdateTime(DatabaseTools.getSqlDate());
-        user.setFinallyLoginTime(DatabaseTools.getSqlDate());
-
-        if (this.getOne(new QueryWrapper<AdminUser>().eq("name", user.getName())) != null) {
-            return new ResultVO(ResultEnum.SIGN_IN_NOT);
-        }
-
-        if (this.save(user)) {
-            return new ResultVO(ResultEnum.SUCCESS);
-        }
-        return new ResultVO(ResultEnum.SIGN_IN_NOT);
-    }
-
-    /**
-     * 用户登陆
-     *
-     * @param user    用户对象
+     * @param adminUser    用户对象
      * @param session 用户情况（登陆情况）
      */
     @Override
-    public ResultVO logIn(AdminUser user, HttpSession session) {
-        AdminUser userOne = this.getOne(new QueryWrapper<AdminUser>().eq("name", user.getName()));
+    public ResultVO logIn(AdminUser adminUser, HttpSession session) {
+        AdminUser adminUserOne = this.getOne(new QueryWrapper<AdminUser>().eq("name", adminUser.getName()));
         this.logger.info("in logIn");
         /** 判断数据库记录
          *      抛出异常：LI_GIN_NULL（用户未注册）
          * */
-        if (userOne == null) {
+        if (adminUserOne == null) {
             this.logger.info("throw DataException LI_GIN_NULL");
             throw new DataException(ResultEnum.LI_GIN_NULL);
         }
@@ -72,14 +51,14 @@ public class AdminUserServiceImpl extends ServiceImpl<AdminUserMapper, AdminUser
         /** 判断用户名密码是否一致
          *      抛出异常：LI_GIN_ERROR（用户名或密码不正确）
          * */
-        if (!userOne.getPassword().equals(user.getPassword())) {
+        if (!adminUserOne.getPassword().equals(adminUser.getPassword())) {
             this.logger.info("throw DataException LI_GIN_ERROR");
             throw new DataException(ResultEnum.LI_GIN_ERROR);
         }
 
 
         /** 保存用户登陆信息 */
-        session.setAttribute("adminUser", userOne);
+        session.setAttribute("adminUser", adminUserOne);
         this.logger.info("login SUCCESS");
         return new ResultVO(ResultEnum.SUCCESS);
     }

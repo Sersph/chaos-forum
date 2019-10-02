@@ -9,10 +9,10 @@
 
 - 请求参数
 
-  | 参数     | 必填 | 类型   | 备注   |
-  | -------- | ---- | ------ | ------ |
-  | name     | yes  | string | 用户名 |
-  | password | yes  | string | 密码   |
+  | 参数     | 必填 | 类型   | 备注     |
+  | -------- | ---- | ------ | -------- |
+  | username | yes  | string | 用户名   |
+  | password | yes  | string | 用户密码 |
 
 - 返回示例
 
@@ -33,14 +33,14 @@
 
 - 请求方式 - 请求 URL
 
-  + `POST` - `/frontend/user/login`
+  + `POST` - `/frontend/user/logIn`
 
 - 请求参数
 
-  | 参数     | 必填 | 类型   | 备注   |
-  | -------- | ---- | ------ | ------ |
-  | name     | yes  | string | 用户名 |
-  | password | yes  | string | 密码   |
+  | 参数     | 必填 | 类型   | 备注     |
+  | -------- | ---- | ------ | -------- |
+  | username | yes  | string | 用户名   |
+  | password | yes  | string | 用户密码 |
 
 - 返回示例
 
@@ -81,17 +81,18 @@
   }
   ```
 
-#### 用户修改信息
+#### 用户修改信息(登陆密码)
 
 - 请求方式 - 请求 URL
 
-  - `GET` - `/frontend/user/alter
+  - `GET` - `/frontend/user/alter `
 
 - 请求参数
 
-  | 参数 | 必填 | 类型   | 备注 |
-  | ---- | ---- | ------ | ---- |
-  | name | yes  | String | 密码 |
+  | 参数     | 必填 | 类型   | 备注     |
+  | -------- | ---- | ------ | -------- |
+  | username | yes  | String | 用户名   |
+  | password | yes  | String | 用户密码 |
 
 - 返回示例
 

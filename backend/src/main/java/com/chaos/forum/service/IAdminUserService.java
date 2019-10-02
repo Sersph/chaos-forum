@@ -19,14 +19,6 @@ import javax.servlet.http.HttpSession;
 public interface IAdminUserService extends IService<AdminUser> {
 
     /**
-     * 用户注册接口
-     *
-     * @param user
-     * @return
-     */
-    ResultVO signIn(AdminUser user);
-
-    /**
      * 用户登陆接口
      *
      * @param user 用户实体
