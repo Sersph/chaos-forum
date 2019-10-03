@@ -14,7 +14,7 @@ const MyDocument = class _document extends Document {
         <meta name="force-rendering" content="webkit"/>
         <meta httpEquiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
         <meta name="theme-color" content="#556cd6"/>
-        <link rel="shortcut icon" href="../static/image/favicon.ico"/>
+        <link rel="shortcut icon" href="/static/image/favicon.ico"/>
 
         <script
           dangerouslySetInnerHTML={{
@@ -29,7 +29,7 @@ const MyDocument = class _document extends Document {
           }}
         />
 
-        <script src="../static/library/tinymce/tinymce.min.js"></script>
+        <script src="/static/library/tinymce/tinymce.min.js"></script>
         <script src="https://gosspublic.alicdn.com/aliyun-oss-sdk-6.0.0.min.js"></script>
       </Head>
       <body>

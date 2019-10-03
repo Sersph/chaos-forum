@@ -1,4 +1,4 @@
-// 账户状态接口声明
+// 用户状态接口声明
 export interface AccountState {
   // 当前登陆的用户信息
    userInfo: any;

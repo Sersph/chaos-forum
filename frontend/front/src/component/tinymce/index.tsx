@@ -2,18 +2,17 @@ import React from 'react';
 // @ts-ignore
 import { Editor } from '@tinymce/tinymce-react';
 import TinymceUploadImage from './upload-image';
-import config from '../../config';
 import './index.less';
 
 // 当前组件的类型声明
 interface Props {
-  initialValue: string
-  onEditorChange: (value: string) => void
+  initialValue?: string;
+  onEditorChange: (value: string) => void;
 }
 
 interface State {
   // 富文本的值
-  value: string
+  value: string;
 }
 
 // 当前组件类
@@ -24,7 +23,6 @@ export default class Tinymce extends React.Component<Props, State> {
       value: ''
     };
   }
-
 
   public componentDidMount = (): void => {
     const { props } = this;
@@ -60,17 +58,20 @@ export default class Tinymce extends React.Component<Props, State> {
     const { state } = this;
     return (
       <section className="tinymce-container">
+
         <Editor
-          ref="hellow"
-          cloudChannel="dev"
+          id="t1"
           value={state.value}
-          plugins={config.TINYMCE_PLUGINS}
-          toolbar={config.TINYMCE_TOOLBAR}
+          plugins={["paste"]}
+          toolbar={['bold']}
           onEditorChange={(value: string) => this.handlerEditorChange(value)}
           init={{
             language: 'zh_CN',
             height: 500,
-            fontsize_formats: "8px 10px 12px 14px 18px 24px 36px 48px 60px"
+            fontsize_formats: "8px 10px 12px 14px 18px 24px 36px 48px 60px",
+            paste_as_text: true,
+            paste_preprocess: (pl, o) => {
+            }
           }}
         />
         {/* 图片上传组件 */}

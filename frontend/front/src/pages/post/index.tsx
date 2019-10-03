@@ -1,47 +1,48 @@
 import React from 'react';
-import Head from 'next/head';
 import LayoutMaster from '../../component/_layout/master';
+import Head from 'next/head';
+import api from '../../api';
 import './index.less';
 
 // 当前组件的类型声明
-interface ConnectState {
-}
-
-interface ConnectDispatch {
-}
-
-interface Props extends ConnectState, ConnectDispatch {
-  id: number;
+interface Props {
+  // 帖子详情
+  postDetail: any;
 }
 
 interface State {
+  // 帖子详情
+  postDetail: any;
 }
 
 // 当前组件类
 export default class PostDetail extends React.Component<Props, State> {
-  public static getInitialProps = async ({ query }: any) => {
-    // 获取帖子 id
-    const id: string = query.id;
+  public constructor(props: Props) {
+    super(props);
+    this.state = {
+      postDetail: {},
+    };
+  }
+
+  public static getInitialProps = async () => {
+    const result: any = await api.post.selectHotPostList({});
+
+
 
     return {
-      id
     };
   };
 
   public render = (): JSX.Element => {
-    const { props } = this;
+    const { props, state } = this;
     return (
-      <section className="app-container">
+      <section className="post-detail-container">
         <Head>
-          <title>帖子详情</title>
+          <title>混沌论坛 - 帖子详情</title>
         </Head>
-        <section className="post-detail-container">
-          <section className="post-detail-wrapper-container">
-            <section className="post-detail-wrapper-inner-container">
-              {props.id}
-            </section>
-          </section>
-        </section>
+        <LayoutMaster>
+          123
+        </LayoutMaster>
       </section>
     );
   };

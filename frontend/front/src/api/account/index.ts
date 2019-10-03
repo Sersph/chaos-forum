@@ -6,14 +6,14 @@ const api: AccountAPI = {
   signUp: (data: any): object => {
     return ajax(
       'POST',
-      `${config.MOCK_API_ROOT}/code`,
+      `${config.MOCK_API_ROOT}/frontend/signUp`,
       data
     );
   },
   signIn: (data: any): object => {
     return ajax(
       'POST',
-      `${config.MOCK_API_ROOT}/code`,
+      `${config.MOCK_API_ROOT}/frontend/signIn`,
       data
     );
   },

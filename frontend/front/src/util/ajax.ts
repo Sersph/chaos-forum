@@ -23,7 +23,7 @@ type Method =
  * ajax 请求封装模块
  *
  */
-export default (method: Method, url: any, data = {}): object => {
+export default function ajax(method: Method, url: string, data = {}): object {
   return new Promise(async (resolve, reject) => {
     // axios response 对象
     let response = {
@@ -44,7 +44,20 @@ export default (method: Method, url: any, data = {}): object => {
           response = await axios({
             method,
             url,
-            data
+            data,
+            transformRequest: [
+              function (oldData) {
+                let newStr = '';
+                for (let item in oldData) {
+                  newStr += encodeURIComponent(item) + '=' + encodeURIComponent(oldData[item]) + '&';
+                }
+                newStr = newStr.slice(0, -1);
+                return newStr;
+              }
+            ],
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+            }
           });
           break;
         case 'PUT':
@@ -52,7 +65,20 @@ export default (method: Method, url: any, data = {}): object => {
           response = await axios({
             method,
             url,
-            data
+            data,
+            transformRequest: [
+              function (oldData) {
+                let newStr = '';
+                for (let item in oldData) {
+                  newStr += encodeURIComponent(item) + '=' + encodeURIComponent(oldData[item]) + '&';
+                }
+                newStr = newStr.slice(0, -1);
+                return newStr;
+              }
+            ],
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+            }
           });
           break;
         case 'DELETE':
@@ -60,7 +86,20 @@ export default (method: Method, url: any, data = {}): object => {
           response = await axios({
             method,
             url,
-            data
+            data,
+            transformRequest: [
+              function (oldData) {
+                let newStr = '';
+                for (let item in oldData) {
+                  newStr += encodeURIComponent(item) + '=' + encodeURIComponent(oldData[item]) + '&';
+                }
+                newStr = newStr.slice(0, -1);
+                return newStr;
+              }
+            ],
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+            }
           });
           break;
         default:
@@ -71,4 +110,4 @@ export default (method: Method, url: any, data = {}): object => {
       reject(e);
     }
   });
-};
+}

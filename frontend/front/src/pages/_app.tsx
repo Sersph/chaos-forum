@@ -8,7 +8,6 @@ import theme from '../component/material-ui/theme';
 import Router from 'next/router';
 import api from '../api';
 import { updateUserInfo } from '../store/account';
-
 // ie11 兼容1
 // import '@babel/polyfill';
 
@@ -24,11 +23,11 @@ import './_app.less';
 
 // NProgress 配置
 NProgress.configure({
-  minimum: 0.35,
+  minimum: 0.25,
   easing: 'ease-in',
-  speed: 233,
+  speed: 350,
   trickle: true,
-  trickleSpeed: 65,
+  trickleSpeed: 150,
   showSpinner: false
 });
 
@@ -49,6 +48,26 @@ export default withReduxStore(
         if ((window as any).NodeList && !NodeList.prototype.forEach) {
           (NodeList as any).prototype.forEach = Array.prototype.forEach;
         }
+
+        Object.assign = function(target) {
+          'use strict';
+          if (target == null) {
+            throw new TypeError('Cannot convert undefined or null to object');
+          }
+
+          target = Object(target);
+          for (var index = 1; index < arguments.length; index++) {
+            var source = arguments[index];
+            if (source != null) {
+              for (var key in source) {
+                if (Object.prototype.hasOwnProperty.call(source, key)) {
+                  target[key] = source[key];
+                }
+              }
+            }
+          }
+          return target;
+        };
 
         // Material ui 删除服务端注入 css
         const jssStyles = document.querySelector('#jss-server-side');

@@ -7,10 +7,10 @@ import ErrorNotFound from '../component/error/not-found';
 import LayoutMaster from '../page/_layout/master';
 
 // 非懒加载模块
-// 账户
+// 用户
 import LayoutMasterAccount from '../page/_layout/master/account';
 
-// 账户登陆
+// 用户登陆
 import LayoutMasterAccountSignIn from '../page/_layout/master/account/sign-in';
 
 // 系统
@@ -66,7 +66,7 @@ export default class Router extends React.Component<Props, State> {
           path: '/',
           component: LayoutMaster,
           routes: [
-            // 账户登陆模块
+            // 用户登陆模块
             {
               path: '/account',
               component: LayoutMasterAccount,

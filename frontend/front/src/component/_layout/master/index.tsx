@@ -21,7 +21,11 @@ import { connect } from 'react-redux';
 import { AppState } from '../../../type/state';
 import { updateUserInfo } from '../../../store/account';
 import api from '../../../api';
+import Snackbar from '@material-ui/core/Snackbar';
+import Slide from '@material-ui/core/Slide';
+import CloseIcon from '@material-ui/icons/Close';
 import NProgress from 'nprogress';
+import Router from 'next/router';
 import './index.less';
 
 // 当前组件的类型声明
@@ -47,6 +51,9 @@ interface State {
   showUserTooltip: boolean;
   // 用户头像动画
   showAvatarToggle: boolean;
+  // 通知
+  snackbarMessage: string;
+  snackbarStatus: boolean;
 }
 
 // 当前组件类
@@ -68,19 +75,21 @@ export default compose<React.ComponentClass>(
         menuList: [
           {
             name: '首页',
-            icon: <HomeIcon/>,
+            icon: <HomeIcon color="primary"/>,
             href: '/home'
           },
           {
             name: '全部分区',
-            icon: <CategoryIcon/>,
-            href: '/post-category'
+            icon: <CategoryIcon color="primary"/>,
+            href: '/post/category/all'
           }
         ],
         drawerMobileOpen: false,
         showAuthTooltip: false,
         showUserTooltip: false,
-        showAvatarToggle: false
+        showAvatarToggle: false,
+        snackbarMessage: '',
+        snackbarStatus: false
       };
     }
 
@@ -124,7 +133,6 @@ export default compose<React.ComponentClass>(
     public toggleUserInfoContainer = (flag: boolean): void => {
       const { props } = this;
       const isSignIn = props.userInfo.username !== undefined;
-      console.log(props.userInfo.username);
       if (flag) {
         if (isSignIn) {
           this.setState({
@@ -159,15 +167,30 @@ export default compose<React.ComponentClass>(
 
       await api.account.signOut();
 
-      props.updateUserInfo({
-        isGet: true
-      });
+      setTimeout(() => {
+        this.setState({
+          snackbarMessage: '退出成功 前往首页中...',
+          snackbarStatus: true
+        });
 
-      NProgress.done();
+        this.setState({
+          showUserTooltip: false
+        });
 
-      this.setState({
-        showUserTooltip: false
-      });
+        setTimeout(() => {
+          // 刷新用户状态
+          props.updateUserInfo({
+            isGet: true
+          });
+
+          setTimeout(() => {
+            // 跳转至首页
+            Router.push({
+              pathname: '/home'
+            });
+          }, 1000);
+        }, 500);
+      }, 500);
     };
 
     /**
@@ -188,9 +211,15 @@ export default compose<React.ComponentClass>(
             >
               <MenuIcon/>
             </IconButton>
-            <Typography variant="h6" noWrap className="title">
-              混沌论坛
-            </Typography>
+            <div className="title">
+              <Link href="/home">
+                <a href="/home">
+                  <Typography variant="h6" noWrap>
+                    混沌论坛
+                  </Typography>
+                </a>
+              </Link>
+            </div>
             {props.userInfo.isGet && (
               <section
                 className="user-base-info-container"
@@ -199,7 +228,7 @@ export default compose<React.ComponentClass>(
                 onMouseLeave={() => this.toggleUserInfoContainer(false)}
               >
                 <img
-                  src={props.userInfo.avatar !== undefined ? props.userInfo.avatar : '../../../static/image/person-default-avatar.jpg'}
+                  src={(props.userInfo.avatar !== undefined && props.userInfo.avatar !== '') ? props.userInfo.avatar : '../../../static/image/person-default-avatar.jpg'}
                   alt="user-avatar"
                   className={`user-avatar ${state.showAvatarToggle ? 'active' : ''}`}
                 />
@@ -215,27 +244,24 @@ export default compose<React.ComponentClass>(
                         </div>
                         <div className="make-item favorite-post">
                           <i className="img"/>
-                          <Typography align="center" className="item-text">关注帖子</Typography>
+                          <Typography align="center" className="item-text">点赞帖子</Typography>
                         </div>
                       </div>
                       <div className="to-auth">
-                        <Button variant="contained" color="primary" onClick={() => {
-                          props.updateUserInfo({
-                            isGet: true,
-                            username: '迷都是通通',
-                            avatar: 'https://apic.douyucdn.cn/upload/avanew/face/201711/10/15/44c4aeb4ed7e82016426823ab253ba71_middle.jpg'
-                          });
-                          setTimeout(() => {
-                            this.setState({
-                              showAuthTooltip: false
-                            });
-                          }, 1);
-                        }}>
-                          登录
-                        </Button>
-                        <Button variant="outlined" color="primary">
-                          注册
-                        </Button>
+                        <Link href="/account/sign-in">
+                          <a href="/account/sign-in">
+                            <Button variant="contained" color="primary">
+                              登录
+                            </Button>
+                          </a>
+                        </Link>
+                        <Link href="/account/sign-up">
+                          <a href="/account/sign-up">
+                            <Button variant="outlined" color="primary">
+                              注册
+                            </Button>
+                          </a>
+                        </Link>
                       </div>
                     </div>
                   </section>
@@ -253,8 +279,8 @@ export default compose<React.ComponentClass>(
                       <Typography className="username">{props.userInfo.username}</Typography>
                     </div>
                     <div className="user-feature">
-                      <Link href="/qwe">
-                        <a href="/qwe">
+                      <Link href="/account/person/center">
+                        <a href="/account/person/center">
                           <div className="feature-item">
                             <i className="img"/>
                             <Typography className="item-text">个人中心</Typography>
@@ -333,7 +359,7 @@ export default compose<React.ComponentClass>(
     };
 
     public render = (): JSX.Element => {
-      const { props } = this;
+      const { props, state } = this;
       return (
         <div className="layout-master-container">
           {this.renderAppBarContainer()}
@@ -341,6 +367,34 @@ export default compose<React.ComponentClass>(
           <main className="content-container">
             {props.children}
           </main>
+          <Snackbar
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'center'
+            }}
+            open={state.snackbarStatus}
+            TransitionComponent={Slide}
+            autoHideDuration={1000}
+            message={<span>{state.snackbarMessage}</span>}
+            onClose={() => {
+              this.setState({
+                snackbarStatus: false
+              });
+            }}
+            action={[
+              <IconButton
+                key="1"
+                color="inherit"
+                onClick={() => {
+                  this.setState({
+                    snackbarStatus: false
+                  });
+                }}
+              >
+                <CloseIcon/>
+              </IconButton>,
+            ]}
+          />
         </div>
       );
     };

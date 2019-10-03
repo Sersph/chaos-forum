@@ -1,4 +1,4 @@
-// 账户接口声明
+// 用户接口声明
 export interface AccountAPI {
   // 登陆
   signIn: (data: any) => object;

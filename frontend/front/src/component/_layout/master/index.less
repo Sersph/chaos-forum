@@ -17,6 +17,10 @@
 
     .title {
       flex-grow: 1;
+
+      a {
+        color: #fff;
+      }
     }
 
     .user-base-info-container {
@@ -136,9 +140,13 @@
               padding-right: 15px;
               margin-top: 25px;
 
-              button {
+              a {
                 flex: 1;
                 margin-left: 15px;
+
+                button {
+                  width: 100%;
+                }
               }
             }
           }
@@ -280,21 +288,23 @@
       }
     }
   }
+
+  // 中心主体
+  .content-container {
+    overflow: hidden;
+    flex-grow: 1;
+    padding: 86px 25px 25px;
+  }
 }
 
-// 左侧菜单
-.sidebar-container {
-  width: 250px;
-  flex-shrink: 0;
-}
-
-// 中心主体
-.content-container {
-  flex-grow: 1;
-  padding: 86px 25px 25px;
-}
 
 html {
+  // 左侧菜单
+  .sidebar-container {
+    width: 250px;
+    flex-shrink: 0;
+  }
+
   .menu-wrapper {
     width: 250px;
 
@@ -305,13 +315,11 @@ html {
 
   // 菜单激活
   .menu-active {
-    text-decoration: none;
     background-color: rgba(0, 0, 0, 0.08);
   }
 
   .menu-link {
     color: rgba(0, 0, 0, 0.87);
-    text-decoration: none;
   }
 }
 
@@ -335,6 +343,11 @@ html {
     .sidebar-container {
       width: 0;
       flex-shrink: 0;
+    }
+
+    // 中心主体
+    .content-container {
+      padding: 86px 0 25px;
     }
   }
 

@@ -7,13 +7,12 @@ html {
   }
 }
 
-// 移动端适配
-@media (max-width: 600px) {
-
-}
-
-// nprogress
 html {
+  a {
+    text-decoration: none;
+  }
+
+  // nprogress
   #nprogress {
     z-index: 9999;
   }
@@ -38,6 +37,22 @@ html {
     #nprogress .bar {
       height: 0.5rem;
       background: #a9b8eb;
+    }
+  }
+
+  // tinymce
+  .mce-menubar {
+    display: none;
+  }
+}
+
+// 移动端适配
+@media (max-width: 600px) {
+  html {
+    .notification-container {
+      bottom: 15px;
+      top: initial;
+      width: 100%;
     }
   }
 }

@@ -6,9 +6,23 @@ module.exports = (router, app) => {
     ctx.respond = false;
   });
 
+  // 用户注册
+  router.get('/account/sign-up', async ctx => {
+    await app.render(ctx.req, ctx.res, '/account/sign-up');
+    ctx.respond = false;
+  });
+
+  // 用户登录
+  router.get('/account/sign-in', async ctx => {
+    await app.render(ctx.req, ctx.res, '/account/sign-in');
+    ctx.respond = false;
+  });
+
   // 全部分区
-  router.get('/post-category', async ctx => {
-    await app.render(ctx.req, ctx.res, '/post-category', ctx.query);
+  router.get('/post/category/:id', async ctx => {
+    await app.render(ctx.req, ctx.res, '/post/category', {
+      id: ctx.params.id
+    });
     ctx.respond = false;
   });
 
