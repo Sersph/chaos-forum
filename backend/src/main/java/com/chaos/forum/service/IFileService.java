@@ -16,5 +16,5 @@ import javax.servlet.http.HttpServletRequest;
  */
 public interface IFileService {
 
-    ResultVO upload(@RequestParam("file") MultipartFile file, HttpServletRequest request);
+    ResultVO upload(MultipartFile file, HttpServletRequest request);
 }

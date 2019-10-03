@@ -6,15 +6,11 @@ import lombok.Data;
 /**
  * { 统一数据返回格式 }
  *
- * @param  code 返回值
- * @param  message 返回内容
- * @param data  返回数据
- *
  * @Author kay
  * 2019-09-20 16:17
  */
 @Data
-public class ResultVO extends Throwable {
+public class ResultVO {
 
     private Integer code;
 

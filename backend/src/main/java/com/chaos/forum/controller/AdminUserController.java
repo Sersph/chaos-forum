@@ -1,7 +1,6 @@
 package com.chaos.forum.controller;
 
 import com.chaos.forum.entity.AdminUser;
-import com.chaos.forum.exception.DataException;
 import com.chaos.forum.returnx.enumx.ResultEnum;
 import com.chaos.forum.service.IAdminUserService;
 import com.chaos.forum.vo.ResultVO;
@@ -24,32 +23,23 @@ import javax.servlet.http.HttpSession;
 public class AdminUserController {
 
     @Autowired
-    IAdminUserService userService;
+    IAdminUserService adminUserService;
+
 
     /**
-     * 用户注册
+     * 管理员用户登陆
      *
-     * @param user 用户实体
-     */
-    @PostMapping("/signIn")
-    public ResultVO signIn(AdminUser user) {
-        return userService.signIn(user);
-    }
-
-    /**
-     * 用户登陆
-     *
-     * @param user 用户实体
+     * @param adminUser 用户实体
      * @param session  用户登陆信息
      */
     @PostMapping("/logIn")
-    public ResultVO logIn(AdminUser user, HttpSession session) throws DataException {
-        return this.userService.logIn(user,session);
+    public ResultVO logIn(AdminUser adminUser, HttpSession session) {
+        return this.adminUserService.logIn(adminUser,session);
     }
 
 
     /**
-     * 用户登陆退出
+     * 管理员用户登陆退出
      *
      * @param session 用户会话
      * */
@@ -61,7 +51,7 @@ public class AdminUserController {
 
 
     /**
-     * 用户信息查询
+     * 管理员用户信息查询
      *
      * @param session 用户登陆信息
      * */

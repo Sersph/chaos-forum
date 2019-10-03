@@ -2,7 +2,6 @@ package com.chaos.forum.entity;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.NonNull;
 
 import javax.validation.constraints.NotNull;
 import java.sql.Date;
@@ -18,24 +17,24 @@ import java.sql.Date;
 @Data
 public class AdminUser {
 
-    @ApiModelProperty(value = " 用户ID ")
+    @ApiModelProperty(value = " 管理员ID ")
     private int id;
 
-    @ApiModelProperty(value = " 用户名 ")
-    @NotNull(message = "用户名不为空")
+    @ApiModelProperty(value = " 管理员名 ")
+    @NotNull(message = "管理员名不为空")
     private String name;
 
-    @ApiModelProperty(value = " 用户密码 ")
+    @ApiModelProperty(value = " 管理员密码 ")
     @NotNull(message = "密码不为空")
     private String password;
 
-    @ApiModelProperty(value = " 用户最后登陆时间 ")
+    @ApiModelProperty(value = " 管理员最后登陆时间 ")
     private Date finallyLoginTime;
 
-    @ApiModelProperty(value = " 用户创建时间 ")
+    @ApiModelProperty(value = " 管理员创建时间 ")
     private Date createTime;
 
-    @ApiModelProperty(value = " 用户修改时间 ")
+    @ApiModelProperty(value = " 管理员修改时间 ")
     private Date updateTime;
 
 

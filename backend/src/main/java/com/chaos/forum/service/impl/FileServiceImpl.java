@@ -2,6 +2,7 @@ package com.chaos.forum.service.impl;
 
 import com.chaos.forum.returnx.enumx.ResultEnum;
 import com.chaos.forum.service.IFileService;
+import com.chaos.forum.tools.ImageTools;
 import com.chaos.forum.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -9,8 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
-import java.util.Date;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * <p>
@@ -35,7 +35,7 @@ public class FileServiceImpl implements IFileService {
     @Override
     public ResultVO upload(MultipartFile file, HttpServletRequest request) {
         if (file.isEmpty()) {
-            return new ResultVO(ResultEnum.FILE_ERROR);
+            return new ResultVO(ResultEnum.FILE_NOT_NULL);
         }
 
         //获取文件名
@@ -57,7 +57,12 @@ public class FileServiceImpl implements IFileService {
         //写入文件目录
         try {
             file.transferTo(dest);
-            return new ResultVO(ResultEnum.SUCCESS, this.staticUrl + newFileName);
+
+            List<String> list = new ArrayList<>();
+            list.add(new ImageTools().singleImage(this.upload + newFileName));
+            list.add(this.staticUrl + newFileName);
+
+            return new ResultVO(ResultEnum.SUCCESS, list);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResultVO(ResultEnum.FILE_ERROR);

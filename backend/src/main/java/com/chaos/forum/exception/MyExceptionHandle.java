@@ -1,5 +1,6 @@
 package com.chaos.forum.exception;
 
+import com.chaos.forum.returnx.enumx.ResultEnum;
 import com.chaos.forum.vo.ResultVO;
 
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -8,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * <p>
- * { 自定义异常处理类 }
+ * { 自定义全局异常异常处理类 }
  * </p>
  *
  * @Author kay
@@ -20,8 +21,18 @@ public class MyExceptionHandle extends RuntimeException {
     @ExceptionHandler(value = DataException.class)
     @ResponseBody
     protected ResultVO handle(DataException e) {
-        DataException dataException = e;
-        return new ResultVO(dataException.getResultEnum());
+        return new ResultVO(e.getResultEnum());
     }
+
+    @ExceptionHandler(value = Exception.class)
+    @ResponseBody
+    public ResultVO ha(Exception e){
+        e.printStackTrace();
+
+        //这里返回0
+        return new ResultVO(ResultEnum.SUCCESS);
+    }
+
+
 
 }
