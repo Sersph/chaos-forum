@@ -27,7 +27,7 @@ public class AdminUserController {
 
 
     /**
-     * 用户登陆
+     * 管理员用户登陆
      *
      * @param adminUser 用户实体
      * @param session  用户登陆信息
@@ -39,7 +39,7 @@ public class AdminUserController {
 
 
     /**
-     * 用户登陆退出
+     * 管理员用户登陆退出
      *
      * @param session 用户会话
      * */
@@ -51,7 +51,7 @@ public class AdminUserController {
 
 
     /**
-     * 用户信息查询
+     * 管理员用户信息查询
      *
      * @param session 用户登陆信息
      * */

@@ -143,7 +143,7 @@
 
 - 请求方式 - 请求 URL
 
-  - `POST` - `/frontend/article/:1`
+  - `Get` - `/frontend/article/:1`
 
 - 请求参数
 
@@ -172,7 +172,7 @@
 
 - 请求方式 - 请求 URL
 
-  - `POST` - `/frontend/article/like`
+  - `Put` - `/frontend/article/like`
 
 - 请求参数
 
