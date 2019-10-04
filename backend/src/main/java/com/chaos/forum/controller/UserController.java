@@ -65,9 +65,27 @@ public class UserController {
      * @param user
      * @return
      */
-    @GetMapping("/alter")
+    @PutMapping("/alter")
     public ResultVO alter(PersonUser user) {
         return this.userService.alter(user);
     }
 
+    /**
+     * 用户信息查询
+     *w
+     * @return
+     */
+    @GetMapping("/userCase")
+    public ResultVO getUserName(HttpSession session) {
+
+        System.out.println(session);
+        //获取不到用户的信息
+        PersonUser userIn = (PersonUser) session.getAttribute("personUser");
+
+        System.out.println(userIn);
+        if (userIn == null) {
+            return new ResultVO(ResultEnum.LI_GIN_NOT);
+        }
+        return new ResultVO(ResultEnum.SUCCESS,userIn.getUsername());
+    }
 }

@@ -58,6 +58,7 @@ public class AdminUserController {
     @GetMapping("/getUserName")
     public ResultVO getUserName(HttpSession session) {
         AdminUser userInfo = (AdminUser) session.getAttribute("adminUser");
+
         if (userInfo == null) {
             return new ResultVO(ResultEnum.LI_GIN_NOT);
         }

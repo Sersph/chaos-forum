@@ -71,7 +71,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, PersonUser> impleme
 
 
         /** 保存用户登陆信息 */
-        session.setAttribute("adminUser", userOne);
+        session.setAttribute("personUser", userOne);
         return new ResultVO(ResultEnum.SUCCESS);
     }
 
