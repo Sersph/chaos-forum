@@ -4,6 +4,7 @@ import com.chaos.forum.returnx.enumx.ResultEnum;
 import com.chaos.forum.service.IFileService;
 import com.chaos.forum.tools.ImageTools;
 import com.chaos.forum.vo.ResultVO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,7 +15,7 @@ import java.util.*;
 
 /**
  * <p>
- * { describe }
+ * { 文件上傳處理 }
  * </p>
  *
  * @Author kay
@@ -22,6 +23,9 @@ import java.util.*;
  */
 @Service
 public class FileServiceImpl implements IFileService {
+
+    @Autowired
+    private ImageTools imageTools;
 
     /**
      * 上传文件的路径
@@ -57,11 +61,9 @@ public class FileServiceImpl implements IFileService {
         //写入文件目录
         try {
             file.transferTo(dest);
-
             List<String> list = new ArrayList<>();
-            list.add(new ImageTools().singleImage(this.upload + newFileName));
+            list.add(imageTools.singleImage(this.upload + newFileName));
             list.add(this.staticUrl + newFileName);
-
             return new ResultVO(ResultEnum.SUCCESS, list);
         } catch (Exception e) {
             e.printStackTrace();

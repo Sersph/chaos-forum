@@ -5,6 +5,9 @@ import com.chaos.forum.exception.DataException;
 import com.chaos.forum.returnx.enumx.ResultEnum;
 import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
@@ -25,7 +28,7 @@ public class ImageTools {
     @Value("${forum.file.static-url}")
     private String staticUrl;
 
-    private static final String SUFFIX = "-150x150.jpg";
+    private final String SUFFIX = "-150x150.jpg";
 
     /**
      * 指定单一文件转换为缩略图
@@ -37,8 +40,6 @@ public class ImageTools {
 
         File filePath = new File(file);
 
-
-
         //获取文件扩展名
         String extension = filePath.getName().substring(filePath.getName().lastIndexOf(".") + 1);
 
@@ -48,15 +49,11 @@ public class ImageTools {
              *  不按照比例，指定大小进行缩放
              *  keepAspectRatio(false) 默认是按照比例缩放的
              * */
-
             try {
                 Thumbnails.of(filePath)
                         .size(150, 150)
                         .keepAspectRatio(false)
                         .toFile(filePath.getAbsolutePath() + SUFFIX);
-
-                System.out.println(staticUrl);
-
                 return staticUrl + filePath.getName() + SUFFIX;
             } catch (Exception e) {
                 throw new DataException(ResultEnum.FILE_CHANG_ERROR);
