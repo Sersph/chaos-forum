@@ -4,16 +4,13 @@ import com.chaos.forum.entity.ArticleLike;
 import com.chaos.forum.service.IArticleLikeService;
 import com.chaos.forum.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
 /**
  * <p>
- * { 文章管理器 }
+ * { 后端前台文章管理器 }
  * </p>
  *
  * @Author kay
@@ -26,6 +23,13 @@ public class ArticleLikeController {
     @Autowired
     private IArticleLikeService articleLikeService;
 
+    /**
+     * 文章点赞
+     *
+     * @param session
+     * @param articleLike
+     * @return
+     */
     @PostMapping("/like")
     public ResultVO articleLike(HttpSession session, ArticleLike articleLike) {
         return this.articleLikeService.saveLiked(session, articleLike);

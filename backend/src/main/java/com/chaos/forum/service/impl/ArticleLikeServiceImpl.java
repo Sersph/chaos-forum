@@ -11,7 +11,6 @@ import com.chaos.forum.returnx.enumx.ResultEnum;
 import com.chaos.forum.service.IArticleLikeService;
 import com.chaos.forum.tools.DatabaseTools;
 import com.chaos.forum.vo.ResultVO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
@@ -66,5 +65,7 @@ public class ArticleLikeServiceImpl extends ServiceImpl<ArticleLikeMapper, Artic
 
         return new ResultVO(ResultEnum.ERROR);
     }
+
+
 
 }
