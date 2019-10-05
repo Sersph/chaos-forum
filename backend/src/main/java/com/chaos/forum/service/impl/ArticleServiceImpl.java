@@ -107,8 +107,6 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         /** 分页 */
         Page page = new Page<Article>(articleListPage.getPage(), articleListPage.getPageSize());
 
-
-
         if (articleListPage.getSortField() != null) {
 
             articleListPage.setSortField(DatabaseTools.humpIsUnderlined(articleListPage.getSortField()));

@@ -78,11 +78,7 @@ public class UserController {
     @GetMapping("/userCase")
     public ResultVO getUserName(HttpSession session) {
 
-        System.out.println(session);
-        //获取不到用户的信息
         PersonUser userIn = (PersonUser) session.getAttribute("personUser");
-
-        System.out.println(userIn);
         if (userIn == null) {
             return new ResultVO(ResultEnum.LI_GIN_NOT);
         }
