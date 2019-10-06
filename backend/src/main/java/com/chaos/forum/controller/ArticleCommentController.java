@@ -25,9 +25,21 @@ public class ArticleCommentController {
     @Autowired
     private IArticleCommentService articleCommentService;
 
+    /**
+     * 创建文章评论
+     *
+     * @param session
+     * @param articleComment
+     * @return
+     */
     @PostMapping("/saveComment")
     public ResultVO saveComment(HttpSession session, ArticleComment articleComment) {
         return this.articleCommentService.SaveComment(session, articleComment);
+    }
+
+    @PostMapping()
+    public ResultVO replyComment(HttpSession session, ArticleComment articleComment) {
+        return this.articleCommentService.replyComment(session, articleComment);
     }
 
 }

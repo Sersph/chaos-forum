@@ -1,5 +1,6 @@
 package com.chaos.forum.config;
 
+import com.baomidou.mybatisplus.core.config.GlobalConfig;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor;
 import org.mybatis.spring.annotation.MapperScan;
@@ -22,6 +23,8 @@ import java.util.Properties;
 @Configuration
 @MapperScan("com.chaos.forum.mapper*")
 public class MybatisPlusConfig {
+
+
 
     /**
      * 分页插件

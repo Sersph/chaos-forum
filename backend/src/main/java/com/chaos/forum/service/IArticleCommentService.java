@@ -18,4 +18,6 @@ public interface IArticleCommentService extends IService<ArticleComment> {
 
     ResultVO SaveComment(HttpSession session, ArticleComment articleComment);
 
+    ResultVO replyComment(HttpSession session, ArticleComment articleComment);
+
 }
