@@ -24,8 +24,6 @@ import javax.servlet.http.HttpSession;
  */
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, PersonUser> implements IUserService {
-
-
     /**
      * 用户注册
      *
@@ -34,10 +32,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, PersonUser> impleme
      */
     @Override
     public ResultVO signIn(PersonUser user) {
-        user.setCreateTime(DatabaseTools.getSqlDate());
-        user.setUpdateTime(DatabaseTools.getSqlDate());
-        user.setFinallyLoginTime(DatabaseTools.getSqlDate());
-
         if (this.save(user)) {
             return new ResultVO(ResultEnum.SUCCESS);
         }

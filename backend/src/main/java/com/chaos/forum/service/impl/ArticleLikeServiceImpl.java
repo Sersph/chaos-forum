@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  * <p>
- * { describe }
+ * { 点赞 }
  * </p>
  *
  * @Author kay
@@ -33,14 +33,10 @@ public class ArticleLikeServiceImpl extends ServiceImpl<ArticleLikeMapper, Artic
      */
     @Override
     public ResultVO saveLiked(HttpSession session, ArticleLike articleLike) {
-
         PersonUser userIn = (PersonUser) session.getAttribute("personUser");
-
         if (userIn == null) {
             return new ResultVO(ResultEnum.LI_GIN_NOT);
         }
-
-        articleLike.setVoteTime(DatabaseTools.getSqlDate());
         articleLike.setUserId(userIn.getId());
 
         /**

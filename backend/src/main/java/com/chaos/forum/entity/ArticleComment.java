@@ -1,10 +1,11 @@
 package com.chaos.forum.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * <p>
@@ -29,6 +30,7 @@ public class ArticleComment{
     @ApiModelProperty("被评论人的ID")
     private int parentUserId;
 
+    @TableField(fill = FieldFill.INSERT)
     @ApiModelProperty("创建时间")
     private Date createTime;
 

@@ -1,8 +1,11 @@
 package com.chaos.forum.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * <p>
@@ -19,6 +22,8 @@ public class ArticleLike {
 
     private int userId;
 
+    @TableField(fill = FieldFill.INSERT)
+    @ApiModelProperty("点赞时间")
     private Date voteTime;
 
     private int articleId;

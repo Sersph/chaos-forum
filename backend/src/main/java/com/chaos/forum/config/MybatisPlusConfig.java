@@ -3,6 +3,7 @@ package com.chaos.forum.config;
 import com.baomidou.mybatisplus.core.config.GlobalConfig;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor;
+import com.chaos.forum.tools.MetaHandler;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,7 +14,7 @@ import java.util.Properties;
 
 /**
  * <p>
- * { mybatisPlus分页插件配置类 }
+ * { mybatisPlus配置类 }
  * </p>
  *
  * @Author kay
@@ -24,7 +25,16 @@ import java.util.Properties;
 @MapperScan("com.chaos.forum.mapper*")
 public class MybatisPlusConfig {
 
-
+    /**
+     * 自动填充功能
+     * @return
+     */
+    @Bean
+    public GlobalConfig globalConfig() {
+        GlobalConfig globalConfig = new GlobalConfig();
+        globalConfig.setMetaObjectHandler(new MetaHandler());
+        return globalConfig;
+    }
 
     /**
      * 分页插件

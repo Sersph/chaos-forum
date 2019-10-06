@@ -1,13 +1,11 @@
 package com.chaos.forum.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.beans.Transient;
-import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * <p>
@@ -29,9 +27,11 @@ public class Article {
     @ApiModelProperty(value = " 文章内容 ")
     private String content;
 
+    @TableField(fill = FieldFill.INSERT)
     @ApiModelProperty(value = " 文章创建时间 ")
     private Date createTime;
 
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     @ApiModelProperty(value = " 文章修改时间 ")
     private Date updateTime;
 

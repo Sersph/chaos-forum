@@ -1,10 +1,12 @@
 package com.chaos.forum.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * <p>
@@ -28,12 +30,15 @@ public class PersonUser {
     @NotNull(message = "密码不为空")
     private String password;
 
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     @ApiModelProperty(value = " 用户最后登陆时间 ")
     private Date finallyLoginTime;
 
+    @TableField(fill = FieldFill.INSERT)
     @ApiModelProperty(value = " 用户创建时间 ")
     private Date createTime;
 
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     @ApiModelProperty(value = " 用户修改时间 ")
     private Date updateTime;
 }

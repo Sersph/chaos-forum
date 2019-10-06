@@ -1,10 +1,12 @@
 package com.chaos.forum.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * <p>
@@ -31,9 +33,11 @@ public class AdminUser {
     @ApiModelProperty(value = " 管理员最后登陆时间 ")
     private Date finallyLoginTime;
 
+    @TableField(fill = FieldFill.INSERT)
     @ApiModelProperty(value = " 管理员创建时间 ")
     private Date createTime;
 
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     @ApiModelProperty(value = " 管理员修改时间 ")
     private Date updateTime;
 

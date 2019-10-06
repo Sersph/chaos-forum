@@ -46,13 +46,6 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
      * */
     @Override
     public ResultVO createArticle(Article article) {
-
-        /**
-         * 格式化时间
-         * */
-        article.setCreateTime(DatabaseTools.getSqlDate());
-        article.setUpdateTime(DatabaseTools.getSqlDate());
-
         /**
          *  插入
          * */

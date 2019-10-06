@@ -6,6 +6,8 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 @RunWith(SpringRunner.class)
@@ -14,9 +16,11 @@ public class ForumApplicationTests {
 
     @Test
     public void contextLoads() {
-        String filePath = "E:\\project\\chaos-forum\\backend\\src\\main\\resources\\static\\1.jpg";
-        ImageTools img = new ImageTools();
-        img.singleImage(filePath);
+        Date t = new Date();
+
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Long l = Long.valueOf(df.format(t));
+        System.out.println(df.format(t));
     }
 
 }

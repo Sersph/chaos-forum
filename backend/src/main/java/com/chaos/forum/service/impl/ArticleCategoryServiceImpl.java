@@ -37,10 +37,6 @@ public class ArticleCategoryServiceImpl extends ServiceImpl<ArticleCategoryMappe
      */
     @Override
     public ResultVO createCategory(ArticleCategory articleCategoryName) {
-
-        articleCategoryName.setCreateTime(DatabaseTools.getSqlDate());
-        articleCategoryName.setUpdateTime(DatabaseTools.getSqlDate());
-
         if (this.save(articleCategoryName)) {
             return new ResultVO(ResultEnum.SUCCESS);
         }
@@ -55,12 +51,9 @@ public class ArticleCategoryServiceImpl extends ServiceImpl<ArticleCategoryMappe
      */
     @Override
     public ResultVO updateCategory(ArticleCategory articleCategoryName) {
-
         this.updateById(articleCategoryName);
-
         UpdateWrapper<ArticleCategory> articleUpdateWrapper = new UpdateWrapper<>();
         articleUpdateWrapper.eq("name", articleCategoryName.getName());
-
         return new ResultVO(ResultEnum.SUCCESS);
     }
 
@@ -73,7 +66,6 @@ public class ArticleCategoryServiceImpl extends ServiceImpl<ArticleCategoryMappe
     @Override
     public ResultVO selectCategory(ArticleListPage articleListPage) {
         PageTools pageTools = new PageTools<ArticleCategory>(articleListPage.getPage(), articleListPage.getPageSize());
-
         return new ResultVO(ResultEnum.SUCCESS,
                 pageTools.autoPaging(articleListPage,
                     (page, wrapper) -> this.articleCategoryMapper.selectPages(page, wrapper)

@@ -38,8 +38,6 @@ public class ArticleCommentServiceImpl extends ServiceImpl<ArticleCommentMapper,
 
         //获取到用户ID
         articleComment.setUserId(userIn.getId());
-        //获取到创建时间
-        articleComment.setCreateTime(DatabaseTools.getSqlDate());
 
         /**
          * 传入评论内容，文章ID，被回复人ID可以为null（null的话 就是评论的第一条）
@@ -47,7 +45,7 @@ public class ArticleCommentServiceImpl extends ServiceImpl<ArticleCommentMapper,
         if (this.save(articleComment)){
             return new ResultVO(ResultEnum.SUCCESS);
         }
-        return new ResultVO(ResultEnum.ERROR);
+        return new ResultVO(ResultEnum.LI_GIN_NOT);
     }
 
     /**
@@ -59,8 +57,6 @@ public class ArticleCommentServiceImpl extends ServiceImpl<ArticleCommentMapper,
      */
     @Override
     public ResultVO replyComment(HttpSession session, ArticleComment articleComment) {
-
-
 
         return null;
     }
