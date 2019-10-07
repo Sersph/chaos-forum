@@ -6,6 +6,11 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 
 /**
@@ -39,14 +44,17 @@ public class WebControllerAop {
     public void verify(JoinPoint joinPoint) {
 
         //获取RequestAttributes(请求属性)
-//        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
-//
-//        //从获取RequestAttributes中获取HttpServletRequest的信息  
-//        HttpServletRequest request = (HttpServletRequest) requestAttributes.resolveReference(RequestAttributes.REFERENCE_REQUEST);
-//
-//        //获取session信息
-//        HttpSession session = (HttpSession) requestAttributes.resolveReference(RequestAttributes.REFERENCE_SESSION);
+        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
 
+        //从获取RequestAttributes中获取HttpServletRequest的信息  
+        HttpServletRequest request = (HttpServletRequest) requestAttributes.resolveReference(RequestAttributes.REFERENCE_REQUEST);
+
+        //获取session信息
+        HttpSession session = (HttpSession) requestAttributes.resolveReference(RequestAttributes.REFERENCE_SESSION);
+
+        if (session == null) {
+
+        }
 
     }
 

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
@@ -18,12 +19,14 @@ import java.util.Date;
 @Data
 public class ArticleComment{
 
-    @ApiModelProperty("id")
+    @ApiModelProperty("文章评论ID")
     private int id;
 
+    @NotNull
     @ApiModelProperty("用户ID")
     private int userId;
 
+    @NotNull
     @ApiModelProperty("评论内容")
     private String content;
 

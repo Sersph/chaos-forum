@@ -32,14 +32,9 @@ public class ArticleCommentController {
      * @param articleComment
      * @return
      */
-    @PostMapping("/saveComment")
+    @PostMapping("/comment")
     public ResultVO saveComment(HttpSession session, ArticleComment articleComment) {
         return this.articleCommentService.SaveComment(session, articleComment);
-    }
-
-    @PostMapping()
-    public ResultVO replyComment(HttpSession session, ArticleComment articleComment) {
-        return this.articleCommentService.replyComment(session, articleComment);
     }
 
 }

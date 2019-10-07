@@ -58,7 +58,6 @@ public class ArticleLikeServiceImpl extends ServiceImpl<ArticleLikeMapper, Artic
                 return new ResultVO(ResultEnum.SUCCESS);
             }
         }
-
         return new ResultVO(ResultEnum.ERROR);
     }
 

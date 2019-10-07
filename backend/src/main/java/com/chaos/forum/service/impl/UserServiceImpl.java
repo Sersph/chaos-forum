@@ -12,6 +12,8 @@ import com.chaos.forum.vo.ResultVO;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
+import java.util.Date;
+import java.util.HashMap;
 
 
 /**
@@ -32,10 +34,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, PersonUser> impleme
      */
     @Override
     public ResultVO signIn(PersonUser user) {
+        user.setFinallyLoginTime(DatabaseTools.shiftDate(new Date()));
+
+        if (null != this.getOne(new QueryWrapper<PersonUser>().eq("username", user.getUsername()))) {
+            return new ResultVO(ResultEnum.SIGN_IN_ERROR);
+        }
+
         if (this.save(user)) {
             return new ResultVO(ResultEnum.SUCCESS);
         }
-        return new ResultVO(ResultEnum.SIGN_IN_NOT);
+        throw new DataException(ResultEnum.SIGN_IN_NOT);
     }
 
     /**
@@ -47,7 +55,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, PersonUser> impleme
      */
     @Override
     public ResultVO logIn(PersonUser user, HttpSession session) {
-
         PersonUser userOne = this.getOne(new QueryWrapper<PersonUser>().eq("username", user.getUsername()));
         /** 判断数据库记录
          *      抛出异常：LI_GIN_NULL（用户未注册）
@@ -62,7 +69,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, PersonUser> impleme
         if (!userOne.getPassword().equals(user.getPassword())) {
             throw new DataException(ResultEnum.LI_GIN_ERROR);
         }
-
 
         /** 保存用户登陆信息 */
         session.setAttribute("personUser", userOne);
@@ -88,5 +94,28 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, PersonUser> impleme
         }
 
         throw new DataException(ResultEnum.UPDATE_ERROR);
+    }
+
+    /**
+     * 用户信息查询
+     *
+     * @param session
+     * @return
+     */
+    @Override
+    public ResultVO getUserName(HttpSession session) {
+
+        PersonUser userIn = (PersonUser) session.getAttribute("personUser");
+
+        if (userIn == null) {
+            throw new DataException(ResultEnum.LI_GIN_NOT);
+        }
+
+        HashMap<String, String> map = new HashMap<>();
+        map.put("buddha",  userIn.getBuddha());
+        map.put("username", userIn.getUsername());
+
+        return new ResultVO(ResultEnum.SUCCESS, map);
+
     }
 }

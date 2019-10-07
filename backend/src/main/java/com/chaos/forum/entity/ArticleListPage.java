@@ -3,6 +3,8 @@ package com.chaos.forum.entity;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
+
 
 /**
  * <p>

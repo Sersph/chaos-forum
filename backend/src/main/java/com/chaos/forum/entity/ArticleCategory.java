@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
@@ -18,9 +19,11 @@ import java.util.Date;
 @Data
 public class ArticleCategory {
 
+    @NotNull
     @ApiModelProperty(value = " 文章分类ID ")
     private int id;
 
+    @NotNull
     @ApiModelProperty(value = " 文章分类名 ")
     private String name;
 

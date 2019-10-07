@@ -2,11 +2,15 @@ package com.chaos.forum.controller;
 
 import com.chaos.forum.entity.Article;
 import com.chaos.forum.entity.ArticleListPage;
+import com.chaos.forum.exception.DataException;
 import com.chaos.forum.returnx.enumx.ResultEnum;
 import com.chaos.forum.service.IArticleService;
 import com.chaos.forum.vo.ResultVO;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * <p>
@@ -16,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
  * @Author kay
  * 2019-09-21 13:45
  */
-@RequestMapping("/backend")
+@RequestMapping("/frontend")
 @RestController
 public class ArticleController {
 
@@ -30,8 +34,8 @@ public class ArticleController {
      * @return SUCCESS / CREATE_ERROR
      * */
     @PostMapping("/article")
-    public ResultVO createArticle(Article article) {
-        return this.articleService.createArticle(article);
+    public ResultVO createArticle(Article article, HttpSession session) {
+        return this.articleService.createArticle(article,session);
     }
 
     /**
@@ -41,7 +45,7 @@ public class ArticleController {
      * @param id 修改文章的对应ID
      * @return SUCCESS / UPDATE_ERROR
      * */
-    @PutMapping("/article/{id}")
+    //@PutMapping("/article/{id}")
     public ResultVO updateArticle(Article article, @PathVariable int id) {
         article.setId(id);
         return this.articleService.updateArticle(article);
@@ -66,22 +70,19 @@ public class ArticleController {
      * @param id 查询文章的对应ID
      * @return SUCCESS,Date / SELECT_ERROR
      * */
-    @GetMapping("/article/{id}")
+    @GetMapping("/getArticle/{id}")
     public ResultVO selectArticle(@PathVariable int id) {
-        if (articleService.getById(id) != null) {
-            return new ResultVO(ResultEnum.SUCCESS, articleService.getById(id));
-        }
-        return new ResultVO(ResultEnum.LI_GIN_PAST);
+        return this.articleService.selectArticle(id);
     }
 
 
     /**
-     * 文章查询-分页
+     * 文章所有文章（查询-分页）
      *
      * @param articleListPage 分页实体
      * @return SUCCESS ,iPage /  LI_GIN_PAST
      */
-    @GetMapping("article")
+    @GetMapping("getArticleAll")
     public ResultVO selectArticle(ArticleListPage articleListPage) {
         return this.articleService.paging(articleListPage);
     }

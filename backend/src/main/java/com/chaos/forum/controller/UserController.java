@@ -32,7 +32,7 @@ public class UserController {
      * @param user
      * @return
      */
-    @PostMapping("/signIn")
+    @PostMapping("/register")
     public ResultVO signIn(PersonUser user) {
         return this.userService.signIn(user);
     }
@@ -55,7 +55,7 @@ public class UserController {
      */
     @GetMapping("/logOut")
     public ResultVO logOut(HttpSession session) {
-        session.removeAttribute("user");
+        session.removeAttribute("personUser");
         return new ResultVO(ResultEnum.SUCCESS);
     }
 
@@ -72,16 +72,11 @@ public class UserController {
 
     /**
      * 用户信息查询
-     *w
-     * @return
+     *
+     * @return 头像默认返回‘ko1’
      */
     @GetMapping("/userCase")
     public ResultVO getUserName(HttpSession session) {
-
-        PersonUser userIn = (PersonUser) session.getAttribute("personUser");
-        if (userIn == null) {
-            return new ResultVO(ResultEnum.LI_GIN_NOT);
-        }
-        return new ResultVO(ResultEnum.SUCCESS,userIn.getUsername());
+        return this.userService.getUserName(session);
     }
 }

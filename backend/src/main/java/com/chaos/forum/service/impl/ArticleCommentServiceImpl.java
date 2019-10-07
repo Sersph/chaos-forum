@@ -48,16 +48,4 @@ public class ArticleCommentServiceImpl extends ServiceImpl<ArticleCommentMapper,
         return new ResultVO(ResultEnum.LI_GIN_NOT);
     }
 
-    /**
-     * 文章评论回复功能
-     *
-     * @param session
-     * @param articleComment
-     * @return
-     */
-    @Override
-    public ResultVO replyComment(HttpSession session, ArticleComment articleComment) {
-
-        return null;
-    }
 }

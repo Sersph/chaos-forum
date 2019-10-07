@@ -11,6 +11,7 @@
 
   | 参数     | 必填 | 类型   | 备注     |
   | -------- | ---- | ------ | -------- |
+  | buddha   | no   | String | 头像     |
   | username | yes  | string | 用户名   |
   | password | yes  | string | 用户密码 |
 
@@ -172,7 +173,7 @@
 
 - 请求方式 - 请求 URL
 
-  - `Put` - `/frontend/article/like`
+  - `Post` - `/frontend/article/like`
 
 - 请求参数
 
@@ -195,6 +196,33 @@
       "message": "创建失败"
   }
   ```
+
+
+
+#### 文章评论
+
+- 请求方式 - 请求 URL
+
+  - `Post` - `/frontend/article/comment`
+
+- 请求参数
+
+  | 参数         | 必填 | 类型   | 备注       |
+  | ------------ | ---- | ------ | ---------- |
+  | content      | yes  | String | 评论内容   |
+  | userId       | yes  | int    | 文章ID     |
+  | parentUserId | no   | int    | 被回复人ID |
+
+- 返回示例
+
+  ```json
+  // 成功
+  {
+      "code": 0
+  }
+  ```
+
+
 
 ## 文章分类
 
@@ -228,3 +256,6 @@
       "message": "查询失败"
   }
   ```
+
+
+

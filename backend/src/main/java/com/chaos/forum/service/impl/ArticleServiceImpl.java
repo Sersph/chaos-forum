@@ -8,6 +8,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.chaos.forum.entity.Article;
 import com.chaos.forum.entity.ArticleCategory;
 import com.chaos.forum.entity.ArticleListPage;
+import com.chaos.forum.entity.PersonUser;
+import com.chaos.forum.exception.DataException;
 import com.chaos.forum.mapper.ArticleMapper;
 import com.chaos.forum.returnx.enumx.ResultEnum;
 import com.chaos.forum.service.IArticleService;
@@ -18,6 +20,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpSession;
 
 
 /**
@@ -45,14 +49,18 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
      * @param article 实体对象
      * */
     @Override
-    public ResultVO createArticle(Article article) {
-        /**
-         *  插入
-         * */
-        if (this.save(article)) {
-            return new ResultVO(ResultEnum.SUCCESS);
+    public ResultVO createArticle(Article article, HttpSession session) {
+        PersonUser user = (PersonUser) session.getAttribute("personUser");
+        //获取到用户ID
+        if (user != null) {
+            article.setCreatorId(user.getId());
+            /**  插入  */
+            if (this.save(article)) {
+                return new ResultVO(ResultEnum.SUCCESS);
+            }
+            throw new DataException(ResultEnum.CREATE_ERROR);
         }
-        return new ResultVO(ResultEnum.CREATE_ERROR);
+        throw new DataException(ResultEnum.LI_GIN_NOT);
     }
 
     /**
@@ -74,7 +82,21 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
             return new ResultVO(ResultEnum.SUCCESS);
         }
-        return new ResultVO(ResultEnum.UPDATE_ERROR);
+        throw new DataException(ResultEnum.UPDATE_ERROR);
+    }
+
+    /**
+     * 查询单一文章
+     * @param id 查询文章的对应ID
+     * @return SUCCESS,Date / SELECT_ERROR
+     * */
+    @Override
+    public ResultVO selectArticle(int id) {
+
+        if (this.getById(id) != null) {
+            return new ResultVO(ResultEnum.SUCCESS, this.getById(id));
+        }
+        throw new DataException(ResultEnum.SELECT_ERROR);
     }
 
     /**

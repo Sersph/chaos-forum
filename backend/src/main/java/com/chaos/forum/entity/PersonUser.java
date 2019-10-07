@@ -22,15 +22,17 @@ public class PersonUser {
     @ApiModelProperty(value = " 用户ID ")
     private int id;
 
+    @ApiModelProperty(value = " 用户头像 ")
+    private String buddha;
+
     @ApiModelProperty(value = " 用户名 ")
-    @NotNull(message = "用户名不为空")
+
     private String username;
 
     @ApiModelProperty(value = " 用户密码 ")
     @NotNull(message = "密码不为空")
     private String password;
 
-    @TableField(fill = FieldFill.INSERT_UPDATE)
     @ApiModelProperty(value = " 用户最后登陆时间 ")
     private Date finallyLoginTime;
 

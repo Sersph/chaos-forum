@@ -5,6 +5,8 @@ import com.chaos.forum.entity.Article;
 import com.chaos.forum.entity.ArticleListPage;
 import com.chaos.forum.vo.ResultVO;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * <p>
  * { describe }
@@ -15,9 +17,11 @@ import com.chaos.forum.vo.ResultVO;
  */
 public interface IArticleService extends IService<Article> {
 
-    ResultVO createArticle(Article article);
+    ResultVO createArticle(Article article, HttpSession session);
 
     ResultVO updateArticle(Article article);
+
+    ResultVO selectArticle(int id);
 
     @Deprecated
     ResultVO selectArticle(ArticleListPage articleListPage);

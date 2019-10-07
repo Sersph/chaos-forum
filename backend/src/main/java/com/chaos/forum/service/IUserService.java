@@ -36,4 +36,6 @@ public interface IUserService extends IService<PersonUser> {
      * @param user 用户实体
      * */
     ResultVO alter(PersonUser user);
+
+    ResultVO getUserName(HttpSession session);
 }
