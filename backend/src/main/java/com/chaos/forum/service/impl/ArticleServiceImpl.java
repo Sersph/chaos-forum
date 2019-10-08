@@ -22,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 
 /**
@@ -40,14 +41,14 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     /**
      * 日志
-     * */
+     */
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     /**
      * 添加文章
      *
      * @param article 实体对象
-     * */
+     */
     @Override
     public ResultVO createArticle(Article article, HttpSession session) {
         PersonUser user = (PersonUser) session.getAttribute("personUser");
@@ -67,7 +68,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
      * 更新文章
      *
      * @param article 实体对象
-     * */
+     */
     @Override
     public ResultVO updateArticle(Article article) {
 
@@ -87,68 +88,111 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     /**
      * 查询单一文章
+     *
      * @param id 查询文章的对应ID
-     * @return SUCCESS,Date / SELECT_ERROR
-     * */
+     * @return SUCCESS, Date / SELECT_ERROR
+     */
     @Override
     public ResultVO selectArticle(int id) {
-
         if (this.getById(id) != null) {
-            return new ResultVO(ResultEnum.SUCCESS, this.getById(id));
+            return new ResultVO(ResultEnum.SUCCESS, getById(id));
         }
         throw new DataException(ResultEnum.SELECT_ERROR);
     }
 
     /**
-     * 文章分页
+     * 查询文章
      *
-     * */
+     * @return SUCCESS, Date / SELECT_ERROR
+     */
     @Override
-    public ResultVO paging(ArticleListPage articleListPage) {
-        PageTools pageTools = new PageTools<ArticleCategory>(articleListPage.getPage(), articleListPage.getPageSize());
-        return new ResultVO(ResultEnum.SUCCESS,
-                pageTools.autoPaging(articleListPage,
-                        (page, wrapper) -> articleMapper.selectPages(page, wrapper, articleListPage)
-                ));
+    public ResultVO getArticleCategory(Article article, ArticleListPage articleListPage) {
+
+        /** 分页 */
+        Page page = new Page<Article>(articleListPage.getPage(), articleListPage.getPageSize());
+        /**
+         * 通过分类id来查询
+         */
+        System.out.println(article.getArticleCategoryId());
+
+        if (article.getArticleCategoryId() != 0) {
+            List list = this.list(new QueryWrapper<Article>().eq("article_category_id", article.getArticleCategoryId()));
+            
+            if (list != null) {
+                return new ResultVO(ResultEnum.SUCCESS, list);
+            }
+            throw new DataException(ResultEnum.SELECT_ERROR);
+
+        } else {
+            /**
+             * 查询所有文章：模糊查询、默认desc排序；
+             */
+            if (this.list(new QueryWrapper<>()) != null) {
+                if (articleListPage.getSortField() != null) {
+                    //转换
+                    articleListPage.setSortField(DatabaseTools.humpIsUnderlined(articleListPage.getSortField()));
+                    this.logger.info(articleListPage.getSortField());
+                    //排序
+                    if (articleListPage.getSortOrder().equals("desc")) {
+                        page.setDesc(articleListPage.getSortField());
+                    } else {
+                        page.setAsc(articleListPage.getSortField());
+                    }
+                }
+
+                /** 模糊查询 */
+                QueryWrapper<Article> wrapper = new QueryWrapper();
+                if (articleListPage.getTitle() != null) {
+                    wrapper.like("title", articleListPage.getTitle());
+                }
+                if (articleListPage.getArticleCategoryId() != 0) {
+                    wrapper.eq("article_category_id", articleListPage.getArticleCategoryId());
+                }
+                IPage iPage = articleMapper.selectPages(page, wrapper, articleListPage);
+                return new ResultVO(ResultEnum.SUCCESS, iPage);
+            }
+            throw new DataException(ResultEnum.SELECT_ERROR);
+        }
     }
 
     /**
      * 文章分页
      * 废弃
-     * */
+     */
     @Override
     @Deprecated
     public ResultVO selectArticle(ArticleListPage articleListPage) {
-        /** 分页 */
-        Page page = new Page<Article>(articleListPage.getPage(), articleListPage.getPageSize());
-
-        if (articleListPage.getSortField() != null) {
-
-            articleListPage.setSortField(DatabaseTools.humpIsUnderlined(articleListPage.getSortField()));
-            //转换
-
-            this.logger.info(articleListPage.getSortField());
-
-            //排序
-            if (articleListPage.getSortOrder().equals("desc")) {
-                page.setDesc(articleListPage.getSortField());
-            } else {
-                page.setAsc(articleListPage.getSortField());
-            }
-        }
-
-        /** 模糊查询 */
-        QueryWrapper<Article> wrapper = new QueryWrapper();
-        if (articleListPage.getTitle() != null) {
-            wrapper.like("title", articleListPage.getTitle());
-        }
-
-        if (articleListPage.getArticleCategoryId() != 0) {
-            wrapper.eq("article_category_id", articleListPage.getArticleCategoryId());
-        }
-
-        IPage iPage = articleMapper.selectPages(page, wrapper, articleListPage);
-        return new ResultVO(ResultEnum.SUCCESS, iPage);
+//        /** 分页 */
+//        Page page = new Page<Article>(articleListPage.getPage(), articleListPage.getPageSize());
+//
+//        if (articleListPage.getSortField() != null) {
+//
+//            //转换
+//            articleListPage.setSortField(DatabaseTools.humpIsUnderlined(articleListPage.getSortField()));
+//
+//            this.logger.info(articleListPage.getSortField());
+//
+//            //排序
+//            if (articleListPage.getSortOrder().equals("desc")) {
+//                page.setDesc(articleListPage.getSortField());
+//            } else {
+//                page.setAsc(articleListPage.getSortField());
+//            }
+//        }
+//
+//        /** 模糊查询 */
+//        QueryWrapper<Article> wrapper = new QueryWrapper();
+//        if (articleListPage.getTitle() != null) {
+//            wrapper.like("title", articleListPage.getTitle());
+//        }
+//
+//        if (articleListPage.getArticleCategoryId() != 0) {
+//            wrapper.eq("article_category_id", articleListPage.getArticleCategoryId());
+//        }
+//
+//        IPage iPage = articleMapper.selectPages(page, wrapper, articleListPage);
+//        return new ResultVO(ResultEnum.SUCCESS, iPage);
+//    }
+        return null;
     }
-
 }

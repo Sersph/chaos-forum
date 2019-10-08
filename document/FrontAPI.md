@@ -115,7 +115,7 @@
 
 - 请求方式 - 请求 URL
 
-  - `POST` - `/frontend/article`
+  - `POST` - `/frontend/article/sava`
 
 - 请求参数
 
@@ -124,6 +124,7 @@
   | title             | yes  | string | 标题       |
   | content           | yes  | string | 内容       |
   | articleCategoryId | yes  | int    | 文章分类id |
+  | preview           | no   | String | 预览图     |
 
 - 返回示例
 
@@ -140,19 +141,40 @@
   }
   ```
 
-#### 获取文章
+
+
+#### 删除文章
 
 - 请求方式 - 请求 URL
 
-  - `Get` - `/frontend/article/:1`
+  - `Delete` - `/frontend/article/delete/:1`
+
+- 返回示例
+
+  ```json
+  // 成功
+  {
+      "code": 0
+  }
+  
+  // 失败
+  {
+      "code": 1002,
+      "message": "删除失败"
+  }
+  ```
+
+#### 获取单一文章
+
+- 请求方式 - 请求 URL
+
+  - `Get` - `/frontend/article/getOne/:1`
 
 - 请求参数
 
-  | 参数              | 必填 | 类型   | 备注       |
-  | ----------------- | ---- | ------ | ---------- |
-  | title             | yes  | string | 标题       |
-  | content           | yes  | string | 内容       |
-  | articleCategoryId | yes  | int    | 文章分类id |
+  | 参数 | 必填 | 类型 | 备注   |
+  | ---- | ---- | ---- | ------ |
+  | id   | yes  | int  | 文章ID |
 
 - 返回示例
 
@@ -168,6 +190,42 @@
       "message": "创建失败"
   }
   ```
+
+#### 获取所有文章
+
+- 请求方式 - 请求 URL
+
+  - `Get` - `/frontend/article/getAll`
+
+- 请求参数
+
+  | 参数              | 必填 | 类型   | 备注                   |
+  | ----------------- | ---- | ------ | ---------------------- |
+  | title             | no   | string | 标题                   |
+  | page              | no   | int    | 页码                   |
+  | pageSize          | no   | int    | 条数                   |
+  | sortField         | no   | string | 排序的字段(数据库)     |
+  | sortOrder         | no   | string | 排序的顺序(倒序：正序) |
+  | articleCategoryId | no   | int    | 分类id                 |
+
+- 返回示例
+
+  ```json
+  // 成功
+  {
+      "code": 0
+  }
+  
+  // 失败
+  {
+      "code": 1002,
+      "message": "创建失败"
+  }
+  ```
+
+
+
+
 
 #### 文章点赞
 

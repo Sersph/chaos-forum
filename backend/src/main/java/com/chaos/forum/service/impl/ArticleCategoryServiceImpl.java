@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.chaos.forum.entity.ArticleCategory;
 import com.chaos.forum.entity.ArticleListPage;
+import com.chaos.forum.exception.DataException;
 import com.chaos.forum.mapper.ArticleCategoryMapper;
 import com.chaos.forum.returnx.enumx.ResultEnum;
 import com.chaos.forum.service.IArticleCategoryService;
@@ -12,6 +13,7 @@ import com.chaos.forum.tools.DatabaseTools;
 import com.chaos.forum.tools.PageTools;
 import com.chaos.forum.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 /**
@@ -79,7 +81,9 @@ public class ArticleCategoryServiceImpl extends ServiceImpl<ArticleCategoryMappe
      */
     @Override
     public ResultVO selectArticleAll() {
-        articleCategoryMapper.selectList(new QueryWrapper<>());
-        return new ResultVO(ResultEnum.SUCCESS, articleCategoryMapper.selectList( new QueryWrapper<>()));
+        if (articleCategoryMapper.selectList(new QueryWrapper<>()) == null) {
+            return new ResultVO(ResultEnum.SUCCESS, articleCategoryMapper.selectList( new QueryWrapper<>()));
+        }
+        throw new DataException(ResultEnum.SELECT_ERROR);
     }
 }
