@@ -63,11 +63,11 @@ public class ArticleController {
     }
 
     /**
-     * 通过分类来查询文章
+     * 查询所有文章
      *
      * @return SUCCESS,Date / SELECT_ERROR
      * */
-    @GetMapping("/getCategory")
+    @GetMapping("/getAll")
     public ResultVO getArticleCategory(Article article, ArticleListPage articleListPage) {
         return this.articleService.getArticleCategory(article, articleListPage);
     }

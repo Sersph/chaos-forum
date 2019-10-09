@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * <p>
- * { describe }
+ * { 分类的操作 }
  * </p>
  *
  * @Author kay
@@ -28,7 +28,6 @@ import java.util.List;
  */
 @Service
 public class ArticleCategoryServiceImpl extends ServiceImpl<ArticleCategoryMapper, ArticleCategory> implements IArticleCategoryService {
-
 
     @Autowired
     private ArticleCategoryMapper articleCategoryMapper;
@@ -83,12 +82,10 @@ public class ArticleCategoryServiceImpl extends ServiceImpl<ArticleCategoryMappe
      */
     @Override
     public ResultVO selectArticleAll() {
-
         List list = this.list(new QueryWrapper<>());
         if (list != null) {
             return new ResultVO(ResultEnum.SUCCESS, list);
         }
-
         throw new DataException(ResultEnum.SELECT_ERROR);
     }
 }

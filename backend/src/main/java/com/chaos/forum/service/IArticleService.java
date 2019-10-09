@@ -19,7 +19,6 @@ public interface IArticleService extends IService<Article> {
 
     ResultVO createArticle(Article article, HttpSession session);
 
-    ResultVO updateArticle(Article article);
 
     ResultVO selectArticle(int id);
 

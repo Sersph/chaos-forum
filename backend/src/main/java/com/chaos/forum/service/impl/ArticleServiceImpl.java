@@ -65,28 +65,6 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     }
 
     /**
-     * 更新文章
-     *
-     * @param article 实体对象
-     */
-    @Override
-    public ResultVO updateArticle(Article article) {
-
-        /**
-         * 更改对应字段的数据
-         * */
-        if (this.updateById(article)) {
-            UpdateWrapper<Article> articleUpdateWrapper = new UpdateWrapper<>();
-            articleUpdateWrapper.eq("title", article.getTitle())
-                    .ne("content", article.getContent())
-                    .ne("article_category_id", article.getArticleCategoryId());
-
-            return new ResultVO(ResultEnum.SUCCESS);
-        }
-        throw new DataException(ResultEnum.UPDATE_ERROR);
-    }
-
-    /**
      * 查询单一文章
      *
      * @param id 查询文章的对应ID
