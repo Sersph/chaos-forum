@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
 
 /**
@@ -26,11 +27,10 @@ public class PersonUser {
     private String buddha;
 
     @ApiModelProperty(value = " 用户名 ")
-
     private String username;
 
     @ApiModelProperty(value = " 用户密码 ")
-    @NotNull(message = "密码不为空")
+    @Pattern(regexp = "^[a-z,A-Z,1-9]{6,18}$")
     private String password;
 
     @ApiModelProperty(value = " 用户最后登陆时间 ")

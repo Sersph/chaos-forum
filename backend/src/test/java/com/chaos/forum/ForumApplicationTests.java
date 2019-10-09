@@ -14,14 +14,5 @@ import java.util.Date;
 @SpringBootTest
 public class ForumApplicationTests {
 
-    @Test
-    public void contextLoads() {
-        Date t = new Date();
-
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Long l = Long.valueOf(df.format(t));
-        System.out.println(df.format(t));
-    }
-
 }
 

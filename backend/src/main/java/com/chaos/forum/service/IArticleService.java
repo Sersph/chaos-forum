@@ -19,7 +19,6 @@ public interface IArticleService extends IService<Article> {
 
     ResultVO createArticle(Article article, HttpSession session);
 
-
     ResultVO selectArticle(int id);
 
     ResultVO getArticleCategory(Article article, ArticleListPage articleListPage);

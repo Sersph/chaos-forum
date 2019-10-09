@@ -25,7 +25,6 @@ public class UserController {
     @Autowired
     IUserService userService;
 
-
     /**
      * 用户注册
      *
@@ -62,12 +61,12 @@ public class UserController {
     /**
      * 用户修改信息
      *
-     * @param user
+     * @param password
      * @return
      */
     @PutMapping("/alter")
-    public ResultVO alter(PersonUser user) {
-        return this.userService.alter(user);
+    public ResultVO alter(String password,HttpSession session) {
+        return this.userService.alterPassword(session, password);
     }
 
     /**

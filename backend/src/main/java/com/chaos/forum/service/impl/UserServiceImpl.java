@@ -1,6 +1,7 @@
 package com.chaos.forum.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.chaos.forum.entity.PersonUser;
 import com.chaos.forum.exception.DataException;
@@ -10,6 +11,7 @@ import com.chaos.forum.service.IUserService;
 import com.chaos.forum.tools.DatabaseTools;
 import com.chaos.forum.vo.ResultVO;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.util.Date;
@@ -76,25 +78,59 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, PersonUser> impleme
     }
 
     /**
-     * 修改用户密码
+     * 修改用户数据
      *
      * @param user 用户实体
      * @return
      */
-    @Override
-    public ResultVO alter(PersonUser user) {
+    private ResultVO alter(HttpSession session, PersonUser user) {
+        PersonUser userIn = (PersonUser) session.getAttribute("personUser");
 
-        PersonUser userOne = this.getOne(new QueryWrapper<PersonUser>().eq("username", user.getUsername()));
-        if (userOne == null) {
+        System.out.println(userIn.getId());
+
+        if (this.getById(userIn.getId()) == null) {
             throw new DataException(ResultEnum.LI_GIN_NULL);
         }
 
-        if (this.update(user,new QueryWrapper<PersonUser>().eq("username", user.getUsername()))){
+        if (user.getBuddha() != null) {
+            this.update(user, new UpdateWrapper<PersonUser>().eq("id", userIn.getId()));
             return new ResultVO(ResultEnum.SUCCESS);
         }
-
         throw new DataException(ResultEnum.UPDATE_ERROR);
     }
+
+    /**
+     * 修改用户头像
+     *
+     * @return
+     */
+//    @继承
+//    公开 结果视图 改变头像(Http会话 会话, 多部件的文件 文件) {
+//        人类用户 用户 = 新 人类用户();
+//        用户.setBuddha(文件.获取名字());
+//        返回 当前.改变(会话, 人类用户);
+//    }
+
+    @Override
+    public ResultVO alterBuddha(HttpSession session, MultipartFile file) {
+        PersonUser userIn = new PersonUser();
+        userIn.setBuddha(file.getName());
+        return this.alter(session, userIn);
+    }
+
+    /**
+     * 修改用户头像
+     *
+     * @return
+     */
+    @Override
+    public ResultVO alterPassword(HttpSession session, String 密码) {
+        PersonUser 用户 = new PersonUser();
+        用户.setPassword(密码);
+        return this.alter(session, 用户);
+    }
+
+
 
     /**
      * 用户信息查询
