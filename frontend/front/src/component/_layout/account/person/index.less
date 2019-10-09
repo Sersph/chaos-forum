@@ -1,4 +1,7 @@
 .layout-account-person-container {
+  display: flex;
+  width: 100%;
+
   // 顶部导航
   .app-bar-container {
     z-index: 1250;
@@ -286,27 +289,31 @@
     }
   }
 
-  .layout-account-person-wrapper {
-    display: flex;
-    // 左侧菜单
-    .sidebar-container {
-      width: 250px;
-      flex-shrink: 0;
-
-      .MuiDrawer-paperAnchorLeft {
-        left: auto;
-      }
-    }
-
-    // 中心主体
-    .content-container {
-      overflow: hidden;
-      flex-grow: 1;
-      padding: 86px 25px 25px;
-    }
+  // 中心主体
+  .content-container {
+    overflow: hidden;
+    flex-grow: 1;
+    padding-top: 85px;
   }
 }
 
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2.5rem;
+}
+
+.sign-in-tooltip-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2.5rem;
+  font-size: 15px;
+  color: #a0a0a0;
+  background-color: #fff;
+  box-shadow: 1px 1px 11px rgba(0, 0, 0, .3);
+}
 
 html {
   // 左侧菜单
@@ -337,6 +344,10 @@ html {
 @media (max-width: 600px) {
   .layout-account-person-container {
     .app-bar-container {
+      .menu-button {
+        display: block;
+      }
+
       .user-base-info-container {
         .user-base-info {
           .user-tooltip {
@@ -346,16 +357,14 @@ html {
       }
     }
 
-    .layout-account-person-wrapper {
-      .sidebar-container {
-        width: 0;
-        flex-shrink: 0;
-      }
+    .sidebar-container {
+      width: 0;
+      flex-shrink: 0;
+    }
 
-      // 中心主体
-      .content-container {
-        padding: 86px 0 25px;
-      }
+    // 中心主体
+    .content-container {
+      padding: 85px 0 25px;
     }
   }
 

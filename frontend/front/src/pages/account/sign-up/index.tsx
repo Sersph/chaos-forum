@@ -171,7 +171,7 @@ export default compose<React.ComponentClass>(
             <title>混沌论坛 - 用户注册</title>
           </Head>
           <LayoutMaster>
-            <Container maxWidth="sm">
+            <Container maxWidth="xs">
               <Typography className="sign-up-title" variant="h5" align="center" noWrap>
                 混沌论坛 - 用户注册
               </Typography>
@@ -181,10 +181,11 @@ export default compose<React.ComponentClass>(
               >
                 <TextValidator
                   fullWidth
+                  margin="dense"
                   label="用户名"
                   onChange={this.handleSignUpFormDataChange}
                   name="username"
-                  type="username"
+                  type="text"
                   validators={['required', 'minStringLength:3', 'maxStringLength:15']}
                   errorMessages={['请输入用户名', '用户名由3~15个字符组成']}
                   value={state.signUpFormData.username}
@@ -192,6 +193,7 @@ export default compose<React.ComponentClass>(
                 />
                 <TextValidator
                   fullWidth
+                  margin="dense"
                   label="密码"
                   onChange={this.handleSignUpFormDataChange}
                   name="password"
@@ -203,6 +205,7 @@ export default compose<React.ComponentClass>(
                 />
                 <TextValidator
                   fullWidth
+                  margin="dense"
                   ref="confirm-password-form-item"
                   label="确认密码"
                   onChange={this.handleSignUpFormDataChange}

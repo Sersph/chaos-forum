@@ -10,30 +10,23 @@ const api: PostAPI = {
       data
     );
   },
-  selectHotPostList: (data: any): object => {
-    return ajax(
-      'GET',
-      `${config.MOCK_API_ROOT}/frontend/hotPost`,
-      data
-    );
-  },
   selectPostList: (data: any): object => {
     return ajax(
       'GET',
-      `${config.MOCK_API_ROOT}/frontend/post`,
+      `${config.MOCK_API_ROOT}/frontend/article/getAll`,
       data
     );
   },
   selectAllPostCategoryList: () => {
     return ajax(
       'GET',
-      `${config.MOCK_API_ROOT}/frontend/postCategory`
+      `${config.MOCK_API_ROOT}/frontend/category/all`
     );
   },
   fileUpload: (data: any) => {
     return ajax(
       'POST_FILE',
-      `${config.MOCK_API_ROOT}/file`,
+      `${config.UPLOAD_API_ROOT}`,
       data
     );
   }

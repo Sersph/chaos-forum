@@ -20,10 +20,7 @@ type Method =
   | 'PATCH'
   | 'POST_FILE';
 
-/**
- * ajax 请求封装模块
- *
- */
+// ajax 请求封装模块
 export default function ajax(method: Method, url: string, data = {}): object {
   return new Promise(async (resolve, reject) => {
     // axios response 对象

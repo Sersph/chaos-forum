@@ -31,19 +31,13 @@ export default class Tinymce extends React.Component<Props, State> {
     });
   };
 
-  /**
-   * 文件上传成功回调
-   *
-   */
+  // 文件上传成功回调
   public appendValue = (imgHTML: string): void => {
     // 用 tinymce 自带的方法添加内容，会从光标处添加
     (window as any).tinymce.activeEditor.execCommand('mceInsertContent', false, imgHTML);
   };
 
-  /**
-   * 富文本的值发送改变
-   *
-   */
+  // 富文本的值发送改变
   public handlerEditorChange = (value: string): void => {
     const { props } = this;
     // 更新富文本的状态

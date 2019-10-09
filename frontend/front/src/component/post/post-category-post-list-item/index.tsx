@@ -25,7 +25,7 @@ export default class HotPostListItem extends React.Component<Props, State> {
       <section className="post-category-post-list-item-container">
         <section className="post-base-info-container">
           <section className="post-message-count">
-            <span>{props.postDescription.messageCount}</span>
+            <span>{props.postDescription.messageCount || 59}</span>
           </section>
           <section className="post-base-info">
             <div className="title-and-create-username">
@@ -46,7 +46,7 @@ export default class HotPostListItem extends React.Component<Props, State> {
               <Typography
                 className="post-create-username"
                 noWrap
-              >{props.postDescription.createUsername}</Typography>
+              >{props.postDescription.creatorUsername}</Typography>
 
               <Typography
                 className="last-message-time"
@@ -54,7 +54,7 @@ export default class HotPostListItem extends React.Component<Props, State> {
               <Typography
                 className="mobile-last-message-time"
                 noWrap
-              >{props.postDescription.lastMessageTime}</Typography>
+              >{props.postDescription.lastMessageTime || '2分钟前'}</Typography>
             </div>
 
             <div className="post-content-and-last-message-username-and-last-message-time">
@@ -65,11 +65,11 @@ export default class HotPostListItem extends React.Component<Props, State> {
               <Typography
                 className="last-message-username"
                 noWrap
-              >{props.postDescription.lastMessageUsername}</Typography>
+              >{props.postDescription.lastMessageUsername || '张三'}</Typography>
               <Typography
                 className="last-message-time"
                 noWrap
-              >{props.postDescription.lastMessageTime}</Typography>
+              >{props.postDescription.lastMessageTime || '2分钟前'}</Typography>
             </div>
 
             <div className="post-category-name">
@@ -78,21 +78,22 @@ export default class HotPostListItem extends React.Component<Props, State> {
                 noWrap
               >
                 <Link
-                  href={`/home?categoryId=${props.postDescription.categoryId}`}
-                  as={`/home?categoryId=${props.postDescription.categoryId}`}
+                  href={`/home?categoryId=${props.postDescription.articleCategoryId}`}
+                  as={`/home?categoryId=${props.postDescription.articleCategoryId}`}
                 >
-                  <a href={`/home?categoryId=${props.postDescription.categoryId}`}>
-                    发布于 <span>{props.postDescription.categoryName}</span>
+                  <a href={`/home?categoryId=${props.postDescription.articleCategoryId}`}>
+                    发布于 <span>{props.postDescription.articleCategoryName}</span>
                   </a>
                 </Link>
               </Typography>
             </div>
 
-            {props.postDescription.previewImageList.length > 0 && (
+            {props.postDescription.preview.length > 0 && (
               <section className="preview-image-list">
-                {props.postDescription.previewImageList.map((previewImageListItem, index) => (
+                {props.postDescription.preview.map((previewImageListItem, index) => (
                   <div key={index} className="img-container">
                     <ImageZoom
+                      zoomMargin={25}
                       defaultStyles={{
                         zoomContainer: {
                           zIndex: 1202
@@ -103,7 +104,7 @@ export default class HotPostListItem extends React.Component<Props, State> {
                         src: previewImageListItem.original
                       }}
                       image={{
-                        src: previewImageListItem.original
+                        src: previewImageListItem.thumbnail
                       }}
                     />
                   </div>

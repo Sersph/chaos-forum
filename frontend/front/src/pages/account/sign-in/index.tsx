@@ -140,7 +140,7 @@ export default compose<React.ComponentClass>(
             <title>混沌论坛 - 用户登录</title>
           </Head>
           <LayoutMaster>
-            <Container maxWidth="sm">
+            <Container maxWidth="xs">
               <Typography className="sign-in-title" variant="h5" align="center" noWrap>
                 混沌论坛 - 用户登录
               </Typography>
@@ -149,10 +149,11 @@ export default compose<React.ComponentClass>(
               >
                 <TextValidator
                   fullWidth
+                  margin="dense"
                   label="用户名"
                   onChange={this.handleSignInFormDataChange}
                   name="username"
-                  type="username"
+                  type="text"
                   validators={['required', 'minStringLength:3', 'maxStringLength:15']}
                   errorMessages={['请输入用户名', '用户名由3~15个字符组成']}
                   value={state.signInFormData.username}
@@ -160,6 +161,7 @@ export default compose<React.ComponentClass>(
                 />
                 <TextValidator
                   fullWidth
+                  margin="dense"
                   label="密码"
                   onChange={this.handleSignInFormDataChange}
                   name="password"

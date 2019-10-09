@@ -25,10 +25,6 @@ export default class PostDetail extends React.Component<Props, State> {
   }
 
   public static getInitialProps = async () => {
-    const result: any = await api.post.selectHotPostList({});
-
-
-
     return {
     };
   };

@@ -38,30 +38,21 @@ export default class TinymceUploadImage extends React.Component<Props, State> {
   }
 
 
-  /**
-   * 显示/隐藏上传文件模态框
-   *
-   */
+  // 显示/隐藏上传文件模态框
   public handleToggleUploadModel = (flag: boolean): void => {
     this.setState({
       visibleUploadModel: flag
     });
   };
 
-  /**
-   * 上传文件发送改变
-   *
-   */
+  // 上传文件发送改变
   public uploadFileChange = async (file: any) => {
     this.setState({
       fileList: file
     });
   };
 
-  /**
-   * 上传图片确认按钮
-   *
-   */
+  // 上传图片确认按钮
   public handleOk = async () => {
     const { props, state } = this;
     NProgress.start();
@@ -118,10 +109,7 @@ export default class TinymceUploadImage extends React.Component<Props, State> {
     });
   };
 
-  /**
-   * 上传图片取消按钮
-   *
-   */
+  // 上传图片取消按钮
   public handleCancel = (): void => {
     // 隐藏上传模态框, 清空已上传文件
     this.setState({

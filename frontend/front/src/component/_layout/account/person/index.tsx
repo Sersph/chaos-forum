@@ -4,12 +4,12 @@ import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
-import Container from '@material-ui/core/Container';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import PersonIcon from '@material-ui/icons/Person';
+import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -22,6 +22,7 @@ import { updateUserInfo } from '../../../../store/account';
 import api from '../../../../api';
 import Snackbar from '@material-ui/core/Snackbar';
 import Slide from '@material-ui/core/Slide';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import CloseIcon from '@material-ui/icons/Close';
 import NProgress from 'nprogress';
 import Router from 'next/router';
@@ -87,12 +88,7 @@ export default compose<React.ComponentClass>(
       };
     }
 
-    /**
-     * 监听用户状态 添加动画效果
-     *
-     * @param nextProps
-     * @param nextState
-     */
+    // 监听用户状态 添加动画效果
     public shouldComponentUpdate = (nextProps, nextState): boolean => {
       const { props } = this;
       if (props.userInfo.avatar !== nextProps.userInfo.avatar) {
@@ -108,11 +104,29 @@ export default compose<React.ComponentClass>(
       return true;
     };
 
-    /**
-     * 显示用户基本信息
-     * 分为已登录和未登录
-     *
-     */
+    // 监听用户是否登录
+    public componentDidUpdate = () => {
+      const { props, state } = this;
+      if (props.userInfo.isGet) {
+        if (props.userInfo.username === undefined) {
+          setTimeout(() => {
+            Router.push('/account/sign-in');
+          }, 1500);
+        }
+      }
+    };
+
+
+    // 切换菜单栏显示
+    // (手机端顶部三横按钮点击调用)
+    public handleDrawerToggle = () => {
+      this.setState({
+        drawerMobileOpen: !this.state.drawerMobileOpen
+      });
+    };
+
+    // 显示用户基本信息
+    // 分为已登录和未登录
     public toggleUserInfoContainer = (flag: boolean): void => {
       const { props } = this;
       const isSignIn = props.userInfo.username !== undefined;
@@ -139,10 +153,7 @@ export default compose<React.ComponentClass>(
       }
     };
 
-    /**
-     * 退出登录清空状态
-     *
-     */
+    // 退出登录清空状态
     public signOut = async () => {
       const { props } = this;
 
@@ -176,15 +187,21 @@ export default compose<React.ComponentClass>(
       }, 500);
     };
 
-    /**
-     * 顶部导航
-     *
-     */
+    // 顶部导航
     public renderAppBarContainer = (): JSX.Element => {
       const { props, state } = this;
       return (
         <AppBar position="fixed" className="app-bar-container">
           <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={this.handleDrawerToggle}
+              className="menu-button"
+            >
+              <MenuIcon/>
+            </IconButton>
             <div className="title">
               <Link href="/home">
                 <a href="/home">
@@ -261,8 +278,8 @@ export default compose<React.ComponentClass>(
                       <Typography className="username">{props.userInfo.username}</Typography>
                     </div>
                     <div className="user-feature">
-                      <Link href="/account/person/center">
-                        <a href="/account/person/center">
+                      <Link href="/account/person/info">
+                        <a href="/account/person/info">
                           <div className="feature-item">
                             <i className="img"/>
                             <Typography className="item-text">个人中心</Typography>
@@ -279,10 +296,7 @@ export default compose<React.ComponentClass>(
       );
     };
 
-    /**
-     * 左侧菜单栏
-     *
-     */
+    // 左侧菜单栏
     public renderSidebarContainer = (): JSX.Element => {
       const { props, state } = this;
 
@@ -314,6 +328,7 @@ export default compose<React.ComponentClass>(
               variant="temporary"
               anchor={'left'}
               open={state.drawerMobileOpen}
+              onClose={this.handleDrawerToggle}
               classes={{
                 paper: 'menu-wrapper'
               }}
@@ -341,45 +356,51 @@ export default compose<React.ComponentClass>(
 
     public render = (): JSX.Element => {
       const { props, state } = this;
-      return (
-        <div className="layout-account-person-container">
-          {this.renderAppBarContainer()}
-          <Container maxWidth="lg" className="layout-account-person-wrapper">
+      return props.userInfo.isGet ?
+        props.userInfo.username !== undefined ? (
+          <div className="layout-account-person-container">
+            {this.renderAppBarContainer()}
             {this.renderSidebarContainer()}
             <main className="content-container">
               {props.children}
             </main>
-          </Container>
-          <Snackbar
-            anchorOrigin={{
-              vertical: 'top',
-              horizontal: 'center'
-            }}
-            open={state.snackbarStatus}
-            TransitionComponent={Slide}
-            autoHideDuration={1000}
-            message={<span>{state.snackbarMessage}</span>}
-            onClose={() => {
-              this.setState({
-                snackbarStatus: false
-              });
-            }}
-            action={[
-              <IconButton
-                key="1"
-                color="inherit"
-                onClick={() => {
-                  this.setState({
-                    snackbarStatus: false
-                  });
-                }}
-              >
-                <CloseIcon/>
-              </IconButton>,
-            ]}
-          />
-        </div>
-      );
+            <Snackbar
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'center'
+              }}
+              open={state.snackbarStatus}
+              TransitionComponent={Slide}
+              autoHideDuration={1000}
+              message={<span>{state.snackbarMessage}</span>}
+              onClose={() => {
+                this.setState({
+                  snackbarStatus: false
+                });
+              }}
+              action={[
+                <IconButton
+                  key="1"
+                  color="inherit"
+                  onClick={() => {
+                    this.setState({
+                      snackbarStatus: false
+                    });
+                  }}
+                >
+                  <CloseIcon/>
+                </IconButton>,
+              ]}
+            />
+          </div>
+        ) : (
+          <div className="sign-in-tooltip-container">请登录后在访问此页面...</div>
+        )
+        : (
+          <div className="loading-container">
+            <CircularProgress/>
+          </div>
+        );
     };
   }
 );

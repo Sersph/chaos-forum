@@ -9,6 +9,7 @@ import Router from 'next/router';
 import Dialog from '@material-ui/core/Dialog';
 import Slide from '@material-ui/core/Slide';
 import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 import SearchIcon from '@material-ui/icons/Search';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -18,17 +19,28 @@ import browser from '../../util/browser';
 import TablePagination from '@material-ui/core/TablePagination';
 import Skeleton from '@material-ui/lab/Skeleton';
 import NProgress from 'nprogress';
+import Snackbar from '@material-ui/core/Snackbar';
 import MenuItem from '@material-ui/core/MenuItem';
 import { updateAllPostCategory } from '../../store/post';
 import { ValidatorForm, TextValidator, SelectValidator } from 'react-material-ui-form-validator';
 import { withRouter } from 'next/router';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { AppState } from '../../type/state';
 import PostCategoryPostListItem from '../../component/post/post-category-post-list-item';
 import Tinymce from '../../component/tinymce';
 import htmlUtil from '../../util/html';
 import './index.less';
 
 // 当前组件的类型声明
-interface Props {
+interface ConnectState {
+  userInfo: any;
+}
+
+interface ConnectDispatch {
+}
+
+interface Props extends ConnectState, ConnectDispatch{
   // 帖子搜索条件
   postListSelectCondition: any;
   // 帖子数据, 服务端数据
@@ -61,10 +73,22 @@ interface State {
 
   // 帖子搜索条件
   postListSelectCondition: any;
+  // 通知
+  snackbarMessage: string;
+  snackbarStatus: boolean;
 }
 
 // 当前组件类
-export default withRouter(
+export default compose<React.ComponentClass>(
+  connect<ConnectState, ConnectDispatch, Props>(
+    (state: AppState) => ({
+      userInfo: state.account.userInfo
+    }),
+    {
+    }
+  ),
+  withRouter
+)(
   class Home extends React.Component<Props, State> {
     public constructor(props: Props) {
       super(props);
@@ -83,7 +107,9 @@ export default withRouter(
         postListSelectCondition: {
           postCategoryId: props.postListSelectCondition.postCategoryId,
           title: props.postListSelectCondition.title
-        }
+        },
+        snackbarMessage: '',
+        snackbarStatus: false
       };
     }
 
@@ -148,7 +174,7 @@ export default withRouter(
         };
         postListSelectCondition = {
           ...postListSelectCondition,
-          count: result2.data.count
+          count: result2.data.total || 0
         };
       }
 
@@ -157,19 +183,8 @@ export default withRouter(
         allPostCategoryList,
         postList,
         postListSelectCondition,
-        loadingStatus: false,
-        store
+        loadingStatus: false
       };
-    };
-
-    public handlerRouterChangeStart = (event): void => {
-      const { props, state } = this;
-      // 显示加载状态
-      if (event.state.as.substring(0, 5) === '/home') {
-        this.setState({
-          loadingStatus: true
-        });
-      }
     };
 
     public componentDidMount = (): void => {
@@ -177,14 +192,11 @@ export default withRouter(
     };
 
     public componentWillUnmount = (): void => {
-      const { props } = this;
       window.removeEventListener('popstate', this.handlerRouterChangeStart);
-      // 清空状态管理
-      props.store && props.store.dispatch && props.store.dispatch(updateAllPostCategory(null));
     };
 
-    public shouldComponentUpdate = (nextProps, nextState): boolean => {
-      const { props, state } = this;
+    public shouldComponentUpdate = (nextProps): boolean => {
+      const { props } = this;
       setTimeout(() => {
         // 接收到新的列表 取消加载状态
         if (props.postList !== nextProps.postList) {
@@ -218,6 +230,15 @@ export default withRouter(
             }
           });
         }
+      }
+    };
+
+    public handlerRouterChangeStart = (event): void => {
+      // 显示加载状态
+      if (event.state.as.substring(0, 5) === '/home') {
+        this.setState({
+          loadingStatus: true
+        });
       }
     };
 
@@ -317,12 +338,11 @@ export default withRouter(
           }
         }
       }
-      console.log(previewImageList);
 
       const postData = {
         title: state.insertPostFormData.title,
         content: state.insertPostContent,
-        articleCategoryId: 2,
+        articleCategoryId: state.insertPostFormData.postCategoryId,
         preview: JSON.stringify(previewImageList)
       };
 
@@ -353,14 +373,29 @@ export default withRouter(
             });
           }, 100);
         }, 1000);
+      } else if (result.code === 108) {
+        this.setState({
+          snackbarMessage: '请登录后在进行此操作',
+          snackbarStatus: true
+        });
+        NProgress.done();
       }
     };
 
     // 显示/隐藏创建文章模态框
     public handleToggleUploadModel = (flag: boolean): void => {
-      this.setState({
-        visibleInsertPostModel: flag
-      });
+      const { props } = this;
+      // 判断用户是否登录
+      if (props.userInfo.username !== undefined) {
+        this.setState({
+          visibleInsertPostModel: flag
+        });
+      } else {
+        this.setState({
+          snackbarMessage: '请登录后在进行此操作',
+          snackbarStatus: true
+        });
+      }
     };
 
     // 创建帖子取消按钮
@@ -387,6 +422,10 @@ export default withRouter(
 
       NProgress.start();
 
+      this.setState({
+        loadingStatus: true
+      });
+
       const query: any = {};
       if (state.postListSelectCondition.title !== '') {
         query.title = state.postListSelectCondition.title;
@@ -405,71 +444,82 @@ export default withRouter(
       return (
         <section className="home-container">
           <Head>
-            <title>混沌论坛</title>
+            <title>混沌论坛 - 网络上的小社区</title>
           </Head>
           <LayoutMaster>
             <section className="post-list-container">
-              <Container maxWidth="lg" className="post-list-wrapper-container">
+              <Container maxWidth="lg">
                 <div className="header-action">
                   <Fab variant="extended" color="primary" onClick={() => this.handleToggleUploadModel(true)}>
                     <EditIcon/>我要发帖
                   </Fab>
                 </div>
-                {state.loadingStatus ? state.loadingArr.map((n, index) => (
-                  <div className="loading-item-container" key={index}>
-                    <div>
-                      <Skeleton variant="circle" width={65} height={65}/>
-                    </div>
-                    <div>
-                      <Skeleton width="25%"/>
-                      <Skeleton width="35%"/>
-                      <Skeleton/>
-                      <Skeleton width="15%"/>
-                      <Skeleton variant="rect" height={155}/>
-                    </div>
+                {/* 帖子搜索条件 */}
+                <section className="post-select-condition">
+                  <ValidatorForm
+                    onSubmit={this.handleSelectPostFormDataSubmit}
+                  >
+                    <SelectValidator
+                      fullWidth
+                      margin="dense"
+                      label="帖子分区"
+                      onChange={this.handleSelectPostFormDataChange}
+                      name="postCategoryId"
+                      value={state.postListSelectCondition.postCategoryId === 0 ? '' : state.postListSelectCondition.postCategoryId}
+                      variant="outlined"
+                    >
+                      {props.allPostCategoryList.map((item, index) => (
+                        <MenuItem value={item.id} key={index}>{item.name}</MenuItem>
+                      ))}
+                    </SelectValidator>
+                    <TextValidator
+                      fullWidth
+                      margin="dense"
+                      label="帖子标题"
+                      onChange={this.handleSelectPostFormDataChange}
+                      name="title"
+                      type="title"
+                      placeholder="在此输入帖子标题"
+                      className="post-select-post-title"
+                      value={state.postListSelectCondition.title}
+                      variant="outlined"
+                    />
+                    <IconButton aria-label="search" type="submit">
+                      <SearchIcon/>
+                    </IconButton>
+                  </ValidatorForm>
+                </section>
+                {state.loadingStatus ? (
+                  <div className="post-loading-container">
+                    {state.loadingArr.map((n, index) => (
+                      <div className="loading-item-container" key={index}>
+                        <div>
+                          <Skeleton width={55} height={29}/>
+                        </div>
+                        <div>
+                          <Skeleton width="25%" height={29}/>
+                          <Skeleton/>
+                          <Skeleton width="15%"/>
+                          <Skeleton variant="rect" height={155}/>
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                )) : (
+                ) : (
                   <div>
-                    {/* 帖子搜索条件 */}
-                    <section className="post-select-condition">
-                      <ValidatorForm
-                        onSubmit={this.handleSelectPostFormDataSubmit}
-                      >
-                        <SelectValidator
-                          fullWidth
-                          margin="dense"
-                          label="帖子分区"
-                          onChange={this.handleSelectPostFormDataChange}
-                          name="postCategoryId"
-                          value={state.postListSelectCondition.postCategoryId === 0 ? '' : state.postListSelectCondition.postCategoryId}
-                          variant="outlined"
-                        >
-                          {props.allPostCategoryList.map((item, index) => (
-                            <MenuItem value={item.id} key={index}>{item.name}</MenuItem>
-                          ))}
-                        </SelectValidator>
-                        <TextValidator
-                          fullWidth
-                          margin="dense"
-                          label="帖子标题"
-                          onChange={this.handleSelectPostFormDataChange}
-                          name="title"
-                          type="title"
-                          placeholder="在此输入帖子标题"
-                          className="post-select-post-title"
-                          value={state.postListSelectCondition.title}
-                          variant="outlined"
-                        />
-                        <IconButton aria-label="search" type="submit">
-                          <SearchIcon/>
-                        </IconButton>
-                      </ValidatorForm>
-                    </section>
                     {/* 帖子搜索列表 */}
                     <section className="post-list">
-                      {props.postList.records.map((postListItem, index) => (
-                        <PostCategoryPostListItem key={index} postDescription={postListItem} hideCategoryName={true}/>
-                      ))}
+                      {props.postList.records.length > 0 ? props.postList.records.map((postListItem, index) => {
+                        try {
+                          postListItem.preview = JSON.parse(postListItem.preview);
+                        } catch (e) {
+                        }
+                        return (
+                          <PostCategoryPostListItem key={index} postDescription={postListItem} hideCategoryName={true}/>
+                        );
+                      }) : (
+                        <section className="not-data-container">暂时没有更多文章!</section>
+                      )}
                     </section>
                     <TablePagination
                       labelRowsPerPage="每页显示条数"
@@ -510,8 +560,8 @@ export default withRouter(
                       name="title"
                       placeholder="在此输入帖子标题"
                       className="post-insert-title"
-                      validators={['required', 'minStringLength:1', 'maxStringLength:15']}
-                      errorMessages={['请输入标题', '标题由1~15个字符组成', '标题由1~15个字符组成']}
+                      validators={['required', 'minStringLength:1', 'maxStringLength:60']}
+                      errorMessages={['请输入标题', '标题由1~60个字符组成', '标题由1~60个字符组成']}
                       value={state.insertPostFormData.title}
                       variant="outlined"
                     />
@@ -560,6 +610,34 @@ export default withRouter(
               </DialogActions>
             </Dialog>
           </LayoutMaster>
+          <Snackbar
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'center'
+            }}
+            open={state.snackbarStatus}
+            TransitionComponent={Slide}
+            autoHideDuration={1000}
+            message={<span>{state.snackbarMessage}</span>}
+            onClose={() => {
+              this.setState({
+                snackbarStatus: false
+              });
+            }}
+            action={[
+              <IconButton
+                key="1"
+                color="inherit"
+                onClick={() => {
+                  this.setState({
+                    snackbarStatus: false
+                  });
+                }}
+              >
+                <CloseIcon/>
+              </IconButton>,
+            ]}
+          />
         </section>
       );
     };

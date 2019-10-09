@@ -2,10 +2,7 @@ import { Base64 } from 'js-base64';
 import api from '../api';
 
 export default {
-  /**
-   * 查询 oss sts token
-   *
-   */
+  // 查询 oss sts token
   async selectOssStsToken() {
     // oss sts token 缓存的时间(60 秒)
     const OssStsTokenCacheTime = 60;

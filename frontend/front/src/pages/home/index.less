@@ -1,21 +1,26 @@
 .home-container {
-  .loading-item-container {
-    display: flex;
-    padding-right: 15px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid #ccc;
-    background-color: #fff;
+  .post-loading-container {
+    box-shadow: 1px 1px 11px rgba(0, 0, 0, 0.3);
 
-    & > div:first-child {
+    .loading-item-container {
       display: flex;
-      justify-content: center;
-      padding-top: 15px;
-      width: 95px;
-      height: 95px;
-    }
+      padding-top: 5px;
+      padding-left: 3px;
+      padding-right: 15px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #ccc;
+      background-color: #fff;
 
-    & > div:last-child {
-      flex: 1;
+      & > div:first-child {
+        display: flex;
+        justify-content: center;
+        width: 80px;
+        height: 29px;
+      }
+
+      & > div:last-child {
+        flex: 1;
+      }
     }
   }
 
@@ -36,7 +41,7 @@
   }
 
   .post-list-container {
-    .post-list-wrapper-container {
+    .MuiContainer-root {
       max-width: 975px;
 
       .header-action {
@@ -60,6 +65,15 @@
       .post-list {
         background-color: #fff;
         box-shadow: 1px 1px 11px rgba(0, 0, 0, .3);
+
+        .not-data-container {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 61.5px;
+          padding: 1rem;
+          color: #a0a0a0;
+        }
       }
 
       .MuiTablePagination-root {

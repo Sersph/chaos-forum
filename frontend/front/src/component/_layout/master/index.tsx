@@ -87,12 +87,7 @@ export default compose<React.ComponentClass>(
       };
     }
 
-    /**
-     * 监听用户状态 添加动画效果
-     *
-     * @param nextProps
-     * @param nextState
-     */
+    // 监听用户状态 添加动画效果
     public shouldComponentUpdate = (nextProps, nextState): boolean => {
       const { props } = this;
       if (props.userInfo.avatar !== nextProps.userInfo.avatar) {
@@ -108,22 +103,16 @@ export default compose<React.ComponentClass>(
       return true;
     };
 
-    /**
-     * 切换菜单栏显示
-     * (手机端顶部三横按钮点击调用)
-     *
-     */
+    // 切换菜单栏显示
+    // (手机端顶部三横按钮点击调用)
     public handleDrawerToggle = () => {
       this.setState({
         drawerMobileOpen: !this.state.drawerMobileOpen
       });
     };
 
-    /**
-     * 显示用户基本信息
-     * 分为已登录和未登录
-     *
-     */
+    // 显示用户基本信息
+    // 分为已登录和未登录
     public toggleUserInfoContainer = (flag: boolean): void => {
       const { props } = this;
       const isSignIn = props.userInfo.username !== undefined;
@@ -150,10 +139,7 @@ export default compose<React.ComponentClass>(
       }
     };
 
-    /**
-     * 退出登录清空状态
-     *
-     */
+    // 退出登录清空状态
     public signOut = async () => {
       const { props } = this;
 
@@ -187,10 +173,7 @@ export default compose<React.ComponentClass>(
       }, 500);
     };
 
-    /**
-     * 顶部导航
-     *
-     */
+    // 顶部导航
     public renderAppBarContainer = (): JSX.Element => {
       const { props, state } = this;
       return (
@@ -299,10 +282,7 @@ export default compose<React.ComponentClass>(
       );
     };
 
-    /**
-     * 左侧菜单栏
-     *
-     */
+    // 左侧菜单栏
     public renderSidebarContainer = (): JSX.Element => {
       const { props, state } = this;
 
