@@ -1,0 +1,369 @@
+.layout-account-person-container {
+  // 顶部导航
+  .app-bar-container {
+    z-index: 1250;
+
+    .MuiToolbar-root {
+      min-height: 64px;
+    }
+
+    .menu-button {
+      display: none;
+      margin-right: 16px;
+    }
+
+    .title {
+      flex-grow: 1;
+
+      a {
+        color: #fff;
+      }
+    }
+
+    .user-base-info-container {
+      position: relative;
+      display: flex;
+      width: 95px;
+      height: 63px;
+      justify-content: flex-end;
+      align-items: center;
+
+      .user-avatar {
+        width: 39px;
+        height: 39px;
+        cursor: pointer;
+        border-radius: 50%;
+
+        @keyframes avatar-toggle {
+          0% {
+            transform: scale(0);
+          }
+
+          100% {
+            transform: scaleX(1);
+          }
+        }
+
+        &.active {
+          animation: avatar-toggle .3s ease;
+        }
+      }
+
+      .user-base-info {
+        .auth-tooltip {
+          position: absolute;
+          right: -6.5px;
+          top: 61.5px;
+          width: 279px;
+          height: 205px;
+          background-color: #fff;
+          border-bottom-left-radius: 9px;
+          border-bottom-right-radius: 9px;
+          box-shadow: 1px 3px 3px rgba(0, 0, 0, .3);
+          opacity: 0;
+          pointer-events: none;
+          transform: translateY(11px);
+          transition: opacity .09s ease-in, transform .09s ease-in;
+
+          &.active {
+            pointer-events: all;
+            opacity: 1;
+            transform: translateY(0);
+          }
+
+          .line {
+            position: absolute;
+            width: 100%;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: #a9b8eb;
+
+            &::after {
+              content: '';
+              position: absolute;
+              top: -20px;
+              right: 15px;
+              border-style: solid;
+              border-width: 10px;
+              border-color: transparent transparent #a9b8eb transparent;
+            }
+          }
+
+          .sign-in-tooltip {
+            color: rgba(0, 0, 0, .7);
+
+            .text-tooltip {
+              padding-left: 30px;
+              padding-right: 30px;
+              line-height: 55px;
+            }
+
+            .make-tooltip {
+              display: flex;
+
+              .make-item {
+                width: 55px;
+                height: 75px;
+                margin-left: 29px;
+
+                &.write-post {
+                  .img {
+                    background-position: 0 -54px;
+                  }
+                }
+
+                .img {
+                  display: block;
+                  width: 54px;
+                  height: 54px;
+                  background: url(https://yyccyy-01.oss-cn-shenzhen.aliyuncs.com/backup/1fb431c5b46ab3895191b2d997820ad6.png);
+                  background-size: 200% auto;
+                  margin-left: auto;
+                  margin-right: auto;
+                }
+
+                .item-text {
+                  font-size: .85rem;
+                  line-height: 30px;
+                }
+              }
+            }
+
+            .to-auth {
+              display: flex;
+              justify-content: center;
+              padding-right: 15px;
+              margin-top: 25px;
+
+              a {
+                flex: 1;
+                margin-left: 15px;
+
+                button {
+                  width: 100%;
+                }
+              }
+            }
+          }
+        }
+
+        .user-tooltip {
+          position: absolute;
+          right: -6.5px;
+          top: 61.5px;
+          width: 360px;
+          height: 180px;
+          background-color: #fff;
+          border-bottom-left-radius: 9px;
+          border-bottom-right-radius: 9px;
+          box-shadow: 1px 3px 3px rgba(0, 0, 0, .3);
+          pointer-events: none;
+          opacity: 0;
+          transform: translateY(11px);
+          transition: opacity .09s ease-in, transform .09s ease-in;
+
+          &.active {
+            pointer-events: all;
+            opacity: 1;
+            transform: translateY(0);
+          }
+
+          .line {
+            position: absolute;
+            width: 100%;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: #a9b8eb;
+
+            &::after {
+              content: '';
+              position: absolute;
+              top: -20px;
+              right: 15px;
+              border-style: solid;
+              border-width: 10px;
+              border-color: transparent transparent #a9b8eb transparent;
+            }
+          }
+
+          .sign-out {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            display: flex;
+            align-items: center;
+            color: #666;
+
+            i {
+              display: block;
+              width: 19px;
+              height: 15px;
+              background: url(https://wbstatic.douyu.com/images/b9de7b281dc57fed0c339064014a4914.png) no-repeat 0 0;
+              background-size: cover;
+              vertical-align: middle;
+              margin-right: 6px;
+            }
+
+            .sign-out-text {
+              line-height: normal;
+            }
+
+            &:hover {
+              cursor: pointer;
+              color: #556cd6;
+              font-weight: 500;
+            }
+          }
+
+          .user-avatar-and-username {
+            display: flex;
+            align-items: center;
+            padding-top: 19px;
+            padding-bottom: 19px;
+            padding-left: 19px;
+            padding-right: 19px;
+            border-bottom: 1px solid rgba(0, 0, 0, .1);
+
+            .avatar {
+              width: 62px;
+              height: 62px;
+              border-radius: 50%;
+            }
+
+            .username {
+              color: #000;
+              font-weight: bold;
+              margin-left: 9px;
+            }
+          }
+
+          .user-feature {
+            padding-top: 15px;
+
+            .feature-item {
+              display: inline-block;
+              width: 58px;
+              margin-left: 25px;
+              font-size: 12px;
+              text-align: center;
+              color: #666;
+              transition: margin-top .3s;
+
+              &:hover {
+                .img {
+                  opacity: 1;
+                }
+
+                .item-text {
+                  color: #556cd6;
+                  font-weight: 500;
+                }
+              }
+
+              .img {
+                display: block;
+                width: 28px;
+                height: 28px;
+                margin-left: auto;
+                margin-right: auto;
+                margin-bottom: 9px;
+                background: url(https://yyccyy-01.oss-cn-shenzhen.aliyuncs.com/backup/252d014676a31d783fd1b3591e08dcaf.png) no-repeat -56px -28px;
+                background-size: 400%;
+                opacity: .8;
+              }
+
+              .item-text {
+                font-size: .8rem;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .layout-account-person-wrapper {
+    display: flex;
+    // 左侧菜单
+    .sidebar-container {
+      width: 250px;
+      flex-shrink: 0;
+
+      .MuiDrawer-paperAnchorLeft {
+        left: auto;
+      }
+    }
+
+    // 中心主体
+    .content-container {
+      overflow: hidden;
+      flex-grow: 1;
+      padding: 86px 25px 25px;
+    }
+  }
+}
+
+
+html {
+  // 左侧菜单
+  .sidebar-container {
+    width: 250px;
+    flex-shrink: 0;
+  }
+
+  .menu-wrapper {
+    width: 250px;
+
+    .menu-header-display {
+      height: 64px;
+    }
+  }
+
+  // 菜单激活
+  .menu-active {
+    background-color: rgba(0, 0, 0, 0.08);
+  }
+
+  .menu-link {
+    color: rgba(0, 0, 0, 0.87);
+  }
+}
+
+// 移动端适配
+@media (max-width: 600px) {
+  .layout-account-person-container {
+    .app-bar-container {
+      .user-base-info-container {
+        .user-base-info {
+          .user-tooltip {
+            width: 255px;
+          }
+        }
+      }
+    }
+
+    .layout-account-person-wrapper {
+      .sidebar-container {
+        width: 0;
+        flex-shrink: 0;
+      }
+
+      // 中心主体
+      .content-container {
+        padding: 86px 0 25px;
+      }
+    }
+  }
+
+  html {
+    .menu-wrapper {
+      .menu-header-display {
+        height: 0;
+      }
+    }
+  }
+}

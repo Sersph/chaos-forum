@@ -107,7 +107,10 @@ export default compose<React.ComponentClass>(
 
       NProgress.start();
 
-      const result1: any = await api.account.signUp(state.signUpFormData);
+      const result1: any = await api.account.signUp({
+        username: state.signUpFormData.username,
+        password: state.signUpFormData.password
+      });
 
       setTimeout(() => {
         if (result1.code === 0) {
@@ -116,33 +119,46 @@ export default compose<React.ComponentClass>(
             snackbarStatus: true
           });
 
-          setTimeout(() => {
-            // 刷新用户状态
-            // const result2: any = await api.account.selectUserInfo();
-            const result2 = {
-              "code": 111,
-              "data": {
-                username: "迷都是通通",
-                avatar: "https://apic.douyucdn.cn/upload/avanew/face/201711/10/15/44c4aeb4ed7e82016426823ab253ba71_middle.jpg"
-              }
-            };
-            props.updateUserInfo({
-              ...props.userInfo,
-              ...result2.data
+          setTimeout(async () => {
+            // 强制登录用户
+            api.account.signIn({
+              username: state.signUpFormData.username,
+              password: state.signUpFormData.password
             });
 
-            setTimeout(() => {
-              // 跳转至首页
-              Router.push({
-                pathname: '/home'
+            setTimeout(async () => {
+              // 刷新用户状态
+              const result2: any = await api.account.selectUserInfo();
+
+              props.updateUserInfo({
+                ...props.userInfo,
+                ...result2.data
               });
-            }, 1000);
+
+              setTimeout(() => {
+                // 跳转至首页
+                Router.push({
+                  pathname: '/home'
+                });
+              }, 1000);
+
+            }, 200);
+
           }, 500);
+        } else if (result1.code === 104) {
+          this.setState({
+            snackbarMessage: `${result1.message}`,
+            snackbarStatus: true,
+            signUpFormSubmitted: false
+          });
+          NProgress.done();
         } else {
           this.setState({
             snackbarMessage: `注册失败，请稍后重试 ${result1.code}: ${result1.message}`,
-            snackbarStatus: true
+            snackbarStatus: true,
+            signUpFormSubmitted: false
           });
+          NProgress.done();
         }
       }, 500);
     };

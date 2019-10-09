@@ -1,70 +1,120 @@
 .post-category-post-list-item-container {
-  width: 100%;
-  margin-top: 1.35rem;
-  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
-  border-radius: 5px;
-
-  &:first-child {
-    margin-top: 0;
-  }
+  border-bottom: 1px solid #ccc;
 
   .post-base-info-container {
     display: flex;
+    padding-top: 15px;
+    padding-bottom: 15px;
 
-    .user-base-info {
-      width: 115px;
+    .post-message-count {
+      width: 85px;
       text-align: center;
-      padding-top: 21px;
-      padding-left: 10px;
+      padding-left: 15px;
       padding-right: 10px;
 
-      img {
-        width: 62px;
-        height: 62px;
-        border-radius: 50%;
-      }
-
-      p {
-        margin-top: .5rem;
-        font-size: 15px;
-        font-weight: bold;
-        color: #3c3c3c;
+      span {
+        display: block;
+        width: 55px;
+        height: 35px;
+        line-height: 31px;
+        text-align: center;
+        font-size: 12px;
+        color: #666;
+        background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGgAAAA4CAYAAAARkr1WAAAAAXNSR0IArs4c6QAAAkJJREFUeAHtnLFLAlEAxrvDQBwEtUXwf6ip1pDWppaGloagpS0iaAgiGoK2pram/o1Wm2poaLcEyTt0EEHp+h54aoqpg74P33cg79519H7v+/EdOHjeCo5ms1lotVq3URRtY5o313RYS6Died5zMpk8S6VSZa8r5w1ystaQtPBIApAUQNK6322O5IxEZPeCKYxx49VqtS+g6LFm18e41Su+5IzLhuJ63gjSQZyABBHLMWgSJEHkCZDjqUESRJ4AOZ4aJEHkCZDjqUESRJ4AOZ4aJEHkCZDjqUESRJ4AOZ4aJEHkCZDjqUESRJ4AOZ4aJEHkCZDjqUESRJ4AOZ4aJEHkCZDjqUESRJ4AOZ4aJEHkCZDjqUESRJ4AOZ4aJEHkCZDjqUESRJ4AOZ4aJEHkCZDj+fg9fkjO6CyecWMecSVnE+DfeMkLw3ADL014wWeVn9cdQrSnjc+mn8lkXrHtIibv7myfe6ddF0XjxhtEbTQaa51OZ15vHTFrXaOpu4NrTnFeBfDOFPctxS2JRKKSTqe/4838ERRfnNdoHqNBEDzh/+/NsMZnLpcrzHD/Ut260O9BaEI7m83uYzSSdEyRwEIFGR7I6eDZeoDTxyn4nL9l4YJM4pD0gyYdYnxw3sCEAKwI6kqK0KRjSLqfwOj0n60JiiWhSSe+7985beGfzVsVFHOhSado0k0819hPgEKQwUGTLtCkyz5a7yzqnTl4QiPIZI8mXaFJ50MeykNzTW0ngPeoHuELbRXjR71e37LNY3P9X+qnb/6N1x6tAAAAAElFTkSuQmCC) no-repeat 0 0;
+        background-size: 55px 35px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
       }
     }
 
     .post-base-info {
       overflow: hidden;
       flex: 1;
-      padding-right: 35px;
-      padding-top: 23px;
-      padding-bottom: 15px;
+      padding-right: 15px;
 
-      .post-title {
-        font-size: 1.11rem;
-        font-weight: bold;
-        color: #3c3c3c;
-
-        &:hover {
-          color: #556cd6;
-        }
-      }
-
-      .post-create-time-and-category {
+      .title-and-create-username {
         display: flex;
+        margin-bottom: 5px;
 
-        .create-time {
-          line-height: 2.5rem;
+        .post-title {
+          display: block;
+          width: 559px;
+          font-size: 1.11rem;
+          font-weight: bold;
+          color: #3c3c3c;
+
+          a {
+            overflow: hidden;
+            color: #3c3c3c;
+
+            &:hover {
+              color: #556cd6;
+            }
+          }
+        }
+
+        .post-create-username {
+          position: relative;
+          left: 11px;
+          width: 150px;
+          height: 25px;
+          padding-left: 19px;
+          color: #a0a0a0;
+          background: url(https://wbstatic.douyu.com/images/f22e5bbdfbf56db5c3ede74ddd32030a.png) no-repeat 0 center;
+        }
+
+        .last-message-time {
+          width: 100px;
+        }
+
+        .mobile-last-message-time {
+          display: none;
+          width: 100px;
+          text-align: center;
           color: #a0a0a0;
         }
       }
 
-      .post-content {
-        font-size: 1.05rem;
-        line-height: 1.75;
-        word-break: break-all;
-        color: #a0a0a0;
-        max-height: 85px;
-        overflow: hidden;
+      .post-content-and-last-message-username-and-last-message-time {
+        display: flex;
+        margin-top: 11px;
+
+        .post-content {
+          color: #a0a0a0;
+          width: 559px;
+        }
+
+        .last-message-username {
+          position: relative;
+          left: 11px;
+          width: 150px;
+          height: 22px;
+          padding-left: 19px;
+          color: #a0a0a0;
+          background: url(https://wbstatic.douyu.com/images/3dfd16a5133041a2fe78d2217369b6a5.png) no-repeat 0 center;
+        }
+
+        .last-message-time {
+          width: 100px;
+          color: #a0a0a0;
+          text-align: center;
+        }
+      }
+
+      .post-category-name {
+          margin-top: 6px;
+        a {
+          color: #a0a0a0;
+
+          span {
+            color: #556cd6;
+          }
+
+          &:hover {
+            color: #556cd6;
+          }
+        }
       }
 
       .preview-image-list {
@@ -86,83 +136,9 @@
           img {
             border-radius: 5px;
             max-width: 100%;
-            max-height: 215px;
+            max-height: 150px;
             cursor: zoom-in;
           }
-        }
-      }
-    }
-  }
-
-  .post-action-container {
-    display: flex;
-    border-top: 1px solid #ccc;
-
-    .action-item {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding-top: 1rem;
-      padding-bottom: 1rem;
-      color: #a0a0a0;
-      cursor: pointer;
-
-      &.like-action-item {
-        border-right: 1px solid #ccc;
-
-        &:hover {
-          i {
-            background-image: url(https://yyccyy-01.oss-cn-shenzhen.aliyuncs.com/backup/0e69f14157b4804d15be0626b659be4c.png);
-          }
-
-          .action-text {
-            color: #556cd6;
-          }
-        }
-
-        i {
-          width: 25px;
-          height: 21px;
-          background: url(https://yyccyy-01.oss-cn-shenzhen.aliyuncs.com/backup/8612e657cb789bbfd54c0efa2b6a5989.png) no-repeat;
-          background-size: 21px;
-          margin-right: 5px;
-        }
-
-        .action-text {
-          position: relative;
-          top: 2px;
-
-          &.active {
-            color: #556cd6;
-          }
-        }
-      }
-
-      &.message-action-item {
-        display: none;
-
-        &:hover {
-          i {
-            background-image: url(https://yyccyy-01.oss-cn-shenzhen.aliyuncs.com/backup/9e55ed77d7433e6d078b0542630a091d.png);
-          }
-
-          .action-text {
-            color: #556cd6;
-          }
-        }
-
-        i {
-          width: 25px;
-          height: 21px;
-          background: url(https://yyccyy-01.oss-cn-shenzhen.aliyuncs.com/backup/706dbfb7a0e9e946c94852e26f27c7f0.png) no-repeat;
-          background-size: 21px;
-          margin-right: 5px;
-        }
-
-        .action-text {
-          position: relative;
-          top: 1px;
         }
       }
     }
@@ -171,30 +147,60 @@
 
 // 移动端适配
 @media (max-width: 600px) {
-  .post-category-post-list-item-container{
+  .post-category-post-list-item-container {
     .post-base-info-container {
-      .user-base-info {
-        width: 95px;
-        text-align: center;
-        padding-top: 21px;
+      .post-message-count {
+        width: 55px;
         padding-left: 5px;
-        padding-right: 5px;
 
-        img {
-          width: 50px;
-          height: 50px;
+        span {
+          width: 35px;
+          height: 26px;
+          line-height: 23px;
+          color: #666;
+          background-size: 35px 26px;
         }
       }
 
       .post-base-info {
         padding-right: 5px;
 
-        .post-create-time-and-category {
+        .title-and-create-username {
+          a {
+            flex: 1;
+
+            .post-title {
+              width: auto;
+            }
+          }
+
+          .post-create-username {
+            display: none;
+          }
+
+          .last-message-time {
+            display: none;
+          }
+
+          .mobile-last-message-time {
+            display: block;
+            line-height: 23px;
+          }
+        }
+
+        .post-content-and-last-message-username-and-last-message-time {
           display: block;
 
-          p {
-            margin: 0 !important;
-            line-height: 1.75rem !important;
+          .post-content {
+            width: auto;
+          }
+
+          .last-message-username {
+            display: none;
+          }
+
+          .last-message-time {
+            display: none;
           }
         }
 

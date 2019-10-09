@@ -17,7 +17,8 @@ type Method =
   | 'head'
   | 'HEAD'
   | 'patch'
-  | 'PATCH';
+  | 'PATCH'
+  | 'POST_FILE';
 
 /**
  * ajax 请求封装模块
@@ -36,7 +37,8 @@ export default function ajax(method: Method, url: string, data = {}): object {
           response = await axios({
             method,
             url,
-            params: data
+            params: data,
+            withCredentials: true
           });
           break;
         case 'POST':
@@ -58,6 +60,14 @@ export default function ajax(method: Method, url: string, data = {}): object {
             headers: {
               'Content-Type': 'application/x-www-form-urlencoded'
             }
+          });
+          break;
+        case 'POST_FILE':
+          // 发送 post
+          response = await axios({
+            method: 'POST',
+            url,
+            data
           });
           break;
         case 'PUT':

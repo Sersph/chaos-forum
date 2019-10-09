@@ -6,8 +6,8 @@ export interface AccountState {
 
 // 帖子状态接口声明
 export interface PostState {
-  // 帖子分类页面 - 帖子分类详情
-  postCategoryPagePostCategoryDetail: any;
+  // 所有的文章分类
+  allPostCategoryList: any;
 }
 
 // 整合所有状态

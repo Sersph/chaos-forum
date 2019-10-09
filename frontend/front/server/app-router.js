@@ -18,11 +18,9 @@ module.exports = (router, app) => {
     ctx.respond = false;
   });
 
-  // 全部分区
-  router.get('/post/category/:id', async ctx => {
-    await app.render(ctx.req, ctx.res, '/post/category', {
-      id: ctx.params.id
-    });
+  // 我的资料 - 个人中心
+  router.get('/account/person/info', async ctx => {
+    await app.render(ctx.req, ctx.res, '/account/person/info');
     ctx.respond = false;
   });
 

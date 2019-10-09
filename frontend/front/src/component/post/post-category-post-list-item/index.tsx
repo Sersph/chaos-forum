@@ -24,23 +24,70 @@ export default class HotPostListItem extends React.Component<Props, State> {
     return (
       <section className="post-category-post-list-item-container">
         <section className="post-base-info-container">
-          <section className="user-base-info">
-            <img
-              src={(props.postDescription.userInfo.avatar !== undefined && props.postDescription.userInfo.avatar !== '') ? props.postDescription.userInfo.avatar : '../../static/image/person-default-avatar.jpg'}
-              alt="user-avatar"
-            />
-            <Typography>{props.postDescription.userInfo.username}</Typography>
+          <section className="post-message-count">
+            <span>{props.postDescription.messageCount}</span>
           </section>
           <section className="post-base-info">
-            <Link href={`/post/detail?id=${props.postDescription.id}`} as={`/post/detail/${props.postDescription.id}`}>
-              <a href={`/post/detail/${props.postDescription.id}`}>
-                <Typography className="post-title">{props.postDescription.title}</Typography>
-              </a>
-            </Link>
-            <div className="post-create-time-and-category">
-              <Typography className="create-time">{props.postDescription.createTime}</Typography>
+            <div className="title-and-create-username">
+
+              <Typography
+                noWrap
+                className="post-title"
+              >
+                <Link
+                  href={`/post/detail?id=${props.postDescription.id}`}
+                  as={`/post/detail/${props.postDescription.id}`}
+                >
+                  <a href={`/post/detail/${props.postDescription.id}`}>{props.postDescription.title}
+                  </a>
+                </Link>
+              </Typography>
+
+              <Typography
+                className="post-create-username"
+                noWrap
+              >{props.postDescription.createUsername}</Typography>
+
+              <Typography
+                className="last-message-time"
+              />
+              <Typography
+                className="mobile-last-message-time"
+                noWrap
+              >{props.postDescription.lastMessageTime}</Typography>
             </div>
-            <Typography className="post-content" noWrap>{htmlUtil.parseHtmlStrToHtmlContent(props.postDescription.content)}</Typography>
+
+            <div className="post-content-and-last-message-username-and-last-message-time">
+              <Typography
+                className="post-content"
+                noWrap
+              >{htmlUtil.parseHtmlStrToHtmlContent(props.postDescription.content)}</Typography>
+              <Typography
+                className="last-message-username"
+                noWrap
+              >{props.postDescription.lastMessageUsername}</Typography>
+              <Typography
+                className="last-message-time"
+                noWrap
+              >{props.postDescription.lastMessageTime}</Typography>
+            </div>
+
+            <div className="post-category-name">
+              <Typography
+                className="category-name"
+                noWrap
+              >
+                <Link
+                  href={`/home?categoryId=${props.postDescription.categoryId}`}
+                  as={`/home?categoryId=${props.postDescription.categoryId}`}
+                >
+                  <a href={`/home?categoryId=${props.postDescription.categoryId}`}>
+                    发布于 <span>{props.postDescription.categoryName}</span>
+                  </a>
+                </Link>
+              </Typography>
+            </div>
+
             {props.postDescription.previewImageList.length > 0 && (
               <section className="preview-image-list">
                 {props.postDescription.previewImageList.map((previewImageListItem, index) => (
@@ -51,25 +98,18 @@ export default class HotPostListItem extends React.Component<Props, State> {
                           zIndex: 1202
                         }
                       }}
-                      zoomMargin={50}
+                      shouldReplaceImage={false}
+                      zoomImage={{
+                        src: previewImageListItem.original
+                      }}
                       image={{
-                        src: previewImageListItem.path
+                        src: previewImageListItem.original
                       }}
                     />
                   </div>
                 ))}
               </section>
             )}
-          </section>
-        </section>
-        <section className="post-action-container">
-          <section className="action-item like-action-item">
-            <i/>
-            <Typography className="action-text">{props.postDescription.messageCount}</Typography>
-          </section>
-          <section className="action-item message-action-item">
-            <i/>
-            <Typography className="action-text">{props.postDescription.messageCount}</Typography>
           </section>
         </section>
       </section>

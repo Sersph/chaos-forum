@@ -21,13 +21,15 @@ export interface AccountAPI {
 // 帖子相关接口声明
 export interface PostAPI {
   // 创建帖子接口
-  createPost: (data: any) => object;
+  insertPost: (data: any) => object;
   // 获取热门文章
   selectHotPostList: (data: any) => object;
   // 获取文章
   selectPostList: (data: any) => object;
-  // 获取分类详情
-  selectPostCategoryDetail: (id: any) => object;
+  // 获取帖子分类
+  selectAllPostCategoryList: () => object;
+  // 文件上传
+  fileUpload: (data: any) => object;
 }
 
 // 整合所有接口

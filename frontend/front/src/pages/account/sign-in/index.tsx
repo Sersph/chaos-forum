@@ -98,16 +98,10 @@ export default compose<React.ComponentClass>(
             snackbarStatus: true
           });
 
-          setTimeout(() => {
+          setTimeout(async () => {
             // 刷新用户状态
-            // const result2: any = await api.account.selectUserInfo();
-            const result2 = {
-              "code": 0,
-              "data": {
-                username: "迷都是通通",
-                avatar: "https://apic.douyucdn.cn/upload/avanew/face/201711/10/15/44c4aeb4ed7e82016426823ab253ba71_middle.jpg"
-              }
-            };
+            const result2: any = await api.account.selectUserInfo();
+
             props.updateUserInfo({
               ...props.userInfo,
               ...result2.data
@@ -120,11 +114,20 @@ export default compose<React.ComponentClass>(
               });
             }, 1000);
           }, 500);
+        } else if (result1.code === 101) {
+          this.setState({
+            snackbarMessage: `用户名或密码不正确`,
+            snackbarStatus: true,
+            signInFormSubmitted: false
+          });
+          NProgress.done();
         } else {
           this.setState({
-            snackbarMessage: `登录失败，请稍后重试 ${result1.code}: ${result1.message}`,
-            snackbarStatus: true
+            snackbarMessage: `${result1.code}: ${result1.message}`,
+            snackbarStatus: true,
+            signInFormSubmitted: false
           });
+          NProgress.done();
         }
       }, 500);
     };

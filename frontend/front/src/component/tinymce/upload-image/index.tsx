@@ -9,7 +9,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import NProgress from 'nprogress';
 import oss from '../../../util/oss';
 import './index.less';
-// import api from '../../../api';
+import api from '../../../api';
 
 // 当前组件的类型声明
 interface Props {
@@ -23,7 +23,7 @@ interface State {
   // 上传的文件列表
   fileList: any;
   // 上传状态
-  uploadStatus: boolean;
+  uploadSubmitted: boolean;
 }
 
 // 当前组件类
@@ -33,13 +33,13 @@ export default class TinymceUploadImage extends React.Component<Props, State> {
     this.state = {
       visibleUploadModel: false,
       fileList: [],
-      uploadStatus: false
+      uploadSubmitted: false
     };
   }
 
 
   /**
-   * 显示上传文件模态框
+   * 显示/隐藏上传文件模态框
    *
    */
   public handleToggleUploadModel = (flag: boolean): void => {
@@ -67,40 +67,41 @@ export default class TinymceUploadImage extends React.Component<Props, State> {
     NProgress.start();
 
     this.setState({
-      uploadStatus: true
+      uploadSubmitted: true
     });
 
     // 获取 sts oss token
-    const stsToken = await oss.selectOssStsToken();
+    // const stsToken = await oss.selectOssStsToken();
 
     // 实例化 oss SDK
-    const client = new (window as any).OSS({
-      region: stsToken.region,
-      bucket: stsToken.bucket,
-      accessKeyId: stsToken.accessKeyId,
-      accessKeySecret: stsToken.accessKeySecret,
-      stsToken: stsToken.securityToken,
-    });
+    // const client = new (window as any).OSS({
+    //   region: stsToken.region,
+    //   bucket: stsToken.bucket,
+    //   accessKeyId: stsToken.accessKeyId,
+    //   accessKeySecret: stsToken.accessKeySecret,
+    //   stsToken: stsToken.securityToken,
+    // });
 
     const fileUploadResult = await state.fileList.map(async file => {
-      // const formData = new FormData();
-      // formData.append('file', file);
-      // const result: any = await api.post.fileUpload(formData);
+      const formData = new FormData();
+      formData.append('file', file);
+      const result: any = await api.post.fileUpload(formData);
 
       // 保存 oss 结果集到已上传的文件列表
-      // file.ossResult = {
-      //   url: result.data.data
-      // };
+      file.ossResult = {
+        thumbnail: result.data[0],
+        original: result.data[1]
+      };
 
       // 将图片上传到服务器
-      file.ossResult = await client.put('collection/description-image/' + file.name, file);
+      // file.ossResult = await client.put('collection/description-image/' + file.name, file);
       return file;
     });
 
     Promise.all(fileUploadResult).then((fileUploadResult) => {
       // 拼接已上传成功的 img 标签
       const imageHTML = fileUploadResult.map((item: any) => {
-        return `<img src="${item.ossResult.url}" class="tinymce-upload-image" data-q="1"/>`;
+        return `<img src="${item.ossResult.original}" class="tinymce-upload-image" data-thumbnail="${item.ossResult.thumbnail}"/>`;
       });
 
       // 回调上传图片成功
@@ -110,7 +111,7 @@ export default class TinymceUploadImage extends React.Component<Props, State> {
       this.setState({
         visibleUploadModel: false,
         fileList: [],
-        uploadStatus: false
+        uploadSubmitted: false
       });
 
       NProgress.done();
@@ -128,7 +129,6 @@ export default class TinymceUploadImage extends React.Component<Props, State> {
       fileList: []
     });
   };
-
 
   public render = (): JSX.Element => {
     const { state } = this;
@@ -168,7 +168,7 @@ export default class TinymceUploadImage extends React.Component<Props, State> {
             <Button onClick={() => this.handleCancel()} color="primary">
               取消
             </Button>
-            <Button disabled={state.uploadStatus} onClick={() => this.handleOk()} color="primary">
+            <Button disabled={state.uploadSubmitted} onClick={() => this.handleOk()} color="primary">
               立即上传
             </Button>
           </DialogActions>

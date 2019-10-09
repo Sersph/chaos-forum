@@ -5,7 +5,7 @@
     "start": "cross-env NODE_ENV=development PORT=3000 node server/index.js",
     "build": "next build ./src",
     "start-prod": "cross-env NODE_ENV=production PORT=3000 node server/index.js",
-    "start-prod-pm2": "cross-env NODE_ENV=production PORT=3000 pm2 --name \"auction-frontend-front-desk\" start server/index.js"
+    "start-prod-pm2": "cross-env NODE_ENV=production PORT=8800 pm2 --name \"auction-frontend-front-desk\" start server/index.js"
   },
   "dependencies": {
     "@babel/polyfill": "^7.6.0",

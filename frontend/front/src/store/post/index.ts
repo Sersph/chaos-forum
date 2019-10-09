@@ -2,22 +2,22 @@ import { PostState } from '../../type/state';
 
 // action type
 enum ActionType {
-  UPDATE_POST_CATEGORY_PAGE_POST_CATEGORY_DETAIL = 'updatePostCategoryPagePostCategoryDetail',
+  UPDATE_ALL_POST_CATEGORY_LIST = 'updateAllPostCategoryList',
   CLEAR_POST_STATE = 'clearPostState'
 }
 
 // state
 const initState: PostState = {
-  postCategoryPagePostCategoryDetail: null
+  allPostCategoryList: null
 };
 
 // action
 // 是否已经获取帖子分类详情
-export const updatePostCategoryPagePostCategoryDetail = (flag: boolean): object => {
+export const updateAllPostCategory = (allPostCategoryList): object => {
   return {
-    type: ActionType.UPDATE_POST_CATEGORY_PAGE_POST_CATEGORY_DETAIL,
+    type: ActionType.UPDATE_ALL_POST_CATEGORY_LIST,
     data: {
-      postCategoryPagePostCategoryDetail: flag
+      allPostCategoryList
     }
   };
 };
@@ -32,7 +32,7 @@ export const clearPostState = (): object => {
 // reducer
 export default (state = initState, action: any): any => {
   switch (action.type) {
-    case ActionType.UPDATE_POST_CATEGORY_PAGE_POST_CATEGORY_DETAIL:
+    case ActionType.UPDATE_ALL_POST_CATEGORY_LIST:
       return {
         ...state,
         ...action.data

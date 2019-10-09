@@ -6,28 +6,28 @@ const api: AccountAPI = {
   signUp: (data: any): object => {
     return ajax(
       'POST',
-      `${config.MOCK_API_ROOT}/frontend/signUp`,
+      `${config.MOCK_API_ROOT}/frontend/user/register`,
       data
     );
   },
   signIn: (data: any): object => {
     return ajax(
       'POST',
-      `${config.MOCK_API_ROOT}/frontend/signIn`,
+      `${config.MOCK_API_ROOT}/frontend/user/logIn`,
       data
     );
   },
   signOut: (): object => {
     return ajax(
       'GET',
-      `${config.MOCK_API_ROOT}/frontend/signOut`,
+      `${config.MOCK_API_ROOT}/frontend/user/logOut`,
       {}
     );
   },
   selectUserInfo: (): object => {
     return ajax(
       'GET',
-      `${config.MOCK_API_ROOT}/frontend/userInfo`,
+      `${config.MOCK_API_ROOT}/frontend/user/userCase`,
       {}
     );
   },

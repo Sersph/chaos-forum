@@ -4,12 +4,12 @@ import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
+import Container from '@material-ui/core/Container';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import HomeIcon from '@material-ui/icons/Home';
-import MenuIcon from '@material-ui/icons/Menu';
+import PersonIcon from '@material-ui/icons/Person';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -17,9 +17,9 @@ import Link from 'next/link';
 import { withRouter } from 'next/router';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { AppState } from '../../../type/state';
-import { updateUserInfo } from '../../../store/account';
-import api from '../../../api';
+import { AppState } from '../../../../type/state';
+import { updateUserInfo } from '../../../../store/account';
+import api from '../../../../api';
 import Snackbar from '@material-ui/core/Snackbar';
 import Slide from '@material-ui/core/Slide';
 import CloseIcon from '@material-ui/icons/Close';
@@ -73,9 +73,9 @@ export default compose<React.ComponentClass>(
       this.state = {
         menuList: [
           {
-            name: '首页',
-            icon: <HomeIcon color="primary"/>,
-            href: '/home'
+            name: '我的资料',
+            icon: <PersonIcon color="primary"/>,
+            href: '/account/person/info'
           }
         ],
         drawerMobileOpen: false,
@@ -106,17 +106,6 @@ export default compose<React.ComponentClass>(
         }, 300);
       }
       return true;
-    };
-
-    /**
-     * 切换菜单栏显示
-     * (手机端顶部三横按钮点击调用)
-     *
-     */
-    public handleDrawerToggle = () => {
-      this.setState({
-        drawerMobileOpen: !this.state.drawerMobileOpen
-      });
     };
 
     /**
@@ -196,15 +185,6 @@ export default compose<React.ComponentClass>(
       return (
         <AppBar position="fixed" className="app-bar-container">
           <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              edge="start"
-              onClick={this.handleDrawerToggle}
-              className="menu-button"
-            >
-              <MenuIcon/>
-            </IconButton>
             <div className="title">
               <Link href="/home">
                 <a href="/home">
@@ -281,8 +261,8 @@ export default compose<React.ComponentClass>(
                       <Typography className="username">{props.userInfo.username}</Typography>
                     </div>
                     <div className="user-feature">
-                      <Link href="/account/person/info">
-                        <a href="/account/person/info">
+                      <Link href="/account/person/center">
+                        <a href="/account/person/center">
                           <div className="feature-item">
                             <i className="img"/>
                             <Typography className="item-text">个人中心</Typography>
@@ -334,7 +314,6 @@ export default compose<React.ComponentClass>(
               variant="temporary"
               anchor={'left'}
               open={state.drawerMobileOpen}
-              onClose={this.handleDrawerToggle}
               classes={{
                 paper: 'menu-wrapper'
               }}
@@ -363,12 +342,14 @@ export default compose<React.ComponentClass>(
     public render = (): JSX.Element => {
       const { props, state } = this;
       return (
-        <div className="layout-master-container">
+        <div className="layout-account-person-container">
           {this.renderAppBarContainer()}
-          {this.renderSidebarContainer()}
-          <main className="content-container">
-            {props.children}
-          </main>
+          <Container maxWidth="lg" className="layout-account-person-wrapper">
+            {this.renderSidebarContainer()}
+            <main className="content-container">
+              {props.children}
+            </main>
+          </Container>
           <Snackbar
             anchorOrigin={{
               vertical: 'top',

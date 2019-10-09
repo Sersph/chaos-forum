@@ -1,14 +1,69 @@
 .home-container {
+  .loading-item-container {
+    display: flex;
+    padding-right: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+    background-color: #fff;
+
+    & > div:first-child {
+      display: flex;
+      justify-content: center;
+      padding-top: 15px;
+      width: 95px;
+      height: 95px;
+    }
+
+    & > div:last-child {
+      flex: 1;
+    }
+  }
+
+  .post-select-condition {
+    padding: .5rem 1rem;
+    background-color: #fff;
+    box-shadow: 1px 1px 11px rgba(0, 0, 0, 0.3);
+
+    form {
+      display: flex;
+      align-items: center;
+
+      .MuiFormControl-root {
+        width: 150px;
+        margin: 0 11px 0 0;
+      }
+    }
+  }
+
   .post-list-container {
     .post-list-wrapper-container {
       max-width: 975px;
-      .hot {
+
+      .header-action {
         display: flex;
+        justify-content: flex-end;
         align-items: center;
-        height: 68px;
         margin-bottom: 15px;
         padding-bottom: 15px;
         border-bottom: 5px solid #556cd6;
+
+        .MuiSvgIcon-root {
+          margin-right: 5px;
+        }
+      }
+
+      .post-select-condition {
+        margin-bottom: 1rem;
+        background-color: #fff;
+      }
+
+      .post-list {
+        background-color: #fff;
+        box-shadow: 1px 1px 11px rgba(0, 0, 0, .3);
+      }
+
+      .MuiTablePagination-root {
+        margin-top: 2rem;
       }
     }
   }
@@ -18,5 +73,39 @@
     margin-top: 25px;
     margin-left: auto;
     margin-right: auto;
+  }
+}
+
+// 创建帖子模态框内样式
+.MuiDialogContent-root.insert-post-dialog-content {
+  .insert-post-container {
+    margin-top: 2rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+
+    .MuiFormControl-root {
+      height: 55px;
+    }
+
+    .tinymce-container {
+      margin-top: 9px;
+    }
+
+    .submit-button-container {
+      margin-top: 1.5rem;
+    }
+  }
+}
+
+// 移动端适配
+@media (max-width: 600px) {
+  .home-container {
+    .post-select-condition {
+      form {
+        .MuiFormControl-root {
+          width: 110px;
+        }
+      }
+    }
   }
 }

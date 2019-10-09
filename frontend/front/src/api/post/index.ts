@@ -3,10 +3,10 @@ import config from '../../config';
 import { PostAPI } from '../../type/api';
 
 const api: PostAPI = {
-  createPost: (data: any): object => {
+  insertPost: (data: any): object => {
     return ajax(
       'POST',
-      `${config.MOCK_API_ROOT}/frontend/createPost`,
+      `${config.MOCK_API_ROOT}/frontend/article/sava`,
       data
     );
   },
@@ -24,10 +24,17 @@ const api: PostAPI = {
       data
     );
   },
-  selectPostCategoryDetail: (id: any): object => {
+  selectAllPostCategoryList: () => {
     return ajax(
       'GET',
-      `${config.MOCK_API_ROOT}/frontend/postCategory/${id}`
+      `${config.MOCK_API_ROOT}/frontend/postCategory`
+    );
+  },
+  fileUpload: (data: any) => {
+    return ajax(
+      'POST_FILE',
+      `${config.MOCK_API_ROOT}/file`,
+      data
     );
   }
 };
