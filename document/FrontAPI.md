@@ -288,7 +288,7 @@
 
 - 请求方式 - 请求 URL
 
-  - `GET` - `/frontend/articleCategoryAll`
+  - `GET` - `/frontend/category/all`
 
 - 请求参数`xxx`
 

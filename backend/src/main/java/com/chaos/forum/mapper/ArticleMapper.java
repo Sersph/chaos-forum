@@ -9,6 +9,7 @@ import com.chaos.forum.entity.Article;
 import com.chaos.forum.entity.ArticleListPage;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Service;
 
 /**
  * <p>
@@ -29,4 +30,5 @@ public interface ArticleMapper extends BaseMapper<Article> {
             @Param(Constants.WRAPPER) Wrapper<Article> queryWrapper,
             @Param("articleListPage") ArticleListPage articleListPage
     );
+
 }

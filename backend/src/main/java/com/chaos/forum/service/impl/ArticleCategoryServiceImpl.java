@@ -16,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  * { describe }
@@ -75,15 +77,18 @@ public class ArticleCategoryServiceImpl extends ServiceImpl<ArticleCategoryMappe
     }
 
     /**
-     * 查询所有文章
+     * 查询所有文章分类
      *
      * @return
      */
     @Override
     public ResultVO selectArticleAll() {
-        if (articleCategoryMapper.selectList(new QueryWrapper<>()) == null) {
-            return new ResultVO(ResultEnum.SUCCESS, articleCategoryMapper.selectList( new QueryWrapper<>()));
+
+        List list = this.list(new QueryWrapper<>());
+        if (list != null) {
+            return new ResultVO(ResultEnum.SUCCESS, list);
         }
+
         throw new DataException(ResultEnum.SELECT_ERROR);
     }
 }

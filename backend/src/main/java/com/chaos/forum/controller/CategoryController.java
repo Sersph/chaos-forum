@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  * 2019-10-08 15:42
  */
 @RestController
-@RequestMapping("/frontend")
+@RequestMapping("/frontend/category")
 public class CategoryController {
 
     @Autowired
@@ -27,7 +27,7 @@ public class CategoryController {
      *
      * @return
      */
-    @GetMapping("/categoryAll")
+    @GetMapping("/all")
     public ResultVO selectCategoryAll() {
         return this.categoryService.selectArticleAll();
     }

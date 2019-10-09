@@ -111,18 +111,19 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         /** 分页 */
         Page page = new Page<Article>(articleListPage.getPage(), articleListPage.getPageSize());
         /**
-         * 通过分类id来查询
+         * 通过分类id来判断 查询的方式
+         *      分类id ！= 0 就使用分类id来查询文章
+         *      则：查询所有文章（可以实现模糊查询）
          */
         System.out.println(article.getArticleCategoryId());
 
         if (article.getArticleCategoryId() != 0) {
             List list = this.list(new QueryWrapper<Article>().eq("article_category_id", article.getArticleCategoryId()));
-            
+
             if (list != null) {
                 return new ResultVO(ResultEnum.SUCCESS, list);
             }
             throw new DataException(ResultEnum.SELECT_ERROR);
-
         } else {
             /**
              * 查询所有文章：模糊查询、默认desc排序；
