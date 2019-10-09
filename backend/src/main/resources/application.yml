@@ -5,6 +5,7 @@ spring:
     password: mysql123$MYSQL123
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+
   #拒绝空显示
   jackson:
     default-property-inclusion: non_null
@@ -23,7 +24,8 @@ mybatis-plus:
     #文件上传路径
 forum:
   file:
-    upload: E:/project/chaos-forum/backend/src/main/resources/static/
-    static-url: http://10.0.18.37:8080/image/
-    #upload: /home/image/
-    #static-url: http://114.55.35.77:8080/image/
+    upload: /etc/nginx/www/chaos-forum/upload/
+    static-url: http://114.55.35.77/images/
+
+server:
+  port: 8080

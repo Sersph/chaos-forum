@@ -88,18 +88,38 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
         /** 分页 */
         Page page = new Page<Article>(articleListPage.getPage(), articleListPage.getPageSize());
+
+        /** 排序 */
+        if (articleListPage.getSortField() != null) {
+            //转换
+            articleListPage.setSortField(DatabaseTools.humpIsUnderlined(articleListPage.getSortField()));
+            this.logger.info(articleListPage.getSortField());
+            //排序
+            if (articleListPage.getSortOrder().equals("desc")) {
+                page.setDesc(articleListPage.getSortField());
+            } else {
+                page.setAsc(articleListPage.getSortField());
+            }
+        }
+
+        QueryWrapper<Article> wrapper = new QueryWrapper();
+        /** 模糊查询 */
+        if (articleListPage.getTitle() != null) {
+            wrapper.like("title", articleListPage.getTitle());
+        }
+
         /**
          * 通过分类id来判断 查询的方式
          *      分类id ！= 0 就使用分类id来查询文章
          *      则：查询所有文章（可以实现模糊查询）
          */
-        System.out.println(article.getArticleCategoryId());
 
         if (article.getArticleCategoryId() != 0) {
-            List list = this.list(new QueryWrapper<Article>().eq("article_category_id", article.getArticleCategoryId()));
+            List<Article> list = this.list(wrapper.eq("article_category_id", article.getArticleCategoryId()));
 
             if (list != null) {
-                return new ResultVO(ResultEnum.SUCCESS, list);
+                IPage iPage = articleMapper.selectPages(page, wrapper, articleListPage);
+                return new ResultVO(ResultEnum.SUCCESS, iPage);
             }
             throw new DataException(ResultEnum.SELECT_ERROR);
         } else {
@@ -107,23 +127,6 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
              * 查询所有文章：模糊查询、默认desc排序；
              */
             if (this.list(new QueryWrapper<>()) != null) {
-                if (articleListPage.getSortField() != null) {
-                    //转换
-                    articleListPage.setSortField(DatabaseTools.humpIsUnderlined(articleListPage.getSortField()));
-                    this.logger.info(articleListPage.getSortField());
-                    //排序
-                    if (articleListPage.getSortOrder().equals("desc")) {
-                        page.setDesc(articleListPage.getSortField());
-                    } else {
-                        page.setAsc(articleListPage.getSortField());
-                    }
-                }
-
-                /** 模糊查询 */
-                QueryWrapper<Article> wrapper = new QueryWrapper();
-                if (articleListPage.getTitle() != null) {
-                    wrapper.like("title", articleListPage.getTitle());
-                }
                 if (articleListPage.getArticleCategoryId() != 0) {
                     wrapper.eq("article_category_id", articleListPage.getArticleCategoryId());
                 }

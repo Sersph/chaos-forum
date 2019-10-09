@@ -3,8 +3,10 @@ package com.chaos.forum.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.chaos.forum.entity.PersonUser;
 import com.chaos.forum.vo.ResultVO;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 /**
  * <p>
@@ -33,9 +35,10 @@ public interface IUserService extends IService<PersonUser> {
     /**
      * 用户修改信息(登陆密码)
      *
-     * @param user 用户实体
      * */
-    ResultVO alter(PersonUser user);
+    ResultVO alterPassword(HttpSession session, String password);
+
+    public ResultVO alterBuddha(HttpSession session, MultipartFile file);
 
     ResultVO getUserName(HttpSession session);
 }
