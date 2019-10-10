@@ -61,12 +61,12 @@ public class UserController {
     /**
      * 用户修改信息
      *
-     * @param password
+     * @param user
      * @return
      */
     @PutMapping("/alter")
-    public ResultVO alter(String password,HttpSession session) {
-        return this.userService.alterPassword(session, password);
+    public ResultVO alter(PersonUser user,HttpSession session) {
+        return this.userService.alter(session, user);
     }
 
     /**

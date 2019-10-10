@@ -36,6 +36,6 @@ public class ArticleListPage {
     private String name;
 
     @ApiModelProperty(value = " 文章分类ID ")
-    private int articleCategoryId;
+    private Integer articleCategoryId;
 
 }

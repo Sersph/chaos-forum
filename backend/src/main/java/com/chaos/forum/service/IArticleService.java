@@ -22,11 +22,9 @@ public interface IArticleService extends IService<Article> {
 
     ResultVO selectArticle(int id);
 
-    ResultVO getArticleCategory(Article article, ArticleListPage articleListPage, ArticleComment articleComment);
+    ResultVO getArticleCategory(ArticleListPage articleListPage);
 
     @Deprecated
     ResultVO selectArticle(ArticleListPage articleListPage);
-
-
 
 }

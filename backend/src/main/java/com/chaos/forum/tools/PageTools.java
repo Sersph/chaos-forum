@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.chaos.forum.entity.ArticleListPage;
 import com.chaos.forum.tools.lambda.PageMapperLambda;
+import com.chaos.forum.tools.lambda.PageMapperLambdaBada;
 
 /**
  * { mybatis-plus 分页工具类}
@@ -19,37 +20,45 @@ public class PageTools<T> {
 
     private QueryWrapper<T> wrapper = new QueryWrapper<>();
 
+    private ArticleListPage articleListPage = null;
+
     /**
      * 自动分页工具方法
      *
      * 自动判读是否要进行模糊查询，排序以及排序方式
      *
-     * @param articleListPage
      * @param pageMapperLambda
      * @return IPage<T>
      */
-    public IPage<T> autoPaging(ArticleListPage articleListPage, PageMapperLambda<T> pageMapperLambda) {
+    public PageTools<T> autoPaging() {
 
-        if (articleListPage.getName() != null) {
-            this.like("name", articleListPage.getName());
+        if (this.articleListPage.getName() != null) {
+            this.like("name", this.articleListPage.getName());
         }
 
-        if (articleListPage.getSortField() != null) {
-            this.sort(DatabaseTools.humpIsUnderlined(articleListPage.getSortField()),
-                    articleListPage.getSortOrder().equals("desc") ? SortType.DESC : SortType.ASD);
+        if (this.articleListPage.getTitle() != null) {
+            this.like("title", this.articleListPage.getTitle());
         }
 
-        return this.result(pageMapperLambda);
+        if (this.articleListPage.getSortField() != null) {
+            this.sort(DatabaseTools.humpIsUnderlined(this.articleListPage.getSortField()),
+                    this.articleListPage.getSortOrder().equals("desc") ? SortType.DESC : SortType.ASD);
+        }
+
+        if (this.articleListPage.getArticleCategoryId() != null) {
+            this.category(this.articleListPage.getArticleCategoryId());
+        }
+
+        return this;
     }
 
     /**
      * 分页
      *
-     * @param page 页码
-     * @param pageSize 条数
      * */
-    public PageTools(int page, int pageSize) {
-        this.page = new Page<>(page, pageSize);
+    public PageTools(ArticleListPage articleListPage) {
+        this.articleListPage = articleListPage;
+        this.page = new Page<>(this.articleListPage.getPage(), this.articleListPage.getPageSize());
     }
 
 
@@ -81,6 +90,11 @@ public class PageTools<T> {
         return this;
     }
 
+    public PageTools<T> category(Integer categoryId) {
+        this.wrapper.eq("article_category_id", categoryId);
+        return this;
+    }
+
     /**
      * 返回
      *
@@ -89,5 +103,9 @@ public class PageTools<T> {
      * */
     public IPage<T> result(PageMapperLambda<T> pageMapperLambda) {
         return pageMapperLambda.select(this.page, this.wrapper);
+    }
+
+    public IPage<T> result(PageMapperLambdaBada<T> pageMapperLambda) {
+        return pageMapperLambda.select(this.page, this.wrapper, this.articleListPage);
     }
 }

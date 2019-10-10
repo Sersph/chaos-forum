@@ -83,18 +83,21 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, PersonUser> impleme
      * @param user 用户实体
      * @return
      */
-    private ResultVO alter(HttpSession session, PersonUser user) {
+
+    @Override
+    public ResultVO alter(HttpSession session, PersonUser user) {
         PersonUser userIn = (PersonUser) session.getAttribute("personUser");
-
-        System.out.println(userIn.getId());
-
         if (this.getById(userIn.getId()) == null) {
             throw new DataException(ResultEnum.LI_GIN_NULL);
         }
 
-        if (user.getBuddha() != null) {
-            this.update(user, new UpdateWrapper<PersonUser>().eq("id", userIn.getId()));
-            return new ResultVO(ResultEnum.SUCCESS);
+        if (user.getPassword() != null || user.getBuddha() != null ) {
+            if (this.update(user, new UpdateWrapper<PersonUser>().eq("id", userIn.getId()))){
+                //更新session
+                user.setId(userIn.getId());
+                session.setAttribute("personUser", user);
+                return new ResultVO(ResultEnum.SUCCESS);
+            }
         }
         throw new DataException(ResultEnum.UPDATE_ERROR);
     }
@@ -104,20 +107,20 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, PersonUser> impleme
      *
      * @return
      */
-    @Override
-    public ResultVO alterBuddha(HttpSession session, MultipartFile file) {
+
+    private ResultVO alterBuddha(HttpSession session, MultipartFile file) {
         PersonUser userIn = new PersonUser();
         userIn.setBuddha(file.getName());
         return this.alter(session, userIn);
     }
 
     /**
-     * 修改用户头像
+     * 修改用户密码
      *
      * @return
      */
-    @Override
-    public ResultVO alterPassword(HttpSession session, String password) {
+
+    private ResultVO alterPassword(HttpSession session, String password) {
         PersonUser user = new PersonUser();
         user.setPassword(password);
         return this.alter(session, user);

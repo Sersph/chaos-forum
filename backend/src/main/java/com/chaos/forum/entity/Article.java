@@ -51,10 +51,15 @@ public class Article implements Serializable {
     @ApiModelProperty(value = "创建者ID")
     private int creatorId;
 
+    @ApiModelProperty(value = "评论总数")
+    @TableField(exist = false)
+    private int leaveWords;
+
     @ApiModelProperty(value = " 文章分类名 ")
     @TableField(exist = false)
     private String  articleCategoryName;
-    @ApiModelProperty(value = " 文章分类名 ")
+
+    @ApiModelProperty(value = " 文章创建者名 ")
     @TableField(exist = false)
     private String  creatorUsername;
 

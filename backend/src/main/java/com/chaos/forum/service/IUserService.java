@@ -36,9 +36,12 @@ public interface IUserService extends IService<PersonUser> {
      * 用户修改信息(登陆密码)
      *
      * */
-    ResultVO alterPassword(HttpSession session, String password);
+    ResultVO alter(HttpSession session, PersonUser user);
 
-    public ResultVO alterBuddha(HttpSession session, MultipartFile file);
+
+    //ResultVO alterPassword(HttpSession session, String password);
+
+    //public ResultVO alterBuddha(HttpSession session, MultipartFile file);
 
     ResultVO getUserName(HttpSession session);
 }

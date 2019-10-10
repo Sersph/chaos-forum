@@ -4,21 +4,27 @@
 <mapper namespace="com.chaos.forum.mapper.ArticleMapper">
     <select id="selectPages"
             resultType="com.chaos.forum.entity.Article">
-      SELECT article.*, article_category.name as articleCategoryName, person_user.username as creatorUsername
+      SELECT article.*,
+        article_category.name as articleCategoryName,
+        person_user.username as creatorUsername,
+      ( select COUNT(article_comment.id) FROM article_comment WHERE article_comment.article_id = article.id ) as leaveWords
       FROM article, article_category, person_user ${ew.customSqlSegment}
+        <if test="articleListPage.title == null &amp;&amp; articleListPage.articleCategoryId == 0">
+          WHERE article_category.id = article.article_category_id
+          AND article.creator_id = person_user.id
+        </if>
+        <if test="articleListPage.title != null &amp;&amp; articleListPage.articleCategoryId == 0">
+          AND article_category.id = article.article_category_id
+          AND article.creator_id = person_user.id
+        </if>
+        <if test="articleListPage.title != null || articleListPage.articleCategoryId != 0">
+          AND article_category.id = article.article_category_id
+          AND article.creator_id = person_user.id
+        </if>
+    </select>
 
-      <if test="articleListPage.title == null &amp;&amp; articleListPage.articleCategoryId == 0">
-        WHERE article_category.id = article.article_category_id
-        AND article.creator_id = person_user.id
-      </if>
-      <if test="articleListPage.title != null &amp;&amp; articleListPage.articleCategoryId == 0">
-        AND article_category.id = article.article_category_id
-        AND article.creator_id = person_user.id
-      </if>
-      <if test="articleListPage.title != null || articleListPage.articleCategoryId != 0">
-        AND article_category.id = article.article_category_id
-        AND article.creator_id = person_user.id
-      </if>
+    <select id="selectPage" resultType="com.chaos.forum.entity.Article">
+      SELECT * FROM article ${ew.customSqlSegment}
     </select>
 </mapper>
 

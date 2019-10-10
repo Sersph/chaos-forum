@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.chaos.forum.entity.*;
 import com.chaos.forum.exception.DataException;
+import com.chaos.forum.mapper.ArticleCommentMapper;
 import com.chaos.forum.mapper.ArticleMapper;
 import com.chaos.forum.returnx.enumx.ResultEnum;
 import com.chaos.forum.service.IArticleService;
@@ -35,6 +36,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     @Autowired
     private ArticleMapper articleMapper;
+
+    @Autowired
+    private ArticleCommentMapper articleCommentMapper;
 
     /**
      * 日志
@@ -81,61 +85,12 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
      * @return SUCCESS, Date / SELECT_ERROR
      */
     @Override
-    public ResultVO getArticleCategory(Article article, ArticleListPage articleListPage, ArticleComment articleComment) {
-
+    public ResultVO getArticleCategory(ArticleListPage articleListPage) {
         /** 分页 */
-        Page page = new Page<Article>(articleListPage.getPage(), articleListPage.getPageSize());
-
-        /** 排序 */
-        if (articleListPage.getSortField() != null) {
-            //转换
-            articleListPage.setSortField(DatabaseTools.humpIsUnderlined(articleListPage.getSortField()));
-            this.logger.info(articleListPage.getSortField());
-            //排序
-            if (articleListPage.getSortOrder().equals("desc")) {
-                page.setDesc(articleListPage.getSortField());
-            } else {
-                page.setAsc(articleListPage.getSortField());
-            }
-        }
-
-        QueryWrapper<Article> wrapper = new QueryWrapper();
-        /** 模糊查询 */
-        if (articleListPage.getTitle() != null) {
-            wrapper.like("title", articleListPage.getTitle());
-        }
-
-        /**
-         * 通过分类id来判断 查询的方式
-         *      分类id ！= 0 就使用分类id来查询文章
-         *      则：查询所有文章（可以实现模糊查询）
-         */
-
-        if (article.getArticleCategoryId() != 0) {
-            List<Article> list = this.list(wrapper.eq("article_category_id", article.getArticleCategoryId()));
-            if (list != null) {
-                //评论总数：
-
-                //最后得评论人
-
-                IPage iPage = articleMapper.selectPages(page, wrapper, articleListPage);
-
-                return new ResultVO(ResultEnum.SUCCESS, iPage);
-            }
-            throw new DataException(ResultEnum.SELECT_ERROR);
-        } else {
-            /**
-             * 查询所有文章：模糊查询、默认desc排序；
-             */
-            if (this.list(new QueryWrapper<>()) != null) {
-                if (articleListPage.getArticleCategoryId() != 0) {
-                    wrapper.eq("article_category_id", articleListPage.getArticleCategoryId());
-                }
-                IPage iPage = articleMapper.selectPages(page, wrapper, articleListPage);
-                return new ResultVO(ResultEnum.SUCCESS, iPage);
-            }
-            throw new DataException(ResultEnum.SELECT_ERROR);
-        }
+        PageTools<Article> pageTools = new PageTools<>(articleListPage);
+        IPage<Article> iPage = pageTools.autoPaging()
+                .result((page, wrapper, articleListPage1) -> this.articleMapper.selectPages(page, wrapper, articleListPage1));
+        return new ResultVO(ResultEnum.SUCCESS, iPage);
     }
 
     /**

@@ -69,8 +69,8 @@ public class ArticleController {
      * @return SUCCESS,Date / SELECT_ERROR
      * */
     @GetMapping("/getAll")
-    public ResultVO getArticleCategory(Article article, ArticleListPage articleListPage, ArticleComment articleComment) {
-        return this.articleService.getArticleCategory(article, articleListPage, articleComment);
+    public ResultVO getArticleCategory(ArticleListPage articleListPage) {
+        return this.articleService.getArticleCategory(articleListPage);
     }
 
 }
