@@ -104,13 +104,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, PersonUser> impleme
      *
      * @return
      */
-//    @继承
-//    公开 结果视图 改变头像(Http会话 会话, 多部件的文件 文件) {
-//        人类用户 用户 = 新 人类用户();
-//        用户.setBuddha(文件.获取名字());
-//        返回 当前.改变(会话, 人类用户);
-//    }
-
     @Override
     public ResultVO alterBuddha(HttpSession session, MultipartFile file) {
         PersonUser userIn = new PersonUser();
@@ -124,12 +117,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, PersonUser> impleme
      * @return
      */
     @Override
-    public ResultVO alterPassword(HttpSession session, String 密码) {
-        PersonUser 用户 = new PersonUser();
-        用户.setPassword(密码);
-        return this.alter(session, 用户);
+    public ResultVO alterPassword(HttpSession session, String password) {
+        PersonUser user = new PersonUser();
+        user.setPassword(password);
+        return this.alter(session, user);
     }
-
 
 
     /**
@@ -142,12 +134,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, PersonUser> impleme
     public ResultVO getUserName(HttpSession session) {
 
         PersonUser userIn = (PersonUser) session.getAttribute("personUser");
-
         if (userIn == null) {
             throw new DataException(ResultEnum.LI_GIN_NOT);
         }
-
-        HashMap<String, String> map = new HashMap<>();
+        HashMap<String, String> map = new HashMap<>(2);
         map.put("buddha",  userIn.getBuddha());
         map.put("username", userIn.getUsername());
 

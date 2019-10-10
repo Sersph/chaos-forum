@@ -5,10 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.chaos.forum.entity.Article;
-import com.chaos.forum.entity.ArticleCategory;
-import com.chaos.forum.entity.ArticleListPage;
-import com.chaos.forum.entity.PersonUser;
+import com.chaos.forum.entity.*;
 import com.chaos.forum.exception.DataException;
 import com.chaos.forum.mapper.ArticleMapper;
 import com.chaos.forum.returnx.enumx.ResultEnum;
@@ -79,12 +76,12 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     }
 
     /**
-     * 查询文章
+     * 查询文章列表
      *
      * @return SUCCESS, Date / SELECT_ERROR
      */
     @Override
-    public ResultVO getArticleCategory(Article article, ArticleListPage articleListPage) {
+    public ResultVO getArticleCategory(Article article, ArticleListPage articleListPage, ArticleComment articleComment) {
 
         /** 分页 */
         Page page = new Page<Article>(articleListPage.getPage(), articleListPage.getPageSize());
@@ -116,9 +113,13 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
         if (article.getArticleCategoryId() != 0) {
             List<Article> list = this.list(wrapper.eq("article_category_id", article.getArticleCategoryId()));
-
             if (list != null) {
+                //评论总数：
+
+                //最后得评论人
+
                 IPage iPage = articleMapper.selectPages(page, wrapper, articleListPage);
+
                 return new ResultVO(ResultEnum.SUCCESS, iPage);
             }
             throw new DataException(ResultEnum.SELECT_ERROR);

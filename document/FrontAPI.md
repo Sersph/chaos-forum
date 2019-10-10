@@ -86,14 +86,14 @@
 
 - 请求方式 - 请求 URL
 
-  - `GET` - `/frontend/user/alter `
+  - `Put` - `/frontend/user/alter `
 
 - 请求参数
 
   | 参数     | 必填 | 类型   | 备注     |
   | -------- | ---- | ------ | -------- |
-  | username | yes  | String | 用户名   |
-  | password | yes  | String | 用户密码 |
+  | username | no   | String | 用户头像 |
+  | password | no   | String | 用户密码 |
 
 - 返回示例
 
@@ -101,6 +101,32 @@
   // 成功
   {
       "code": 0
+  }
+  
+  // 失败
+  {
+      "code": 1001
+  }
+  ```
+
+#### 用户信息查询
+
+- 请求方式 - 请求 URL
+
+  - `GET` - `/frontend/user/userCase `
+
+- 请求参数
+
+  - 无
+
+- 返回示例
+
+  ```json
+  // 成功
+  {
+      "code": 0
+      "username":"xxxxx"
+      "buddha": 
   }
   
   // 失败
@@ -265,18 +291,86 @@
 
 - 请求参数
 
-  | 参数         | 必填 | 类型   | 备注       |
-  | ------------ | ---- | ------ | ---------- |
-  | content      | yes  | String | 评论内容   |
-  | userId       | yes  | int    | 文章ID     |
-  | parentUserId | no   | int    | 被回复人ID |
+  | 参数      | 必填 | 类型   | 备注     |
+  | --------- | ---- | ------ | -------- |
+  | content   | yes  | String | 评论内容 |
+  | articleId | yes  | int    | 文章ID   |
 
 - 返回示例
 
   ```json
   // 成功
   {
-      "code": 0
+      [
+  	{
+  		id
+  		contnet
+  		date
+  		userbuddha
+  		username
+  		ziShuzu: [
+  			{
+  				id
+  				pid: id
+  				contnet
+  				date
+  				userbuddha
+  				username
+  				ziShuzu: [
+  					{
+  						id
+  						pid: id
+  						contnet
+  						date
+  						userbuddha
+  						username
+  					},
+  					{
+  						id
+  						pid: id
+  						contnet
+  						date
+  						userbuddha
+  						username
+  					}
+  				]
+  			},
+  			{
+  				id
+  				pid: id
+  				contnet
+  				date
+  				userbuddha
+  				username
+  			}
+  		]
+  	},
+  	{
+  		id
+  		contnet
+  		date
+  		userbuddha
+  		username
+  		ziShuzu: [
+  			{
+  				id
+  				pid: id
+  				contnet
+  				date
+  				userbuddha
+  				username
+  			},
+  			{
+  				id
+  				pid: id
+  				contnet
+  				date
+  				userbuddha
+  				username
+  			}
+  		]
+  	}
+  ]
   }
   ```
 

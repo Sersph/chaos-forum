@@ -2,6 +2,7 @@ package com.chaos.forum.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.chaos.forum.entity.Article;
+import com.chaos.forum.entity.ArticleComment;
 import com.chaos.forum.entity.ArticleListPage;
 import com.chaos.forum.vo.ResultVO;
 
@@ -21,7 +22,7 @@ public interface IArticleService extends IService<Article> {
 
     ResultVO selectArticle(int id);
 
-    ResultVO getArticleCategory(Article article, ArticleListPage articleListPage);
+    ResultVO getArticleCategory(Article article, ArticleListPage articleListPage, ArticleComment articleComment);
 
     @Deprecated
     ResultVO selectArticle(ArticleListPage articleListPage);

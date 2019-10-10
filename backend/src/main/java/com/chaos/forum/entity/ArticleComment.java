@@ -19,6 +19,7 @@ import java.util.Date;
 @Data
 public class ArticleComment{
 
+
     @ApiModelProperty("文章评论ID")
     private int id;
 
@@ -30,8 +31,8 @@ public class ArticleComment{
     @ApiModelProperty("评论内容")
     private String content;
 
-    @ApiModelProperty("被评论人的ID")
-    private int parentUserId;
+//    @ApiModelProperty("被评论人的ID")
+//    private int parentUserId;
 
     @TableField(fill = FieldFill.INSERT)
     @ApiModelProperty("创建时间")
@@ -39,6 +40,9 @@ public class ArticleComment{
 
     @ApiModelProperty("评论的文章ID")
     private int articleId;
+
+//    @ApiModelProperty("楼层的父ID")
+//    private int pid;
 
 //    @TableField(exist = false)
 //    private String children;

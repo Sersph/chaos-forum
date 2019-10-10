@@ -1,6 +1,7 @@
 package com.chaos.forum.controller;
 
 import com.chaos.forum.entity.Article;
+import com.chaos.forum.entity.ArticleComment;
 import com.chaos.forum.entity.ArticleListPage;
 import com.chaos.forum.exception.DataException;
 import com.chaos.forum.returnx.enumx.ResultEnum;
@@ -68,8 +69,8 @@ public class ArticleController {
      * @return SUCCESS,Date / SELECT_ERROR
      * */
     @GetMapping("/getAll")
-    public ResultVO getArticleCategory(Article article, ArticleListPage articleListPage) {
-        return this.articleService.getArticleCategory(article, articleListPage);
+    public ResultVO getArticleCategory(Article article, ArticleListPage articleListPage, ArticleComment articleComment) {
+        return this.articleService.getArticleCategory(article, articleListPage, articleComment);
     }
 
 }

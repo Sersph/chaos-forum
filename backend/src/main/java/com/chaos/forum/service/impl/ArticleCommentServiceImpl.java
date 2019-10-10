@@ -4,10 +4,10 @@ package com.chaos.forum.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.chaos.forum.entity.ArticleComment;
 import com.chaos.forum.entity.PersonUser;
+import com.chaos.forum.exception.DataException;
 import com.chaos.forum.mapper.ArticleCommentMapper;
 import com.chaos.forum.returnx.enumx.ResultEnum;
 import com.chaos.forum.service.IArticleCommentService;
-import com.chaos.forum.tools.DatabaseTools;
 import com.chaos.forum.vo.ResultVO;
 import org.springframework.stereotype.Service;
 
@@ -35,17 +35,15 @@ public class ArticleCommentServiceImpl extends ServiceImpl<ArticleCommentMapper,
     public ResultVO SaveComment(HttpSession session, ArticleComment articleComment) {
 
         PersonUser userIn = (PersonUser) session.getAttribute("personUser");
-
-        //获取到用户ID
-        articleComment.setUserId(userIn.getId());
-
-        /**
-         * 传入评论内容，文章ID，被回复人ID可以为null（null的话 就是评论的第一条）
-         */
-        if (this.save(articleComment)){
-            return new ResultVO(ResultEnum.SUCCESS);
+        if (userIn != null) {
+            articleComment.setUserId(userIn.getId());
+            /**
+             * 传入评论内容，文章ID，被回复人ID可以为null（null的话 就是评论的第一条）
+             */
+            if (this.save(articleComment)){
+                return new ResultVO(ResultEnum.SUCCESS);
+            }
         }
-        return new ResultVO(ResultEnum.LI_GIN_NOT);
+        throw new DataException(ResultEnum.LI_GIN_NOT);
     }
-
 }
