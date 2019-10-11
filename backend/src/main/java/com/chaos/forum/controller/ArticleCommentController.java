@@ -1,12 +1,11 @@
 package com.chaos.forum.controller;
 
 import com.chaos.forum.entity.ArticleComment;
+import com.chaos.forum.entity.ArticleListPage;
 import com.chaos.forum.service.IArticleCommentService;
 import com.chaos.forum.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -35,6 +34,11 @@ public class ArticleCommentController {
     @PostMapping("/comment")
     public ResultVO saveComment(HttpSession session, ArticleComment articleComment) {
         return this.articleCommentService.SaveComment(session, articleComment);
+    }
+
+    @GetMapping("/getComment/{id}")
+    public ResultVO getComment(@PathVariable int id, ArticleComment articleComment, ArticleListPage articleListPage) {
+        return this.articleCommentService.getComment(id, articleComment, articleListPage);
     }
 
 }

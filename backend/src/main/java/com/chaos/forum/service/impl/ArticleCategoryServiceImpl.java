@@ -70,7 +70,8 @@ public class ArticleCategoryServiceImpl extends ServiceImpl<ArticleCategoryMappe
     public ResultVO selectCategory(ArticleListPage articleListPage) {
         PageTools pageTools = new PageTools<ArticleCategory>(articleListPage);
         return new ResultVO(ResultEnum.SUCCESS,
-                pageTools.autoPaging().result((page, wrapper) -> this.articleCategoryMapper.selectPages(page, wrapper)));
+                pageTools.autoPaging().result((page, wrapper)
+                        -> this.articleCategoryMapper.selectPages(page, wrapper)));
     }
 
     /**

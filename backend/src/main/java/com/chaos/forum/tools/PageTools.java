@@ -22,12 +22,13 @@ public class PageTools<T> {
 
     private ArticleListPage articleListPage = null;
 
+    int id;
+
     /**
      * 自动分页工具方法
      *
      * 自动判读是否要进行模糊查询，排序以及排序方式
      *
-     * @param pageMapperLambda
      * @return IPage<T>
      */
     public PageTools<T> autoPaging() {
@@ -47,6 +48,10 @@ public class PageTools<T> {
 
         if (this.articleListPage.getArticleCategoryId() != null) {
             this.category(this.articleListPage.getArticleCategoryId());
+        }
+
+        if (this.articleListPage.getArticleId() != null) {
+            this.article(this.articleListPage.getArticleId());
         }
 
         return this;
@@ -95,6 +100,11 @@ public class PageTools<T> {
         return this;
     }
 
+    public PageTools<T> article(Integer articleId) {
+        this.wrapper.eq("article_id", articleId);
+        return this;
+    }
+
     /**
      * 返回
      *
@@ -108,4 +118,5 @@ public class PageTools<T> {
     public IPage<T> result(PageMapperLambdaBada<T> pageMapperLambda) {
         return pageMapperLambda.select(this.page, this.wrapper, this.articleListPage);
     }
+
 }

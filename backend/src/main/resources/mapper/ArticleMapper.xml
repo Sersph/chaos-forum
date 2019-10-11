@@ -7,24 +7,41 @@
       SELECT article.*,
         article_category.name as articleCategoryName,
         person_user.username as creatorUsername,
+        person_user.buddha as buddha,
       ( select COUNT(article_comment.id) FROM article_comment WHERE article_comment.article_id = article.id ) as leaveWords
       FROM article, article_category, person_user ${ew.customSqlSegment}
-        <if test="articleListPage.title == null &amp;&amp; articleListPage.articleCategoryId == 0">
+      <choose>
+        <when test="ew.customSqlSegment == '' ">
           WHERE article_category.id = article.article_category_id
           AND article.creator_id = person_user.id
-        </if>
-        <if test="articleListPage.title != null &amp;&amp; articleListPage.articleCategoryId == 0">
+        </when>
+        <otherwise>
           AND article_category.id = article.article_category_id
           AND article.creator_id = person_user.id
-        </if>
-        <if test="articleListPage.title != null || articleListPage.articleCategoryId != 0">
-          AND article_category.id = article.article_category_id
-          AND article.creator_id = person_user.id
-        </if>
+        </otherwise>
+      </choose>
     </select>
 
-    <select id="selectPage" resultType="com.chaos.forum.entity.Article">
-      SELECT * FROM article ${ew.customSqlSegment}
-    </select>
+  <select id="selectOne"
+          resultType="com.chaos.forum.entity.Article">
+    SELECT article.*,
+    article_category.name as articleCategoryName,
+    person_user.username as creatorUsername,
+    person_user.buddha as buddha,
+    ( select COUNT(article_comment.id) FROM article_comment WHERE article_comment.article_id = article.id ) as leaveWords
+    FROM article, article_category, person_user ${ew.customSqlSegment}
+    <choose>
+      <when test="ew.customSqlSegment == '' ">
+        WHERE article.id = ${id}
+        AND article_category.id = article.article_category_id
+        AND article.creator_id = person_user.id
+      </when>
+      <otherwise>
+        AND article.id = ${id}
+        AND article_category.id = article.article_category_id
+        AND article.creator_id = person_user.id
+      </otherwise>
+    </choose>
+  </select>
 </mapper>
 

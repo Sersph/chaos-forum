@@ -31,5 +31,10 @@ public interface ArticleMapper extends BaseMapper<Article> {
             @Param("articleListPage") ArticleListPage articleListPage
     );
 
-    IPage<Article> selectPage(Page<Article> page, @Param(Constants.WRAPPER) Wrapper<Article> queryWrapper);
+    IPage<Article> selectOne(
+            Page<Article> page,
+            @Param(Constants.WRAPPER) Wrapper<Article> queryWrapper,
+            @Param("articleListPage") ArticleListPage articleListPage,
+            @Param("id") int id
+    );
 }

@@ -59,8 +59,8 @@ public class ArticleController {
      * @return SUCCESS,Date / SELECT_ERROR
      * */
     @GetMapping("/getOne/{id}")
-    public ResultVO selectArticle(@PathVariable int id) {
-        return this.articleService.selectArticle(id);
+    public ResultVO selectArticle(@PathVariable int id, ArticleListPage articleListPage) {
+        return this.articleService.selectArticle(id, articleListPage);
     }
 
     /**

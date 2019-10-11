@@ -95,8 +95,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, PersonUser> impleme
             if (this.update(user, new UpdateWrapper<PersonUser>().eq("id", userIn.getId()))){
                 //更新session
                 user.setId(userIn.getId());
+                user.setUsername(userIn.getUsername());
                 session.setAttribute("personUser", user);
-                return new ResultVO(ResultEnum.SUCCESS);
+                return new ResultVO(ResultEnum.SUCCESS, user);
             }
         }
         throw new DataException(ResultEnum.UPDATE_ERROR);

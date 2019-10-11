@@ -19,8 +19,6 @@ import org.apache.ibatis.annotations.Param;
  */
 @Mapper
 public interface ArticleCategoryMapper extends BaseMapper<ArticleCategory> {
-
-
     /**
      * 分页
      * */

@@ -1,9 +1,14 @@
 package com.chaos.forum.mapper;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.Constants;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.chaos.forum.entity.ArticleComment;
-import com.chaos.forum.entity.ArticleLike;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
 
 /**
  * <p>
@@ -14,6 +19,4 @@ import org.apache.ibatis.annotations.Mapper;
  * 2019-09-20 10:33
  */
 @Mapper
-public interface ArticleCommentMapper extends BaseMapper<ArticleComment> {
-
-}
+public interface ArticleCommentMapper extends BaseMapper<ArticleComment> { }

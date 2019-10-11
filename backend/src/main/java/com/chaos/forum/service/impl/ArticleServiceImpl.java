@@ -1,17 +1,15 @@
 package com.chaos.forum.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.chaos.forum.entity.*;
+import com.chaos.forum.entity.Article;
+import com.chaos.forum.entity.ArticleListPage;
+import com.chaos.forum.entity.PersonUser;
 import com.chaos.forum.exception.DataException;
 import com.chaos.forum.mapper.ArticleCommentMapper;
 import com.chaos.forum.mapper.ArticleMapper;
 import com.chaos.forum.returnx.enumx.ResultEnum;
 import com.chaos.forum.service.IArticleService;
-import com.chaos.forum.tools.DatabaseTools;
 import com.chaos.forum.tools.PageTools;
 import com.chaos.forum.vo.ResultVO;
 import org.slf4j.Logger;
@@ -20,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 
 /**
@@ -66,17 +63,20 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     }
 
     /**
-     * 查询单一文章
+     * 获取文章单一列表
      *
-     * @param id 查询文章的对应ID
-     * @return SUCCESS, Date / SELECT_ERROR
+     * @param id 文章id
+     * @param articleListPage
+     * @return
      */
     @Override
-    public ResultVO selectArticle(int id) {
-        if (this.getById(id) != null) {
-            return new ResultVO(ResultEnum.SUCCESS, getById(id));
-        }
-        throw new DataException(ResultEnum.SELECT_ERROR);
+    public ResultVO selectArticle(int id, ArticleListPage articleListPage) {
+        PageTools<Article> pageTools = new PageTools<>(articleListPage);
+
+        IPage<Article> iPage = pageTools.autoPaging()
+                .result((page, wrapper, articleListPage1)
+                        -> this.articleMapper.selectOne(page, wrapper, articleListPage1,id));
+        return new ResultVO(ResultEnum.SUCCESS, iPage);
     }
 
     /**
@@ -89,8 +89,11 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         /** 分页 */
         PageTools<Article> pageTools = new PageTools<>(articleListPage);
         IPage<Article> iPage = pageTools.autoPaging()
-                .result((page, wrapper, articleListPage1) -> this.articleMapper.selectPages(page, wrapper, articleListPage1));
+                .result((page, wrapper, articleListPage1)
+                -> this.articleMapper.selectPages(page, wrapper, articleListPage1));
+
         return new ResultVO(ResultEnum.SUCCESS, iPage);
+
     }
 
     /**

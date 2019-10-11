@@ -63,4 +63,8 @@ public class Article implements Serializable {
     @TableField(exist = false)
     private String  creatorUsername;
 
+    @ApiModelProperty(value = " 用户头像 ")
+    @TableField(exist = false)
+    private String buddha;
+
 }
