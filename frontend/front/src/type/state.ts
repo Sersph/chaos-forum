@@ -8,6 +8,8 @@ export interface AccountState {
 export interface PostState {
   // 所有的文章分类
   allPostCategoryList: any;
+  // 文章详情
+  postDetail: any;
 }
 
 // 整合所有状态

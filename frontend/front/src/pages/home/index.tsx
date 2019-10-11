@@ -40,7 +40,7 @@ interface ConnectState {
 interface ConnectDispatch {
 }
 
-interface Props extends ConnectState, ConnectDispatch{
+interface Props extends ConnectState, ConnectDispatch {
   // 帖子搜索条件
   postListSelectCondition: any;
   // 帖子数据, 服务端数据
@@ -84,8 +84,7 @@ export default compose<React.ComponentClass>(
     (state: AppState) => ({
       userInfo: state.account.userInfo
     }),
-    {
-    }
+    {}
   ),
   withRouter
 )(
@@ -131,12 +130,14 @@ export default compose<React.ComponentClass>(
 
       // 获取分类帖子列表
       const postListSelectQuery: any = {
-        articleCategoryId: postCategoryId,
         page: currentPage,
         pageSize: currentPageSize
       };
       if (title !== '') {
         postListSelectQuery.title = title;
+      }
+      if (postCategoryId !== 0) {
+        postListSelectQuery.articleCategoryId = postCategoryId;
       }
       let result2: any = api.post.selectPostList(postListSelectQuery);
 
@@ -182,8 +183,7 @@ export default compose<React.ComponentClass>(
       return {
         allPostCategoryList,
         postList,
-        postListSelectCondition,
-        loadingStatus: false
+        postListSelectCondition
       };
     };
 
@@ -210,26 +210,22 @@ export default compose<React.ComponentClass>(
 
     public componentDidUpdate = (prevProps) => {
       const { props, state } = this;
-      // 路由不一致，更新查询参数
-      if (props.router.query.title !== prevProps.router.query.title) {
-        if (state.postListSelectCondition.title !== props.postListSelectCondition.title) {
-          this.setState({
-            postListSelectCondition: {
-              ...state.postListSelectCondition,
-              title: props.postListSelectCondition.title
-            }
-          });
-        }
+      // 路由参数不一致，更新查询参数
+      if (prevProps.postListSelectCondition.title !== props.postListSelectCondition.title) {
+        this.setState({
+          postListSelectCondition: {
+            ...state.postListSelectCondition,
+            title: props.postListSelectCondition.title
+          }
+        });
       }
-      if (props.router.query.postCategoryId !== prevProps.router.query.postCategoryId) {
-        if (state.postListSelectCondition.postCategoryId !== props.postListSelectCondition.postCategoryId) {
-          this.setState({
-            postListSelectCondition: {
-              ...state.postListSelectCondition,
-              postCategoryId: props.postListSelectCondition.postCategoryId
-            }
-          });
-        }
+      if (prevProps.postListSelectCondition.postCategoryId !== props.postListSelectCondition.postCategoryId) {
+        this.setState({
+          postListSelectCondition: {
+            ...state.postListSelectCondition,
+            postCategoryId: props.postListSelectCondition.postCategoryId
+          }
+        });
       }
     };
 
@@ -367,6 +363,9 @@ export default compose<React.ComponentClass>(
               insertPostFormSubmitted: false,
               visibleInsertPostModel: false
             });
+
+            // 清空文本框数据
+            ((window as any).tinyMCE).activeEditor.setContent('');
 
             Router.push({
               pathname: '/home'

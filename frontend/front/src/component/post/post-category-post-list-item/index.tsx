@@ -25,7 +25,7 @@ export default class HotPostListItem extends React.Component<Props, State> {
       <section className="post-category-post-list-item-container">
         <section className="post-base-info-container">
           <section className="post-message-count">
-            <span>{props.postDescription.messageCount || 59}</span>
+            <span>{props.postDescription.leaveWords || 0}</span>
           </section>
           <section className="post-base-info">
             <div className="title-and-create-username">
@@ -35,10 +35,10 @@ export default class HotPostListItem extends React.Component<Props, State> {
                 className="post-title"
               >
                 <Link
-                  href={`/post/detail?id=${props.postDescription.id}`}
-                  as={`/post/detail/${props.postDescription.id}`}
+                  href={`/post?id=${props.postDescription.id}`}
+                  as={`/post/${props.postDescription.id}`}
                 >
-                  <a href={`/post/detail/${props.postDescription.id}`}>{props.postDescription.title}
+                  <a href={`/post/${props.postDescription.id}`}>{props.postDescription.title}
                   </a>
                 </Link>
               </Typography>
@@ -54,7 +54,7 @@ export default class HotPostListItem extends React.Component<Props, State> {
               <Typography
                 className="mobile-last-message-time"
                 noWrap
-              >{props.postDescription.lastMessageTime || '2分钟前'}</Typography>
+              >{props.postDescription.updateTime}</Typography>
             </div>
 
             <div className="post-content-and-last-message-username-and-last-message-time">
@@ -65,11 +65,11 @@ export default class HotPostListItem extends React.Component<Props, State> {
               <Typography
                 className="last-message-username"
                 noWrap
-              >{props.postDescription.lastMessageUsername || '张三'}</Typography>
+              >{props.postDescription.creatorUsername}</Typography>
               <Typography
                 className="last-message-time"
                 noWrap
-              >{props.postDescription.lastMessageTime || '2分钟前'}</Typography>
+              >{props.postDescription.updateTime}</Typography>
             </div>
 
             <div className="post-category-name">
@@ -93,7 +93,7 @@ export default class HotPostListItem extends React.Component<Props, State> {
                 {props.postDescription.preview.map((previewImageListItem, index) => (
                   <div key={index} className="img-container">
                     <ImageZoom
-                      zoomMargin={25}
+                      zoomMargin={50}
                       defaultStyles={{
                         zoomContainer: {
                           zIndex: 1202

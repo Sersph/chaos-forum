@@ -1,2 +1,251 @@
-.post-detail-container {
+.post-container {
+  .MuiContainer-root {
+    max-width: 975px;
+
+    .post-detail-container {
+      background-color: #fff;
+
+      .post-title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 55px;
+        padding-left: 15px;
+        border-top: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+
+        p {
+          line-height: 55px;
+          font-size: 1.05rem;
+          font-weight: bold;
+          color: #333;
+        }
+      }
+
+      .post-detail-wrapper {
+        border-bottom: 35px solid #556cd6;
+      }
+
+      .post-message-item {
+        border-bottom: 1px solid #ccc;
+        border-left: 1px solid #ccc;
+        border-right: 1px solid #ccc;
+      }
+
+      .post-detail-wrapper,
+      .post-message-item {
+        display: flex;
+
+        .user-content {
+          padding: 19px;
+          width: 130px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+
+          img {
+            width: 90px;
+            height: 90px;
+          }
+
+          .username {
+            margin-top: 1rem;
+            font-size: 13px;
+            color: #333;
+            text-align: center;
+          }
+        }
+
+        .post-content-and-description {
+          position: relative;
+          flex: 1;
+          padding: 5px 19px 11px 5px;
+
+          .post-content {
+            min-height: 165px;
+            font-size: 15px;
+            color: #333;
+
+            img {
+              width: 100%;
+              max-width: 500px;
+            }
+          }
+
+          .post-description {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-right: 15px;
+
+            & > section:first-child {
+              display: flex;
+              align-items: center;
+              cursor: pointer;
+
+              &.active,
+              &:hover {
+                .agree {
+                  background: url(https://yyccyy-01.oss-cn-shenzhen.aliyuncs.com/backup/0e69f14157b4804d15be0626b659be4c.png) no-repeat center;
+                  background-size: 19px;
+                }
+
+                .like-count {
+                  color: #556cd6;
+                }
+              }
+
+              .agree {
+                position: relative;
+                left: -5px;
+                display: block;
+                width: 30px;
+                height: 30px;
+                margin-right: 5px;
+                background: url(https://yyccyy-01.oss-cn-shenzhen.aliyuncs.com/backup/8612e657cb789bbfd54c0efa2b6a5989.png) no-repeat center;
+                background-size: 19px;
+              }
+
+              .like-count {
+                position: relative;
+                top: 2px;
+                font-size: 12px;
+                color: #999;
+              }
+            }
+
+            & > section:last-child {
+              display: flex;
+              align-items: center;
+
+              .message-id {
+                margin-right: 11px;
+                font-size: 12px;
+                color: #999;
+              }
+
+              .create-time {
+                font-size: 12px;
+                color: #999;
+              }
+            }
+          }
+        }
+      }
+
+      .no-message {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 2.5rem;
+        font-size: 15px;
+        color: #a0a0a0;
+        background-color: #fff;
+      }
+
+      .MuiTablePagination-root {
+        border-left: 1px solid #ccc;
+        border-right: 1px solid #ccc;
+      }
+
+      .post-message-loading-container {
+        .loading-item-container {
+          display: flex;
+          border-bottom: 1px solid #ccc;
+          background-color: #fff;
+          padding-top: 15px;
+          padding-bottom: 11px;
+          padding-right: 19px;
+
+          & > div:first-child {
+            display: flex;
+            justify-content: center;
+            width: 130px;
+          }
+
+          & > div:last-child {
+            flex: 1;
+          }
+        }
+      }
+
+      .MuiTablePagination-toolbar {
+        & > span:nth-of-type(1),
+        .MuiTablePagination-selectRoot {
+          display: none;
+        }
+      }
+
+      .message-replay-container {
+        margin-bottom: 65px;
+        border: 1px solid #ccc;
+
+        .reply {
+          padding-top: 15px;
+          padding-bottom: 15px;
+          font-size: 15px;
+          font-weight: bold;
+          padding-left: 25px;
+          padding-right: 25px;
+          border-bottom: 1px solid #ccc;
+        }
+
+        form {
+          padding-top: 25px;
+          padding-left: 25px;
+          padding-right: 25px;
+
+          .tinymce-container {
+            .mce-panel {
+              width: auto !important;
+            }
+          }
+
+          .submit-button-container {
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+.select-post-error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2.5rem;
+  font-size: 15px;
+  color: #a0a0a0;
+  background-color: #fff;
+}
+
+// 移动端适配
+@media (max-width: 600px) {
+  .post-container {
+    .MuiContainer-root {
+      .post-detail-container {
+        .post-detail-wrapper,
+        .post-message-item {
+          .user-content {
+            padding: 15px;
+            width: 95px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            img {
+              width: 55px;
+              height: 55px;
+            }
+
+            .username {
+              font-size: 12px;
+            }
+          }
+        }
+      }
+    }
+  }
 }

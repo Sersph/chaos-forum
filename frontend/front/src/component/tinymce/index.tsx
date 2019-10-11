@@ -61,7 +61,7 @@ export default class Tinymce extends React.Component<Props, State> {
           onEditorChange={(value: string) => this.handlerEditorChange(value)}
           init={{
             language: 'zh_CN',
-            height: 500,
+            height: 350,
             fontsize_formats: "8px 10px 12px 14px 18px 24px 36px 48px 60px",
             paste_as_text: true,
             paste_preprocess: (pl, o) => {
