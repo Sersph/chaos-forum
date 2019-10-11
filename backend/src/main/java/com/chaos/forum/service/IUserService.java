@@ -38,10 +38,5 @@ public interface IUserService extends IService<PersonUser> {
      * */
     ResultVO alter(HttpSession session, PersonUser user);
 
-
-    //ResultVO alterPassword(HttpSession session, String password);
-
-    //public ResultVO alterBuddha(HttpSession session, MultipartFile file);
-
     ResultVO getUserName(HttpSession session);
 }

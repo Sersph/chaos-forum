@@ -75,4 +75,25 @@ public class ArticleCommentServiceImpl extends ServiceImpl<ArticleCommentMapper,
         }
         return new ResultVO(ResultEnum.SUCCESS, iPage);
     }
+
+    /**
+     * 删除评论
+     *
+     * @param session
+     * @return
+     */
+    @Override
+    public ResultVO delectComment(HttpSession session) {
+        PersonUser userIn = (PersonUser) session.getAttribute("personUser");
+        if (userIn == null) {
+            throw new DataException(ResultEnum.LI_GIN_NOT);
+        }
+        if (this.list(new QueryWrapper<ArticleComment>().eq("user_id", userIn.getId())) == null){
+            return new ResultVO(ResultEnum.DELETE_ERROR);
+        }
+        if (this.remove(new QueryWrapper<ArticleComment>().eq("user_id", userIn.getId()))) {
+            return new ResultVO(ResultEnum.SUCCESS);
+        }
+        throw new DataException(ResultEnum.DELETE_ERROR);
+    }
 }

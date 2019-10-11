@@ -104,31 +104,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, PersonUser> impleme
     }
 
     /**
-     * 修改用户头像
-     *
-     * @return
-     */
-
-    private ResultVO alterBuddha(HttpSession session, MultipartFile file) {
-        PersonUser userIn = new PersonUser();
-        userIn.setBuddha(file.getName());
-        return this.alter(session, userIn);
-    }
-
-    /**
-     * 修改用户密码
-     *
-     * @return
-     */
-
-    private ResultVO alterPassword(HttpSession session, String password) {
-        PersonUser user = new PersonUser();
-        user.setPassword(password);
-        return this.alter(session, user);
-    }
-
-
-    /**
      * 用户信息查询
      *
      * @param session

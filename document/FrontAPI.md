@@ -325,52 +325,16 @@
   						userbuddha
   						username
   					},
-  					{
-  						id
-  						pid: id
-  						contnet
-  						date
-  						userbuddha
-  						username
-  					}
   				]
   			},
-  			{
-  				id
-  				pid: id
-  				contnet
-  				date
-  				userbuddha
-  				username
-  			}
   		]
   	},
-  	{
-  		id
-  		contnet
-  		date
-  		userbuddha
-  		username
-  		ziShuzu: [
-  			{
-  				id
-  				pid: id
-  				contnet
-  				date
-  				userbuddha
-  				username
-  			},
-  			{
-  				id
-  				pid: id
-  				contnet
-  				date
-  				userbuddha
-  				username
-  			}
-  		]
-  	}
-  ]
+  }
+  
+  // 失败
+  {
+      "code": 1002,
+      "message": "修改失败"
   }
   ```
 

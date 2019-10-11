@@ -21,4 +21,6 @@ public interface IArticleCommentService extends IService<ArticleComment> {
 
     ResultVO getComment(int id, ArticleListPage articleListPage);
 
+    ResultVO delectComment(HttpSession session);
+
 }
