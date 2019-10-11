@@ -37,11 +37,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, PersonUser> impleme
     @Override
     public ResultVO signIn(PersonUser user) {
         user.setFinallyLoginTime(DatabaseTools.shiftDate(new Date()));
-
         if (null != this.getOne(new QueryWrapper<PersonUser>().eq("username", user.getUsername()))) {
             return new ResultVO(ResultEnum.SIGN_IN_ERROR);
         }
-
         if (this.save(user)) {
             return new ResultVO(ResultEnum.SUCCESS);
         }
@@ -64,14 +62,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, PersonUser> impleme
         if (userOne == null) {
             throw new DataException(ResultEnum.LI_GIN_NULL);
         }
-
         /** 判断用户名密码是否一致
          *      抛出异常：LI_GIN_ERROR（用户名或密码不正确）
          * */
         if (!userOne.getPassword().equals(user.getPassword())) {
             throw new DataException(ResultEnum.LI_GIN_ERROR);
         }
-
         /** 保存用户登陆信息 */
         session.setAttribute("personUser", userOne);
         return new ResultVO(ResultEnum.SUCCESS);
@@ -83,14 +79,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, PersonUser> impleme
      * @param user 用户实体
      * @return
      */
-
     @Override
     public ResultVO alter(HttpSession session, PersonUser user) {
         PersonUser userIn = (PersonUser) session.getAttribute("personUser");
-        if (this.getById(userIn.getId()) == null) {
-            throw new DataException(ResultEnum.LI_GIN_NULL);
-        }
-
         if (user.getPassword() != null || user.getBuddha() != null ) {
             if (this.update(user, new UpdateWrapper<PersonUser>().eq("id", userIn.getId()))){
                 //更新session
@@ -111,16 +102,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, PersonUser> impleme
      */
     @Override
     public ResultVO getUserName(HttpSession session) {
-
         PersonUser userIn = (PersonUser) session.getAttribute("personUser");
-        if (userIn == null) {
-            throw new DataException(ResultEnum.LI_GIN_NOT);
-        }
+
         HashMap<String, String> map = new HashMap<>(2);
         map.put("buddha",  userIn.getBuddha());
         map.put("username", userIn.getUsername());
-
         return new ResultVO(ResultEnum.SUCCESS, map);
-
     }
 }

@@ -1,5 +1,6 @@
 package com.chaos.forum.controller;
 
+import com.chaos.forum.decorator.Calibrator;
 import com.chaos.forum.entity.ArticleComment;
 import com.chaos.forum.entity.ArticleListPage;
 import com.chaos.forum.service.IArticleCommentService;
@@ -31,6 +32,7 @@ public class ArticleCommentController {
      * @param articleComment
      * @return
      */
+    @Calibrator
     @PostMapping("/saveComment")
     public ResultVO saveComment(HttpSession session, ArticleComment articleComment) {
         return this.articleCommentService.saveComment(session, articleComment);
@@ -55,6 +57,7 @@ public class ArticleCommentController {
      * @param session
      * @return
      */
+    @Calibrator
     @DeleteMapping("/delentComment/{id}")
     public ResultVO delectComment(@PathVariable int id, HttpSession session) {
         return this.articleCommentService.delectComment(id, session);

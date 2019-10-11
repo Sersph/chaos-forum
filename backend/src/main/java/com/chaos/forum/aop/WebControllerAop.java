@@ -1,5 +1,7 @@
 package com.chaos.forum.aop;
 
+import com.chaos.forum.exception.DataException;
+import com.chaos.forum.returnx.enumx.ResultEnum;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Aspect;
@@ -25,7 +27,7 @@ import javax.servlet.http.HttpSession;
 @Aspect
 public class WebControllerAop {
 
-    private final String POINT_CUT = "execution(* com.chaos.forum.controller..*.*(..))";
+    private final String POINT_CUT = "@annotation(com.chaos.forum.decorator.Calibrator)";
 
     /**
      * 切面点
@@ -52,9 +54,10 @@ public class WebControllerAop {
         //获取session信息
         HttpSession session = (HttpSession) requestAttributes.resolveReference(RequestAttributes.REFERENCE_SESSION);
 
-        if (session == null) {
-
+        if (session.getAttribute("personUser") == null) {
+            throw new DataException(ResultEnum.LI_GIN_NOT);
         }
+
 
     }
 

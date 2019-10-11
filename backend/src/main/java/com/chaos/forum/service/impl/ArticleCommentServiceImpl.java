@@ -42,14 +42,12 @@ public class ArticleCommentServiceImpl extends ServiceImpl<ArticleCommentMapper,
     @Override
     public ResultVO saveComment(HttpSession session, ArticleComment articleComment) {
         PersonUser userIn = (PersonUser) session.getAttribute("personUser");
-        if (userIn != null) {
-            articleComment.setUserId(userIn.getId());
-            /**
-             * 传入评论内容，文章ID，被回复人ID可以为null（null的话 就是评论的第一条）
-             */
-            if (this.save(articleComment)){
-                return new ResultVO(ResultEnum.SUCCESS);
-            }
+        articleComment.setUserId(userIn.getId());
+        /**
+         * 传入评论内容，文章ID，被回复人ID可以为null（null的话 就是评论的第一条）
+         */
+        if (this.save(articleComment)) {
+            return new ResultVO(ResultEnum.SUCCESS);
         }
         throw new DataException(ResultEnum.LI_GIN_NOT);
     }
@@ -63,12 +61,10 @@ public class ArticleCommentServiceImpl extends ServiceImpl<ArticleCommentMapper,
      */
     @Override
     public ResultVO getComment(int id, ArticleListPage articleListPage) {
-
         PageTools<ArticleComment> pageTools = new PageTools<>(articleListPage);
         IPage<ArticleComment> iPage = pageTools.autoPaging()
                 .result((page, wrapper, articleListPage1)
-                        -> this.articleCommentMapper.selectComment(page, wrapper, articleListPage1,id));
-
+                        -> this.articleCommentMapper.selectComment(page, wrapper, articleListPage1, id));
         return new ResultVO(ResultEnum.SUCCESS, iPage);
     }
 
@@ -81,11 +77,8 @@ public class ArticleCommentServiceImpl extends ServiceImpl<ArticleCommentMapper,
     @Override
     public ResultVO delectComment(int id, HttpSession session) {
         PersonUser userIn = (PersonUser) session.getAttribute("personUser");
-        if (userIn == null) {
-            throw new DataException(ResultEnum.LI_GIN_NOT);
-        }
         if (this.getById(id) != null && this.list(new QueryWrapper<ArticleComment>()
-                .eq("user_id", userIn.getId())) != null){
+                .eq("user_id", userIn.getId())) != null) {
             if (this.removeById(id)) {
                 return new ResultVO(ResultEnum.SUCCESS);
             }

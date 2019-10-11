@@ -1,5 +1,6 @@
 package com.chaos.forum.controller;
 
+import com.chaos.forum.decorator.Calibrator;
 import com.chaos.forum.entity.Article;
 import com.chaos.forum.entity.ArticleComment;
 import com.chaos.forum.entity.ArticleListPage;
@@ -34,6 +35,7 @@ public class ArticleController {
      * @param article 文章实体
      * @return SUCCESS / CREATE_ERROR
      * */
+    @Calibrator
     @PostMapping("/sava")
     public ResultVO createArticle(Article article, HttpSession session) {
         return this.articleService.createArticle(article,session);
@@ -45,6 +47,7 @@ public class ArticleController {
      * @param id 删除文章的对应ID
      * @return SUCCESS / DELETE_ERROR
      * */
+    @Calibrator
     @DeleteMapping("/delete/{id}")
     public ResultVO deleteArticle(@PathVariable int id) {
         if (articleService.removeById(id)) {

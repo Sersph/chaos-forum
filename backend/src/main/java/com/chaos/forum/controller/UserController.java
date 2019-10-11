@@ -1,5 +1,6 @@
 package com.chaos.forum.controller;
 
+import com.chaos.forum.decorator.Calibrator;
 import com.chaos.forum.entity.PersonUser;
 import com.chaos.forum.returnx.enumx.ResultEnum;
 import com.chaos.forum.service.IUserService;
@@ -52,6 +53,7 @@ public class UserController {
      *
      * @return
      */
+    @Calibrator
     @GetMapping("/logOut")
     public ResultVO logOut(HttpSession session) {
         session.removeAttribute("personUser");
@@ -64,6 +66,7 @@ public class UserController {
      * @param user
      * @return
      */
+    @Calibrator
     @PutMapping("/alter")
     public ResultVO alter(PersonUser user,HttpSession session) {
         return this.userService.alter(session, user);
@@ -74,6 +77,7 @@ public class UserController {
      *
      * @return 头像默认返回‘ko1’
      */
+    @Calibrator
     @GetMapping("/userCase")
     public ResultVO getUserName(HttpSession session) {
         return this.userService.getUserName(session);

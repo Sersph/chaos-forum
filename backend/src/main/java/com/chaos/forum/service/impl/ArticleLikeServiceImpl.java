@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.chaos.forum.entity.ArticleLike;
 import com.chaos.forum.entity.PersonUser;
+import com.chaos.forum.exception.DataException;
 import com.chaos.forum.mapper.ArticleLikeMapper;
 import com.chaos.forum.returnx.enumx.ResultEnum;
 import com.chaos.forum.service.IArticleLikeService;
@@ -34,11 +35,7 @@ public class ArticleLikeServiceImpl extends ServiceImpl<ArticleLikeMapper, Artic
     @Override
     public ResultVO saveLiked(HttpSession session, ArticleLike articleLike) {
         PersonUser userIn = (PersonUser) session.getAttribute("personUser");
-        if (userIn == null) {
-            return new ResultVO(ResultEnum.LI_GIN_NOT);
-        }
         articleLike.setUserId(userIn.getId());
-
         /**
          * 判断数据库有没有记录：
          *      有记录的直接更新状态
@@ -56,7 +53,7 @@ public class ArticleLikeServiceImpl extends ServiceImpl<ArticleLikeMapper, Artic
                 return new ResultVO(ResultEnum.SUCCESS);
             }
         }
-        return new ResultVO(ResultEnum.ERROR);
+        throw new DataException(ResultEnum.ERROR);
     }
 
 }

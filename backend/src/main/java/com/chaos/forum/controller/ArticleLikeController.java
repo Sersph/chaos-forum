@@ -1,5 +1,6 @@
 package com.chaos.forum.controller;
 
+import com.chaos.forum.decorator.Calibrator;
 import com.chaos.forum.entity.ArticleLike;
 import com.chaos.forum.service.IArticleLikeService;
 import com.chaos.forum.vo.ResultVO;
@@ -30,6 +31,7 @@ public class ArticleLikeController {
      * @param articleLike
      * @return
      */
+    @Calibrator
     @PostMapping("/like")
     public ResultVO articleLike(HttpSession session, ArticleLike articleLike) {
         return this.articleLikeService.saveLiked(session, articleLike);

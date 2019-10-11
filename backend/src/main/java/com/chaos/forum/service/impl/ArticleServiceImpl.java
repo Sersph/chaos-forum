@@ -1,20 +1,16 @@
 package com.chaos.forum.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.chaos.forum.entity.Article;
 import com.chaos.forum.entity.ArticleListPage;
 import com.chaos.forum.entity.PersonUser;
 import com.chaos.forum.exception.DataException;
-import com.chaos.forum.mapper.ArticleCommentMapper;
 import com.chaos.forum.mapper.ArticleMapper;
 import com.chaos.forum.returnx.enumx.ResultEnum;
 import com.chaos.forum.service.IArticleService;
 import com.chaos.forum.tools.PageTools;
 import com.chaos.forum.vo.ResultVO;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,14 +31,6 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     @Autowired
     private ArticleMapper articleMapper;
 
-    @Autowired
-    private ArticleCommentMapper articleCommentMapper;
-
-    /**
-     * 日志
-     */
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
-
     /**
      * 添加文章
      *
@@ -52,15 +40,12 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     public ResultVO createArticle(Article article, HttpSession session) {
         PersonUser user = (PersonUser) session.getAttribute("personUser");
         //获取到用户ID
-        if (user != null) {
-            article.setCreatorId(user.getId());
-            /**  插入  */
-            if (this.save(article)) {
-                return new ResultVO(ResultEnum.SUCCESS);
-            }
-            throw new DataException(ResultEnum.CREATE_ERROR);
+        article.setCreatorId(user.getId());
+        /**  插入  */
+        if (this.save(article)) {
+            return new ResultVO(ResultEnum.SUCCESS);
         }
-        throw new DataException(ResultEnum.LI_GIN_NOT);
+        throw new DataException(ResultEnum.CREATE_ERROR);
     }
 
     /**
@@ -73,10 +58,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     @Override
     public ResultVO selectArticle(int id, ArticleListPage articleListPage) {
         PageTools<Article> pageTools = new PageTools<>(articleListPage);
-
         IPage<Article> iPage = pageTools.autoPaging()
                 .result((page, wrapper, articleListPage1)
-                        -> this.articleMapper.selectOne(page, wrapper, articleListPage1,id));
+                        -> this.articleMapper.selectOne(page, wrapper, articleListPage1, id));
         return new ResultVO(ResultEnum.SUCCESS, iPage);
     }
 
@@ -91,7 +75,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         PageTools<Article> pageTools = new PageTools<>(articleListPage);
         IPage<Article> iPage = pageTools.autoPaging()
                 .result((page, wrapper, articleListPage1)
-                -> this.articleMapper.selectPages(page, wrapper, articleListPage1));
+                        -> this.articleMapper.selectPages(page, wrapper, articleListPage1));
 
         return new ResultVO(ResultEnum.SUCCESS, iPage);
 
