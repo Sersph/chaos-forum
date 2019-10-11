@@ -14,6 +14,7 @@ import com.chaos.forum.returnx.enumx.ResultEnum;
 import com.chaos.forum.service.IArticleCommentService;
 import com.chaos.forum.tools.PageTools;
 import com.chaos.forum.vo.ResultVO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
@@ -28,6 +29,9 @@ import javax.servlet.http.HttpSession;
  */
 @Service
 public class ArticleCommentServiceImpl extends ServiceImpl<ArticleCommentMapper, ArticleComment> implements IArticleCommentService {
+
+    @Autowired
+    private ArticleCommentMapper articleCommentMapper;
 
     /**
      * 创建文章评论
@@ -55,18 +59,20 @@ public class ArticleCommentServiceImpl extends ServiceImpl<ArticleCommentMapper,
      * 获取文章评论
      *
      * @param id 文章ID
-     * @param articleComment
      * @param articleListPage
      * @return
      */
     @Override
-    public ResultVO getComment(int id, ArticleComment articleComment, ArticleListPage articleListPage) {
+    public ResultVO getComment(int id, ArticleListPage articleListPage) {
+
         PageTools<ArticleComment> pageTools = new PageTools<>(articleListPage);
-        return new ResultVO(ResultEnum.SUCCESS,  pageTools.autoPaging().result(
-                (page, wrapper) -> {
-                    wrapper.eq("article_id", id);
-                    return this.page(page, wrapper);
-                }
-        ));
+        IPage<ArticleComment> iPage = pageTools.autoPaging()
+                .result((page, wrapper, articleListPage1)
+                        -> this.articleCommentMapper.selectComment(page, wrapper, articleListPage1,id));
+
+        if (iPage.getTotal() == 0) {
+            throw new DataException(ResultEnum.SELECT_ERROR);
+        }
+        return new ResultVO(ResultEnum.SUCCESS, iPage);
     }
 }

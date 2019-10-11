@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.chaos.forum.mapper.ArticleCommentMapper">
+    <select id="selectComment"
+            resultType="com.chaos.forum.entity.ArticleComment">
+      SELECT article_comment.*,
+        person_user.username as username,
+        person_user.buddha as buddha
+      FROM article_comment, person_user ${ew.customSqlSegment}
+      <choose>
+        <when test="ew.customSqlSegment == '' ">
+          WHERE article_comment.article_id = ${id}
+          AND person_user.id = article_comment.user_id
+        </when>
+        <otherwise>
+          AND article_comment.article_id = ${id}
+          AND person_user.id = article_comment.user_id
+        </otherwise>
+      </choose>
+    </select>
+</mapper>
+

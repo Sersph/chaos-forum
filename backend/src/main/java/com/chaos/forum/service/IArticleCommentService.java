@@ -19,6 +19,6 @@ public interface IArticleCommentService extends IService<ArticleComment> {
 
     ResultVO SaveComment(HttpSession session, ArticleComment articleComment);
 
-    ResultVO getComment(int id, ArticleComment articleComment, ArticleListPage articleListPage);
+    ResultVO getComment(int id, ArticleListPage articleListPage);
 
 }

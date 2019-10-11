@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.chaos.forum.entity.ArticleComment;
+import com.chaos.forum.entity.ArticleListPage;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -19,4 +20,12 @@ import org.apache.ibatis.annotations.Param;
  * 2019-09-20 10:33
  */
 @Mapper
-public interface ArticleCommentMapper extends BaseMapper<ArticleComment> { }
+public interface ArticleCommentMapper extends BaseMapper<ArticleComment> {
+
+    IPage<ArticleComment> selectComment(
+            Page<ArticleComment> page,
+            @Param(Constants.WRAPPER) Wrapper<ArticleComment> queryWrapper,
+            @Param("articleListPage") ArticleListPage articleListPage,
+            @Param("id") int id
+    );
+}

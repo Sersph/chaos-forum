@@ -37,8 +37,8 @@ public class ArticleCommentController {
     }
 
     @GetMapping("/getComment/{id}")
-    public ResultVO getComment(@PathVariable int id, ArticleComment articleComment, ArticleListPage articleListPage) {
-        return this.articleCommentService.getComment(id, articleComment, articleListPage);
+    public ResultVO getComment(@PathVariable int id, ArticleListPage articleListPage) {
+        return this.articleCommentService.getComment(id, articleListPage);
     }
 
 }
