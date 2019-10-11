@@ -47,12 +47,10 @@ public class ArticleLikeServiceImpl extends ServiceImpl<ArticleLikeMapper, Artic
         if (null != this.getOne(new QueryWrapper<ArticleLike>()
                 .eq(" user_id", articleLike.getUserId())
                 .eq("article_Id", articleLike.getArticleId()))) {
-
             if (this.update(articleLike, new UpdateWrapper<ArticleLike>()
                     .eq("user_id",articleLike.getUserId()))){
                 return new ResultVO(ResultEnum.SUCCESS);
             }
-
         } else {
             if (this.save(articleLike)){
                 return new ResultVO(ResultEnum.SUCCESS);
@@ -60,7 +58,5 @@ public class ArticleLikeServiceImpl extends ServiceImpl<ArticleLikeMapper, Artic
         }
         return new ResultVO(ResultEnum.ERROR);
     }
-
-
 
 }

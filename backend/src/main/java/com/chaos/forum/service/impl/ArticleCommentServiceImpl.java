@@ -69,9 +69,6 @@ public class ArticleCommentServiceImpl extends ServiceImpl<ArticleCommentMapper,
                 .result((page, wrapper, articleListPage1)
                         -> this.articleCommentMapper.selectComment(page, wrapper, articleListPage1,id));
 
-        if (iPage.getTotal() == 0) {
-            throw new DataException(ResultEnum.SELECT_ERROR);
-        }
         return new ResultVO(ResultEnum.SUCCESS, iPage);
     }
 
