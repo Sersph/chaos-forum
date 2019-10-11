@@ -17,10 +17,10 @@ import javax.servlet.http.HttpSession;
  */
 public interface IArticleCommentService extends IService<ArticleComment> {
 
-    ResultVO SaveComment(HttpSession session, ArticleComment articleComment);
+    ResultVO saveComment(HttpSession session, ArticleComment articleComment);
 
     ResultVO getComment(int id, ArticleListPage articleListPage);
 
-    ResultVO delectComment(HttpSession session);
+    ResultVO delectComment(int id, HttpSession session);
 
 }

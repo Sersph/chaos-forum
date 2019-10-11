@@ -3,7 +3,6 @@ package com.chaos.forum.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.chaos.forum.entity.ArticleComment;
 import com.chaos.forum.entity.ArticleListPage;
@@ -21,7 +20,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  * <p>
- * { describe }
+ * { 文章评论 }
  * </p>
  *
  * @Author kay
@@ -41,7 +40,7 @@ public class ArticleCommentServiceImpl extends ServiceImpl<ArticleCommentMapper,
      * @return
      */
     @Override
-    public ResultVO SaveComment(HttpSession session, ArticleComment articleComment) {
+    public ResultVO saveComment(HttpSession session, ArticleComment articleComment) {
         PersonUser userIn = (PersonUser) session.getAttribute("personUser");
         if (userIn != null) {
             articleComment.setUserId(userIn.getId());
@@ -83,16 +82,16 @@ public class ArticleCommentServiceImpl extends ServiceImpl<ArticleCommentMapper,
      * @return
      */
     @Override
-    public ResultVO delectComment(HttpSession session) {
+    public ResultVO delectComment(int id, HttpSession session) {
         PersonUser userIn = (PersonUser) session.getAttribute("personUser");
         if (userIn == null) {
             throw new DataException(ResultEnum.LI_GIN_NOT);
         }
-        if (this.list(new QueryWrapper<ArticleComment>().eq("user_id", userIn.getId())) == null){
-            return new ResultVO(ResultEnum.DELETE_ERROR);
-        }
-        if (this.remove(new QueryWrapper<ArticleComment>().eq("user_id", userIn.getId()))) {
-            return new ResultVO(ResultEnum.SUCCESS);
+        if (this.getById(id) != null && this.list(new QueryWrapper<ArticleComment>()
+                .eq("user_id", userIn.getId())) != null){
+            if (this.removeById(id)) {
+                return new ResultVO(ResultEnum.SUCCESS);
+            }
         }
         throw new DataException(ResultEnum.DELETE_ERROR);
     }

@@ -31,14 +31,33 @@ public class ArticleCommentController {
      * @param articleComment
      * @return
      */
-    @PostMapping("/comment")
+    @PostMapping("/saveComment")
     public ResultVO saveComment(HttpSession session, ArticleComment articleComment) {
-        return this.articleCommentService.SaveComment(session, articleComment);
+        return this.articleCommentService.saveComment(session, articleComment);
     }
 
+    /**
+     * 查询文章评论列表
+     *
+     * @param id
+     * @param articleListPage
+     * @return
+     */
     @GetMapping("/getComment/{id}")
     public ResultVO getComment(@PathVariable int id, ArticleListPage articleListPage) {
         return this.articleCommentService.getComment(id, articleListPage);
+    }
+
+    /**
+     * 删除文章评论
+     *
+     * @param id
+     * @param session
+     * @return
+     */
+    @DeleteMapping("/delentComment/{id}")
+    public ResultVO delectComment(@PathVariable int id, HttpSession session) {
+        return this.articleCommentService.delectComment(id, session);
     }
 
 }
