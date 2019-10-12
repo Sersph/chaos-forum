@@ -1,31 +1,28 @@
 //package com.chaos.forum.config;
 //
-//import org.springframework.boot.web.servlet.FilterRegistrationBean;
 //import org.springframework.context.annotation.Bean;
 //import org.springframework.context.annotation.Configuration;
-//import org.springframework.web.cors.CorsConfiguration;
-//import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-//import org.springframework.web.filter.CorsFilter;
 //import org.springframework.web.servlet.config.annotation.CorsRegistry;
 //import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 //
-///**
-// * 跨域处理
-// *
-// * @author Shinelon
-// */
 //@Configuration
-//public class CorsConfig {
+//public class GlobalCorsConfig {
 //    @Bean
 //    public WebMvcConfigurer corsConfigurer() {
 //        return new WebMvcConfigurer() {
 //            @Override
+//            //重写父类提供的跨域请求处理的接口
 //            public void addCorsMappings(CorsRegistry registry) {
-//                registry.addMapping("127.0.0.1:8080/**")
+//                //添加映射路径
+//                registry.addMapping("/**")
+//                        //放行哪些原始域
 //                        .allowedOrigins("*")
+//                        //是否发送Cookie信息
 //                        .allowCredentials(true)
-//                        .allowedMethods("GET", "POST", "DELETE", "PUT","PATCH")
-//                        .maxAge(3600);
+//                        //放行哪些原始域(请求方式)
+//                        .allowedMethods("GET","POST", "PUT", "DELETE")
+//                        //放行哪些原始域(头部信息)
+//                        .allowedHeaders("*");
 //            }
 //        };
 //    }

@@ -24,10 +24,10 @@ public class ArticleListPage {
     private Integer pageSize = 5;
 
     @ApiModelProperty(value = " 文章排序的字段 ")
-    private String sortField;
+    private String sortField = "createTime";
 
     @ApiModelProperty(value = " 文章排序的方式asd/desc ")
-    private String sortOrder;
+    private String sortOrder = "desc";
 
     @ApiModelProperty(value = " 文章标题 ")
     private String title;
