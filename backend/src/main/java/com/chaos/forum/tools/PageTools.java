@@ -22,7 +22,6 @@ public class PageTools<T> {
 
     private ArticleListPage articleListPage = null;
 
-    int id;
 
     /**
      * 自动分页工具方法
@@ -34,10 +33,13 @@ public class PageTools<T> {
     public PageTools<T> autoPaging() {
 
         if (this.articleListPage.getName() != null) {
+            System.out.println("xxxxxx");
             this.like("name", this.articleListPage.getName());
         }
 
         if (this.articleListPage.getTitle() != null) {
+            System.out.println("ssssss");
+
             this.like("title", this.articleListPage.getTitle());
         }
 

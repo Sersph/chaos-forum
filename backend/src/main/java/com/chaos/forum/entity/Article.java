@@ -70,4 +70,7 @@ public class Article implements Serializable {
     @TableField(exist = false)
     private String buddha;
 
+    @ApiModelProperty("总点赞数数")
+    @TableField(exist = false)
+    private int totalLike;
 }

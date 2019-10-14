@@ -40,7 +40,4 @@ public class ArticleLike {
     @ApiModelProperty("点赞的状态---1点赞：0取消")
     private int status;
 
-    @ApiModelProperty("总点赞数数")
-    @TableField(exist = false)
-    private int totalLike;
 }
