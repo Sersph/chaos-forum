@@ -70,7 +70,6 @@ public class ImageTools {
      */
     public static boolean isImage(String extension) {
         String[] imageExtension = new String[]{"jpeg", "jpg", "gif", "bmp", "png"};
-
         for (String e : imageExtension) {
             if (extension.toLowerCase().equals(e)) {
                 return true;

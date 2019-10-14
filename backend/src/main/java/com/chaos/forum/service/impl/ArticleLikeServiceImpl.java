@@ -15,6 +15,7 @@ import com.chaos.forum.vo.ResultVO;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 
 /**
  * <p>
@@ -36,6 +37,7 @@ public class ArticleLikeServiceImpl extends ServiceImpl<ArticleLikeMapper, Artic
     public ResultVO saveLiked(HttpSession session, ArticleLike articleLike) {
         PersonUser userIn = (PersonUser) session.getAttribute("personUser");
         articleLike.setUserId(userIn.getId());
+        articleLike.setVoteTime(new Date());
         /**
          * 判断数据库有没有记录：
          *      有记录的直接更新状态
@@ -43,7 +45,7 @@ public class ArticleLikeServiceImpl extends ServiceImpl<ArticleLikeMapper, Artic
          */
         if (null != this.getOne(new QueryWrapper<ArticleLike>()
                 .eq(" user_id", articleLike.getUserId())
-                .eq("article_Id", articleLike.getArticleId()))) {
+                .eq("article_id", articleLike.getArticleId()))) {
             if (this.update(articleLike, new UpdateWrapper<ArticleLike>()
                     .eq("user_id",articleLike.getUserId()))){
                 return new ResultVO(ResultEnum.SUCCESS);

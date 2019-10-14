@@ -28,7 +28,9 @@
     article_category.name as articleCategoryName,
     person_user.username as creatorUsername,
     person_user.buddha as buddha,
-    ( select COUNT(article_comment.id) FROM article_comment WHERE article_comment.article_id = article.id ) as leaveWords
+    ( select COUNT (article_comment.id) FROM article_comment WHERE article_comment.article_id = article.id ) as leaveWords,
+    ( select COUNT (article_like.id) FROM article_like WHERE article_like.article_id = article.id and article_like.status = 1) as totalLike
+
     FROM article, article_category, person_user ${ew.customSqlSegment}
     <choose>
       <when test="ew.customSqlSegment == '' ">
@@ -36,6 +38,7 @@
         AND article_category.id = article.article_category_id
         AND article.creator_id = person_user.id
       </when>
+
       <otherwise>
         AND article.id = ${id}
         AND article_category.id = article.article_category_id

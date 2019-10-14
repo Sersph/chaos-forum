@@ -27,7 +27,6 @@ public class ArticleLike {
     @ApiModelProperty("用户ID")
     private int userId;
 
-
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     @TableField(fill = FieldFill.INSERT)
     @ApiModelProperty("点赞时间")
@@ -40,4 +39,8 @@ public class ArticleLike {
     @NotNull
     @ApiModelProperty("点赞的状态---1点赞：0取消")
     private int status;
+
+    @ApiModelProperty("总点赞数数")
+    @TableField(exist = false)
+    private int totalLike;
 }
