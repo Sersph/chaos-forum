@@ -260,11 +260,11 @@
 
 - 请求参数
 
-  | 参数       | 必填 | 类型 | 备注         |
-  | ---------- | ---- | ---- | ------------ |
-  | status     | yes  | int  | 1:0(攒:取消) |
-  | article_id | yes  | int  | 文章id       |
-  | user_id    | yes  | int  | 用户id       |
+  | 参数      | 必填 | 类型 | 备注         |
+  | --------- | ---- | ---- | ------------ |
+  | status    | yes  | int  | 1:0(攒:取消) |
+  | articleId | yes  | int  | 文章id       |
+  | userId    | yes  | int  | 用户id       |
 
 - 返回示例
 

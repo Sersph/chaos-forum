@@ -14,6 +14,7 @@ import com.chaos.forum.vo.ResultVO;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -43,32 +44,44 @@ public class ArticleLikeServiceImpl extends ServiceImpl<ArticleLikeMapper, Artic
          *      有记录的直接更新状态
          *      没记录的就插入一条记录
          */
-        if (null != this.getOne(new QueryWrapper<ArticleLike>()
-                .eq(" user_id", articleLike.getUserId())
-                .eq("article_id", articleLike.getArticleId()))) {
-            if (this.update(articleLike, new UpdateWrapper<ArticleLike>()
-                    .eq("user_id",articleLike.getUserId()))){
+        if (null == this.getOne(new QueryWrapper<ArticleLike>()
+                .eq("user_id", articleLike.getUserId())
+                .eq("article_id", articleLike.getArticleId()))){
+            if (this.save(articleLike)) {
                 return new ResultVO(ResultEnum.SUCCESS);
             }
-        } else {
-            if (this.save(articleLike)){
-                return new ResultVO(ResultEnum.SUCCESS);
-            }
+        }
+        if (this.update(articleLike, new UpdateWrapper<ArticleLike>()
+                    .eq("user_id",articleLike.getUserId())
+                    .eq("article_id",articleLike.getArticleId()))){
+               return new ResultVO(ResultEnum.SUCCESS);
         }
         throw new DataException(ResultEnum.ERROR);
     }
 
-
+    /**
+     * 获取用户点赞的文章
+     *
+     * @param session
+     * @param articleLike
+     * @return
+     */
     @Override
     public ResultVO selectLikeAllUser(HttpSession session, ArticleLike articleLike) {
         PersonUser userIn = (PersonUser) session.getAttribute("personUser");
         articleLike.setUserId(userIn.getId());
-         List list = this.list(new QueryWrapper<ArticleLike>()
+         List<ArticleLike> list = this.list(new QueryWrapper<ArticleLike>()
                  .eq("user_id",userIn.getId()).eq("status",1));
         if (list == null) {
             throw new DataException(ResultEnum.SELECT_ERROR);
         }
-        return new ResultVO(ResultEnum.SUCCESS, list);
+
+        ArrayList<Integer> articleIdList = new ArrayList<>();
+        for(ArticleLike obj : list){
+            articleIdList.add(obj.getArticleId());
+        }
+
+        return new ResultVO(ResultEnum.SUCCESS, articleIdList);
     }
 
 
