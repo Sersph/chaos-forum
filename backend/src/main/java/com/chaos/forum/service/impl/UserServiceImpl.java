@@ -107,6 +107,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, PersonUser> impleme
         HashMap<String, String> map = new HashMap<>(2);
         map.put("buddha",  userIn.getBuddha());
         map.put("username", userIn.getUsername());
+        map.put("id", String.valueOf(userIn.getId()));
         return new ResultVO(ResultEnum.SUCCESS, map);
     }
 }
