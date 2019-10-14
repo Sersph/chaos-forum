@@ -10,12 +10,12 @@ import com.chaos.forum.exception.DataException;
 import com.chaos.forum.mapper.ArticleLikeMapper;
 import com.chaos.forum.returnx.enumx.ResultEnum;
 import com.chaos.forum.service.IArticleLikeService;
-import com.chaos.forum.tools.DatabaseTools;
 import com.chaos.forum.vo.ResultVO;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -57,5 +57,19 @@ public class ArticleLikeServiceImpl extends ServiceImpl<ArticleLikeMapper, Artic
         }
         throw new DataException(ResultEnum.ERROR);
     }
+
+
+    @Override
+    public ResultVO selectLikeAllUser(HttpSession session, ArticleLike articleLike) {
+        PersonUser userIn = (PersonUser) session.getAttribute("personUser");
+        articleLike.setUserId(userIn.getId());
+         List list = this.list(new QueryWrapper<ArticleLike>()
+                 .eq("user_id",userIn.getId()).eq("status",1));
+        if (list == null) {
+            throw new DataException(ResultEnum.SELECT_ERROR);
+        }
+        return new ResultVO(ResultEnum.SUCCESS, list);
+    }
+
 
 }

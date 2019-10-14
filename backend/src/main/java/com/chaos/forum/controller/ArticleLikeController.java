@@ -37,4 +37,10 @@ public class ArticleLikeController {
         return this.articleLikeService.saveLiked(session, articleLike);
     }
 
+    @Calibrator
+    @GetMapping("/selectLike")
+    public ResultVO selectLike(HttpSession session, ArticleLike articleLike) {
+        return this.articleLikeService.selectLikeAllUser(session, articleLike);
+    }
+
 }

@@ -23,4 +23,6 @@ public interface IArticleLikeService extends IService<ArticleLike> {
      */
     ResultVO saveLiked(HttpSession session, ArticleLike articleLike);
 
+    ResultVO selectLikeAllUser(HttpSession session, ArticleLike articleLike);
+
 }
