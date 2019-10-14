@@ -24,6 +24,8 @@ public interface IArticleService extends IService<Article> {
 
     ResultVO getArticleCategory(ArticleListPage articleListPage);
 
+    ResultVO delectArticle(int id,HttpSession session);
+
     @Deprecated
     ResultVO selectArticle(ArticleListPage articleListPage);
 

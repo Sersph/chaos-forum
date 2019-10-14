@@ -2,6 +2,7 @@ package com.chaos.forum.entity;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -26,6 +27,8 @@ public class ArticleLike {
     @ApiModelProperty("用户ID")
     private int userId;
 
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     @TableField(fill = FieldFill.INSERT)
     @ApiModelProperty("点赞时间")
     private Date voteTime;

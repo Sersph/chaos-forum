@@ -14,5 +14,10 @@ import java.util.Date;
 @SpringBootTest
 public class ForumApplicationTests {
 
+    @Test
+    public void xxx(){
+        System.out.println(new Date());
+    }
+
 }
 

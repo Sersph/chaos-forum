@@ -2,17 +2,14 @@ package com.chaos.forum.controller;
 
 import com.chaos.forum.decorator.Calibrator;
 import com.chaos.forum.entity.Article;
-import com.chaos.forum.entity.ArticleComment;
 import com.chaos.forum.entity.ArticleListPage;
-import com.chaos.forum.exception.DataException;
-import com.chaos.forum.returnx.enumx.ResultEnum;
 import com.chaos.forum.service.IArticleService;
 import com.chaos.forum.vo.ResultVO;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+
 
 /**
  * <p>
@@ -49,11 +46,8 @@ public class ArticleController {
      * */
     @Calibrator
     @DeleteMapping("/delete/{id}")
-    public ResultVO deleteArticle(@PathVariable int id) {
-        if (articleService.removeById(id)) {
-            return new ResultVO(ResultEnum.SUCCESS);
-        }
-        return new ResultVO(ResultEnum.CREATE_ERROR);
+    public ResultVO deleteArticle(@PathVariable int id, HttpSession session) {
+        return this.articleService.delectArticle(id, session);
     }
 
     /**

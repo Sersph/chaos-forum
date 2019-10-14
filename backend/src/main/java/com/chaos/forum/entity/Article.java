@@ -3,6 +3,7 @@ package com.chaos.forum.entity;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -33,10 +34,12 @@ public class Article implements Serializable {
     @ApiModelProperty(value = " 文章内容 ")
     private String content;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     @TableField(fill = FieldFill.INSERT)
     @ApiModelProperty(value = " 文章创建时间 ")
     private Date createTime;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     @TableField(fill = FieldFill.INSERT_UPDATE)
     @ApiModelProperty(value = " 文章修改时间 ")
     private Date updateTime;
