@@ -7,7 +7,6 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import NProgress from 'nprogress';
-import oss from '../../../util/oss';
 import './index.less';
 import api from '../../../api';
 
@@ -73,7 +72,7 @@ export default class TinymceUploadImage extends React.Component<Props, State> {
     //   stsToken: stsToken.securityToken,
     // });
 
-    const fileUploadResult = await state.fileList.map(async file => {
+    const fileUploadResult = await state.fileList.map(async (file: any) => {
       const formData = new FormData();
       formData.append('file', file);
       const result: any = await api.post.fileUpload(formData);
@@ -92,7 +91,7 @@ export default class TinymceUploadImage extends React.Component<Props, State> {
     Promise.all(fileUploadResult).then((fileUploadResult) => {
       // 拼接已上传成功的 img 标签
       const imageHTML = fileUploadResult.map((item: any) => {
-        return `<img src="${item.ossResult.original}" class="tinymce-upload-image" data-thumbnail="${item.ossResult.thumbnail}"/>`;
+        return `<img src="${item.ossResult.original}" style="max-width: 100%;" class="tinymce-upload-image" data-thumbnail="${item.ossResult.thumbnail}"/>`;
       });
 
       // 回调上传图片成功
@@ -130,7 +129,6 @@ export default class TinymceUploadImage extends React.Component<Props, State> {
           open={state.visibleUploadModel}
           fullWidth={true}
           maxWidth="md"
-          TransitionComponent={Slide}
           onClose={() => this.handleToggleUploadModel(false)}
           aria-labelledby="alert-dialog-slide-title"
           aria-describedby="alert-dialog-slide-description"

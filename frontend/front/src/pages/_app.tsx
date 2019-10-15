@@ -8,6 +8,8 @@ import theme from '../component/material-ui/theme';
 import Router from 'next/router';
 import api from '../api';
 import { updateUserInfo } from '../store/account';
+import { updateAgreePostIdList } from '../store/post';
+
 // ie11 兼容1
 // import '@babel/polyfill';
 
@@ -20,7 +22,6 @@ import withReduxStore from '../util/with-redux-store';
 import 'normalize.css';
 import 'nprogress/nprogress.css';
 import './_app.less';
-
 // NProgress 配置
 NProgress.configure({
   minimum: 0.25,
@@ -49,7 +50,7 @@ export default withReduxStore(
           (NodeList as any).prototype.forEach = Array.prototype.forEach;
         }
 
-        Object.assign = function(target) {
+        Object.assign = function (target: any) {
           'use strict';
           if (target == null) {
             throw new TypeError('Cannot convert undefined or null to object');
@@ -92,6 +93,13 @@ export default withReduxStore(
           }
           // 保存登陆状态到 redux
           props.store.dispatch(updateUserInfo(userInfo));
+
+          // 更新用户点赞的文章id
+          let result2: any = await api.post.selectAgreePostList();
+          if (parseInt(result2.code) === 0) {
+            // 保存用户点赞的文章id到 redux
+            props.store.dispatch(updateAgreePostIdList(result2.data));
+          }
         }
       };
 

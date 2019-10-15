@@ -2,10 +2,12 @@ import React from 'react';
 import LayoutAccountPerson from '../../../../component/_layout/account/person';
 import './index.less';
 import Head from 'next/head';
+// @ts-ignore
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+// @ts-ignore
+import AvatarEditor from 'react-avatar-editor';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import AvatarEditor from 'react-avatar-editor';
 import { AppState } from '../../../../type/state';
 import { updateUserInfo } from '../../../../store/account';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -47,7 +49,7 @@ interface State {
 // 当前组件类
 export default compose<React.ComponentClass>(
   connect<ConnectState, ConnectDispatch, Props>(
-    (app: AppState) => ({
+    (app: any | AppState) => ({
       userInfo: app.account.userInfo
     }),
     {
@@ -74,7 +76,7 @@ export default compose<React.ComponentClass>(
 
     public componentDidMount = (): void => {
       // 添加自定义校验规则
-      ValidatorForm.addValidationRule('checkUpdatePassword', (value) => {
+      ValidatorForm.addValidationRule('checkUpdatePassword', (value: any) => {
         if (value === '') {
           return true;
         } else {
@@ -84,7 +86,7 @@ export default compose<React.ComponentClass>(
     };
 
     // 表单数据改变
-    public handlePersonUserInfoFormDataChange = (event): void => {
+    public handlePersonUserInfoFormDataChange = (event: any): void => {
       const { state } = this;
       this.setState({
         personUserInfoFormData: {
@@ -95,7 +97,7 @@ export default compose<React.ComponentClass>(
     };
 
     // 将base64转换为文件
-    public dataURLtoFile = (dataurl, filename) => {
+    public dataURLtoFile = (dataurl: any, filename: any) => {
       var arr = dataurl.split(','),
         mime = arr[0].match(/:(.*?);/)[1],
         bstr = atob(arr[1]),
@@ -170,14 +172,14 @@ export default compose<React.ComponentClass>(
     };
 
     // 头像上传
-    public handleDrop = (dropped): void => {
+    public handleDrop = (dropped: any): void => {
       this.setState({
         avatar: dropped[0]
       });
     };
 
     // 设置修改图片
-    public setEditorRef = (editor) => this.editor = editor;
+    public setEditorRef = (editor: any) => this.editor = editor;
 
     public render = (): JSX.Element => {
       const { props, state } = this;
@@ -265,7 +267,6 @@ export default compose<React.ComponentClass>(
               horizontal: 'center'
             }}
             open={state.snackbarStatus}
-            TransitionComponent={Slide}
             autoHideDuration={1000}
             message={<span>{state.snackbarMessage}</span>}
             onClose={() => {

@@ -27,7 +27,8 @@ module.exports = (router, app) => {
   // 帖子详情
   router.get('/post/:id', async ctx => {
     await app.render(ctx.req, ctx.res, '/post', {
-      id: ctx.params.id
+      id: ctx.params.id,
+      page: ctx.query.page
     });
     ctx.respond = false;
   });

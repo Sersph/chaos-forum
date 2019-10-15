@@ -78,10 +78,10 @@ export default class HotPostListItem extends React.Component<Props, State> {
                 noWrap
               >
                 <Link
-                  href={`/home?categoryId=${props.postDescription.articleCategoryId}`}
-                  as={`/home?categoryId=${props.postDescription.articleCategoryId}`}
+                  href={`/home?postCategoryId=${props.postDescription.articleCategoryId}`}
+                  as={`/home?postCategoryId=${props.postDescription.articleCategoryId}`}
                 >
-                  <a href={`/home?categoryId=${props.postDescription.articleCategoryId}`}>
+                  <a href={`/home?postCategoryId=${props.postDescription.articleCategoryId}`}>
                     发布于 <span>{props.postDescription.articleCategoryName}</span>
                   </a>
                 </Link>
@@ -90,7 +90,7 @@ export default class HotPostListItem extends React.Component<Props, State> {
 
             {props.postDescription.preview.length > 0 && (
               <section className="preview-image-list">
-                {props.postDescription.preview.map((previewImageListItem, index) => (
+                {props.postDescription.preview.map((previewImageListItem: any, index: number) => (
                   <div key={index} className="img-container">
                     <ImageZoom
                       zoomMargin={50}
@@ -101,10 +101,11 @@ export default class HotPostListItem extends React.Component<Props, State> {
                       }}
                       shouldReplaceImage={false}
                       zoomImage={{
-                        src: previewImageListItem.original
+                        src: previewImageListItem.original,
+                        className: 'original-zoom'
                       }}
                       image={{
-                        src: previewImageListItem.thumbnail
+                        src: previewImageListItem.original
                       }}
                     />
                   </div>

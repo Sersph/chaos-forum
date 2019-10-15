@@ -32,7 +32,7 @@ module.exports = withLess(
       return config;
     },
     generateBuildId: async () => {
-      return 'v1.0.0';
+      return 'v1.0.5';
     },
     distDir: '../.next'
   })
