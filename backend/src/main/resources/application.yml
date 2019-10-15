@@ -18,14 +18,16 @@ spring:
       max-file-size: 2MB
       max-request-size: 2MB
   redis:
+    database: 0
     host: 114.55.35.77
-      port: 6379
-      timeout: 1
-        pool:
-          minIdle: 1
-          maxIdle: 10
-          maxWait: 3
-          maxActive: 8
+    # boot拥有两种集成redis的方式，一种是Jedis(非线程安全的，除非使用连接池),一种是Lettuce基于Netty的连接实例
+    lettuce:
+      pool:
+        min-idle: 0
+        max-idle: 8
+        max-active: 8
+        max-wait: -1ms
+      shutdown-timeout: 100ms
 
 mybatis-plus:
   mapper-locations: classpath:mapper/*.xml

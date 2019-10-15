@@ -6,8 +6,10 @@ import com.chaos.forum.entity.AdminUser;
 import com.chaos.forum.entity.PersonUser;
 import com.chaos.forum.exception.DataException;
 import com.chaos.forum.mapper.AdminUserMapper;
+import com.chaos.forum.mapper.UserMapper;
 import com.chaos.forum.returnx.enumx.ResultEnum;
 import com.chaos.forum.service.IAdminUserService;
+import com.chaos.forum.service.IUserService;
 import com.chaos.forum.vo.ResultVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +33,8 @@ public class AdminUserServiceImpl extends ServiceImpl<AdminUserMapper, AdminUser
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-
+    @Autowired
+    private IUserService iUserService;
 
     /**
      * 管理员用户登陆
@@ -73,11 +76,11 @@ public class AdminUserServiceImpl extends ServiceImpl<AdminUserMapper, AdminUser
      */
     @Override
     public ResultVO selectAll() {
-        List list = this.list();
+        List list = this.iUserService.list();
         if (list == null) {
             throw new DataException(ResultEnum.SELECT_ERROR);
         }
-        return new ResultVO(ResultEnum.SUCCESS);
+        return new ResultVO(ResultEnum.SUCCESS, list);
     }
 
 

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.chaos.forum.decorator.Calibrator;
 import com.chaos.forum.entity.Article;
 import com.chaos.forum.entity.ArticleListPage;
 import com.chaos.forum.entity.PersonUser;
@@ -15,6 +16,7 @@ import com.chaos.forum.tools.DatabaseTools;
 import com.chaos.forum.tools.PageTools;
 import com.chaos.forum.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
@@ -73,6 +75,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
      *
      * @return SUCCESS, Date / SELECT_ERROR
      */
+    @Cacheable(value = "ResultVO")
     @Override
     public ResultVO getArticleCategory(ArticleListPage articleListPage) {
         /** 分页 */
@@ -80,9 +83,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         IPage<Article> iPage = pageTools.autoPaging()
                 .result((page, wrapper, articleListPage1)
                         -> this.articleMapper.selectPages(page, wrapper, articleListPage1));
-
         return new ResultVO(ResultEnum.SUCCESS, iPage);
-
     }
 
     /**

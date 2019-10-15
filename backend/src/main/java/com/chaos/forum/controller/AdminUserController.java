@@ -1,5 +1,6 @@
 package com.chaos.forum.controller;
 
+import com.chaos.forum.decorator.Calibrator;
 import com.chaos.forum.entity.AdminUser;
 import com.chaos.forum.returnx.enumx.ResultEnum;
 import com.chaos.forum.service.IAdminUserService;
@@ -42,6 +43,7 @@ public class AdminUserController {
      *
      * @param session 用户会话
      * */
+    @Calibrator
     @DeleteMapping("/logOut")
     public ResultVO logOut(HttpSession session) {
         session.removeAttribute("adminUser");
@@ -54,6 +56,7 @@ public class AdminUserController {
      *
      * @param session 用户登陆信息
      * */
+    @Calibrator
     @GetMapping("/getUserName")
     public ResultVO getUserName(HttpSession session) {
         AdminUser userInfo = (AdminUser) session.getAttribute("adminUser");
@@ -67,6 +70,7 @@ public class AdminUserController {
     /**
      *
      */
+    @Calibrator
     @GetMapping("/selectAll")
     public ResultVO selectAll() {
         return this.adminUserService.selectAll();

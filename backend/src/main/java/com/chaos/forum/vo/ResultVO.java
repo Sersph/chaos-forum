@@ -3,6 +3,8 @@ package com.chaos.forum.vo;
 import com.chaos.forum.returnx.enumx.ResultEnum;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * { 统一数据返回格式 }
  *
@@ -10,7 +12,7 @@ import lombok.Data;
  * 2019-09-20 16:17
  */
 @Data
-public class ResultVO {
+public class ResultVO implements Serializable {
 
     private Integer code;
 
