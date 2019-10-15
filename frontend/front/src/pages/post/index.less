@@ -20,6 +20,9 @@
           font-weight: bold;
           color: #333;
         }
+        button {
+          min-width: 85px;
+        }
       }
 
       .post-detail-wrapper {
@@ -37,18 +40,19 @@
         display: flex;
 
         .user-content {
-          padding: 19px;
-          width: 130px;
+          padding: 21px;
+          width: 125px;
           display: flex;
           flex-direction: column;
           align-items: center;
 
           img {
-            width: 90px;
-            height: 90px;
+            width: 85px;
+            height: 85px;
           }
 
           .username {
+            word-break: break-all;
             margin-top: 1rem;
             font-size: 13px;
             color: #333;
@@ -67,8 +71,7 @@
             color: #333;
 
             img {
-              width: 100%;
-              max-width: 500px;
+              max-width: 100%;
             }
           }
 
@@ -83,8 +86,8 @@
               align-items: center;
               cursor: pointer;
 
-              &.active,
-              &:hover {
+              //&:hover
+              &.active {
                 .agree {
                   background: url(https://yyccyy-01.oss-cn-shenzhen.aliyuncs.com/backup/0e69f14157b4804d15be0626b659be4c.png) no-repeat center;
                   background-size: 19px;
@@ -122,11 +125,19 @@
                 margin-right: 11px;
                 font-size: 12px;
                 color: #999;
+
+                .delete-message {
+                  cursor: pointer;
+                }
               }
 
               .create-time {
                 font-size: 12px;
                 color: #999;
+
+                .delete-post {
+                  cursor: pointer;
+                }
               }
             }
           }
@@ -159,8 +170,13 @@
 
           & > div:first-child {
             display: flex;
-            justify-content: center;
+            align-items: center;
+            flex-direction: column;
             width: 130px;
+
+            div:last-child {
+              margin-top: 15px;
+            }
           }
 
           & > div:last-child {
@@ -212,40 +228,80 @@
 }
 
 .select-post-error-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   padding: 2.5rem;
   font-size: 15px;
+  text-align: center;
   color: #a0a0a0;
   background-color: #fff;
+
+  a {
+    color: #556cd6;
+  }
 }
 
 // 移动端适配
 @media (max-width: 600px) {
   .post-container {
     .MuiContainer-root {
+      padding: 0;
+
       .post-detail-container {
         .post-detail-wrapper,
         .post-message-item {
           .user-content {
-            padding: 15px;
-            width: 95px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            padding: 15px 3px;
+            width: 59px;
 
             img {
-              width: 55px;
-              height: 55px;
+              width: 35px;
+              height: 35px;
+              border-radius: 50%;
             }
 
             .username {
               font-size: 12px;
             }
           }
+
+          .post-content-and-description {
+            .post-description {
+              padding-right: 0;
+            }
+          }
+        }
+      }
+
+      .post-message-loading-container {
+
+        .loading-item-container {
+          & > div:first-child {
+            width: 61px !important;
+            padding-left: 1px;
+
+            div:first-child {
+              width: 35px !important;
+              height: 35px !important;
+            }
+
+            div:last-child {
+              width: 35px !important;
+              margin-top: 15px;
+            }
+          }
         }
       }
     }
+  }
+}
+
+.delete-post-dialog-content,
+.delete-message-dialog-content {
+  .action-container {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
   }
 }

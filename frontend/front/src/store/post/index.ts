@@ -4,13 +4,15 @@ import { PostState } from '../../type/state';
 enum ActionType {
   UPDATE_ALL_POST_CATEGORY_LIST = 'updateAllPostCategoryList',
   UPDATE_POST_DETAIL = 'updatePostDetail',
+  UPDATE_AGREE_POST_ID_LIST = 'updateAgreePostIdList',
   CLEAR_POST_STATE = 'clearPostState'
 }
 
 // state
 const initState: PostState = {
   allPostCategoryList: null,
-  postDetail: null
+  postDetail: null,
+  agreePostIdList: []
 };
 
 // action
@@ -34,6 +36,16 @@ export const updatePostDetail = (postDetail): object => {
   };
 };
 
+// 更新用户点赞的文章id
+export const updateAgreePostIdList = (agreePostIdList): object => {
+  return {
+    type: ActionType.UPDATE_AGREE_POST_ID_LIST,
+    data: {
+      agreePostIdList
+    }
+  };
+};
+
 // 清空当前模块的状态
 export const clearPostState = (): object => {
   return {
@@ -50,6 +62,11 @@ export default (state = initState, action: any): any => {
         ...action.data
       };
     case ActionType.UPDATE_POST_DETAIL:
+      return {
+        ...state,
+        ...action.data
+      };
+    case ActionType.UPDATE_AGREE_POST_ID_LIST:
       return {
         ...state,
         ...action.data

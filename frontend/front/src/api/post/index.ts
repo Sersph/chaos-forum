@@ -10,10 +10,29 @@ const api: PostAPI = {
       data
     );
   },
+  agreePost: (data: any): object => {
+    return ajax(
+      'POST',
+      `${config.API_ROOT}/frontend/article/like`,
+      data
+    );
+  },
+  selectAgreePostList: (): object => {
+    return ajax(
+      'GET',
+      `${config.API_ROOT}/frontend/article/selectLike`
+    );
+  },
   selectPost: (id: any): object => {
     return ajax(
       'GET',
       `${config.API_ROOT}/frontend/article/getOne/${id}`
+    );
+  },
+  deletePost: (id: any): object => {
+    return ajax(
+      'DELETE',
+      `${config.API_ROOT}/frontend/article/delete/${id}`
     );
   },
   selectPostList: (data: any): object => {
@@ -23,27 +42,33 @@ const api: PostAPI = {
       data
     );
   },
-  selectAllPostCategoryList: () => {
+  selectAllPostCategoryList: (): object => {
     return ajax(
       'GET',
       `${config.API_ROOT}/frontend/category/all`
     );
   },
-  insertPostMessage: (data: any) => {
+  insertPostMessage: (data: any): object => {
     return ajax(
       'POST',
       `${config.API_ROOT}/frontend/article/saveComment`,
       data
     );
   },
-  selectPostMessage: (id: any, data: any) => {
+  deletePostMessage: (id: any): object => {
+    return ajax(
+      'DELETE',
+      `${config.API_ROOT}/frontend/article/delentComment/${id}`
+    );
+  },
+  selectPostMessage: (id: any, data: any): object => {
     return ajax(
       'GET',
       `${config.API_ROOT}/frontend/article/getComment/${id}`,
       data
     );
   },
-  fileUpload: (data: any) => {
+  fileUpload: (data: any): object => {
     return ajax(
       'POST_FILE',
       `${config.UPLOAD_API_ROOT}`,

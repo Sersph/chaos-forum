@@ -9,7 +9,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import HomeIcon from '@material-ui/icons/Home';
-import MenuIcon from '@material-ui/icons/Menu';
+// import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -19,6 +19,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { AppState } from '../../../type/state';
 import { updateUserInfo } from '../../../store/account';
+import {updateAgreePostIdList} from '../../../store/post';
 import api from '../../../api';
 import Snackbar from '@material-ui/core/Snackbar';
 import Slide from '@material-ui/core/Slide';
@@ -34,6 +35,7 @@ interface ConnectState {
 
 interface ConnectDispatch {
   updateUserInfo: (data: any) => object;
+  updateAgreePostIdList: (data: any) => object;
 }
 
 interface Props extends ConnectState, ConnectDispatch {
@@ -58,17 +60,18 @@ interface State {
 // 当前组件类
 export default compose<React.ComponentClass>(
   connect<ConnectState, ConnectDispatch, Props>(
-    (state: AppState) => ({
+    (state: any | AppState) => ({
       userInfo: state.account.userInfo
     }),
     {
-      updateUserInfo
+      updateUserInfo,
+      updateAgreePostIdList
     }
   ),
   withRouter
 )(
   class LayoutMaster extends React.Component<Props, State> {
-    public constructor(props) {
+    public constructor(props: Props) {
       super(props);
       this.state = {
         menuList: [
@@ -88,7 +91,7 @@ export default compose<React.ComponentClass>(
     }
 
     // 监听用户状态 添加动画效果
-    public shouldComponentUpdate = (nextProps, nextState): boolean => {
+    public shouldComponentUpdate = (nextProps: Props): boolean => {
       const { props } = this;
       if (props.userInfo.buddha !== nextProps.userInfo.buddha) {
         this.setState({
@@ -163,6 +166,9 @@ export default compose<React.ComponentClass>(
             isGet: true
           });
 
+          // 更新用户点赞的文章id
+          props.updateAgreePostIdList([]);
+
           setTimeout(() => {
             // 跳转至首页
             Router.push({
@@ -179,6 +185,7 @@ export default compose<React.ComponentClass>(
       return (
         <AppBar position="fixed" className="app-bar-container">
           <Toolbar>
+            {/*
             <IconButton
               color="inherit"
               aria-label="open drawer"
@@ -188,6 +195,7 @@ export default compose<React.ComponentClass>(
             >
               <MenuIcon/>
             </IconButton>
+            */}
             <div className="title">
               <Link href="/home">
                 <a href="/home">
@@ -345,7 +353,7 @@ export default compose<React.ComponentClass>(
       return (
         <div className="layout-master-container">
           {this.renderAppBarContainer()}
-          {this.renderSidebarContainer()}
+          {/*{this.renderSidebarContainer()}*/}
           <main className="content-container">
             {props.children}
           </main>
@@ -355,7 +363,6 @@ export default compose<React.ComponentClass>(
               horizontal: 'center'
             }}
             open={state.snackbarStatus}
-            TransitionComponent={Slide}
             autoHideDuration={1000}
             message={<span>{state.snackbarMessage}</span>}
             onClose={() => {

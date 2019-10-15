@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button';
 import Fab from '@material-ui/core/Fab';
 import EditIcon from '@material-ui/icons/Edit';
 import Router from 'next/router';
+import HTMLParseReact from 'html-react-parser';
 import Dialog from '@material-ui/core/Dialog';
 import Slide from '@material-ui/core/Slide';
 import IconButton from '@material-ui/core/IconButton';
@@ -22,6 +23,7 @@ import NProgress from 'nprogress';
 import Snackbar from '@material-ui/core/Snackbar';
 import MenuItem from '@material-ui/core/MenuItem';
 import { updateAllPostCategory } from '../../store/post';
+// @ts-ignore
 import { ValidatorForm, TextValidator, SelectValidator } from 'react-material-ui-form-validator';
 import { withRouter } from 'next/router';
 import { compose } from 'redux';
@@ -29,7 +31,6 @@ import { connect } from 'react-redux';
 import { AppState } from '../../type/state';
 import PostCategoryPostListItem from '../../component/post/post-category-post-list-item';
 import Tinymce from '../../component/tinymce';
-import htmlUtil from '../../util/html';
 import './index.less';
 
 // 当前组件的类型声明
@@ -81,7 +82,7 @@ interface State {
 // 当前组件类
 export default compose<React.ComponentClass>(
   connect<ConnectState, ConnectDispatch, Props>(
-    (state: AppState) => ({
+    (state: any | AppState) => ({
       userInfo: state.account.userInfo
     }),
     {}
@@ -112,7 +113,7 @@ export default compose<React.ComponentClass>(
       };
     }
 
-    public static getInitialProps = async ({ query, store }) => {
+    public static getInitialProps = async ({ query, store }: any) => {
       const postCategoryId = query.postCategoryId ? parseInt(query.postCategoryId) : 0;
       const title = query.title ? query.title : '';
       const currentPage = query.page ? parseInt(query.page) : 1;
@@ -195,7 +196,7 @@ export default compose<React.ComponentClass>(
       window.removeEventListener('popstate', this.handlerRouterChangeStart);
     };
 
-    public shouldComponentUpdate = (nextProps): boolean => {
+    public shouldComponentUpdate = (nextProps: Props): boolean => {
       const { props } = this;
       setTimeout(() => {
         // 接收到新的列表 取消加载状态
@@ -208,7 +209,7 @@ export default compose<React.ComponentClass>(
       return true;
     };
 
-    public componentDidUpdate = (prevProps) => {
+    public componentDidUpdate = (prevProps: Props) => {
       const { props, state } = this;
       // 路由参数不一致，更新查询参数
       if (prevProps.postListSelectCondition.title !== props.postListSelectCondition.title) {
@@ -229,7 +230,7 @@ export default compose<React.ComponentClass>(
       }
     };
 
-    public handlerRouterChangeStart = (event): void => {
+    public handlerRouterChangeStart = (event: any): void => {
       // 显示加载状态
       if (event.state.as.substring(0, 5) === '/home') {
         this.setState({
@@ -239,7 +240,7 @@ export default compose<React.ComponentClass>(
     };
 
     // 分页数据改变 - 第几页
-    public handleChangePage = (event, newPage: number): void => {
+    public handleChangePage = (_event: any, newPage: number): void => {
       const { props, state } = this;
 
       NProgress.start();
@@ -299,7 +300,7 @@ export default compose<React.ComponentClass>(
     };
 
     // 表单数据改变
-    public handleInsertPostFormDataChange = (event): void => {
+    public handleInsertPostFormDataChange = (event: any): void => {
       const { state } = this;
       this.setState({
         insertPostFormData: {
@@ -319,21 +320,18 @@ export default compose<React.ComponentClass>(
       NProgress.start();
 
       // 生成预览图
-      const previewImageList = [];
-      const nodeList = htmlUtil.parseHtmlStrToNodeList(state.insertPostContent);
-      for (let i = 0; i < nodeList.length; i++) {
-        if (nodeList[i].tagName !== undefined && nodeList[i].tagName.toLowerCase() === 'p') {
-          const pNodeList = nodeList[i].children;
-          for (let j = 0; j < pNodeList.length; j++) {
-            if (pNodeList[j].tagName.toLowerCase() === 'img') {
-              previewImageList.push({
-                thumbnail: pNodeList[j].dataset.thumbnail,
-                original: pNodeList[j].src
-              });
-            }
+      const previewImageList: any = [];
+      HTMLParseReact(state.insertPostContent, {
+        replace: (domNode: any) => {
+          if (domNode.type === 'tag' && domNode.name == 'img') {
+            previewImageList.push({
+              thumbnail: domNode.attribs['data-thumbnail'],
+              original: domNode.attribs.src
+            });
+            return <img/>;
           }
         }
-      }
+      });
 
       const postData = {
         title: state.insertPostFormData.title,
@@ -382,7 +380,7 @@ export default compose<React.ComponentClass>(
     };
 
     // 显示/隐藏创建文章模态框
-    public handleToggleUploadModel = (flag: boolean): void => {
+    public handleToggleInsertPostModel = (flag: boolean): void => {
       const { props } = this;
       // 判断用户是否登录
       if (props.userInfo.username !== undefined) {
@@ -405,7 +403,7 @@ export default compose<React.ComponentClass>(
     };
 
     // 帖子查询表单数据改变
-    public handleSelectPostFormDataChange = (event): void => {
+    public handleSelectPostFormDataChange = (event: any): void => {
       const { state } = this;
       this.setState({
         postListSelectCondition: {
@@ -449,7 +447,7 @@ export default compose<React.ComponentClass>(
             <section className="post-list-container">
               <Container maxWidth="lg">
                 <div className="header-action">
-                  <Fab variant="extended" color="primary" onClick={() => this.handleToggleUploadModel(true)}>
+                  <Fab variant="extended" color="primary" onClick={() => this.handleToggleInsertPostModel(true)}>
                     <EditIcon/>我要发帖
                   </Fab>
                 </div>
@@ -467,7 +465,7 @@ export default compose<React.ComponentClass>(
                       value={state.postListSelectCondition.postCategoryId === 0 ? '' : state.postListSelectCondition.postCategoryId}
                       variant="outlined"
                     >
-                      {props.allPostCategoryList.map((item, index) => (
+                      {props.allPostCategoryList.map((item: any, index: number) => (
                         <MenuItem value={item.id} key={index}>{item.name}</MenuItem>
                       ))}
                     </SelectValidator>
@@ -490,7 +488,7 @@ export default compose<React.ComponentClass>(
                 </section>
                 {state.loadingStatus ? (
                   <div className="post-loading-container">
-                    {state.loadingArr.map((n, index) => (
+                    {state.loadingArr.map((_n: any, index: any) => (
                       <div className="loading-item-container" key={index}>
                         <div>
                           <Skeleton width={55} height={29}/>
@@ -508,7 +506,7 @@ export default compose<React.ComponentClass>(
                   <div>
                     {/* 帖子搜索列表 */}
                     <section className="post-list">
-                      {props.postList.records.length > 0 ? props.postList.records.map((postListItem, index) => {
+                      {props.postList.records.length > 0 ? props.postList.records.map((postListItem: any, index: number) => {
                         try {
                           postListItem.preview = JSON.parse(postListItem.preview);
                         } catch (e) {
@@ -539,8 +537,7 @@ export default compose<React.ComponentClass>(
               open={state.visibleInsertPostModel}
               fullWidth={true}
               maxWidth="md"
-              TransitionComponent={Slide}
-              onClose={() => this.handleToggleUploadModel(false)}
+              onClose={() => this.handleToggleInsertPostModel(false)}
               aria-labelledby="alert-dialog-slide-title"
               aria-describedby="alert-dialog-slide-description"
               scroll="body"
@@ -577,7 +574,7 @@ export default compose<React.ComponentClass>(
                       value={state.insertPostFormData.postCategoryId === 0 ? '' : state.insertPostFormData.postCategoryId}
                       variant="outlined"
                     >
-                      {props.allPostCategoryList.filter(item => item.id !== 0).map((item, index) => (
+                      {props.allPostCategoryList.filter((item: any) => item.id !== 0).map((item: any, index: number) => (
                         <MenuItem value={item.id} key={index}>{item.name}</MenuItem>
                       ))}
                     </SelectValidator>
@@ -615,7 +612,6 @@ export default compose<React.ComponentClass>(
               horizontal: 'center'
             }}
             open={state.snackbarStatus}
-            TransitionComponent={Slide}
             autoHideDuration={1000}
             message={<span>{state.snackbarMessage}</span>}
             onClose={() => {

@@ -22,16 +22,24 @@ export interface AccountAPI {
 export interface PostAPI {
   // 创建帖子接口
   insertPost: (data: any) => object;
+  // 点赞文章
+  agreePost: (data: any) => object;
+  // 点赞列表
+  selectAgreePostList: () => object;
   // 查询文章详情
   selectPost: (id: any) => object;
   // 获取文章
   selectPostList: (data: any) => object;
+  // 删除文章
+  deletePost: (id: any) => object;
   // 获取帖子分类
   selectAllPostCategoryList: () => object;
   // 创建帖子评论
   insertPostMessage: (data: any) => object;
   // 获取帖子评论
   selectPostMessage: (id: any, data: any) => object;
+  // 删除贴片评论
+  deletePostMessage: (id: any) => object;
   // 文件上传
   fileUpload: (data: any) => object;
 }

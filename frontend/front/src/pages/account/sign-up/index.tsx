@@ -10,6 +10,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Snackbar from '@material-ui/core/Snackbar';
 import Slide from '@material-ui/core/Slide';
+// @ts-ignore
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
@@ -48,7 +49,7 @@ interface State {
 // 当前组件类
 export default compose<React.ComponentClass>(
   connect<ConnectState, ConnectDispatch, Props>(
-    (app: AppState) => ({
+    (app: any | AppState) => ({
       userInfo: app.account.userInfo
     }),
     {
@@ -73,7 +74,7 @@ export default compose<React.ComponentClass>(
 
     public componentDidMount = (): void => {
       // 添加自定义校验规则
-      ValidatorForm.addValidationRule('checkConfirmPassword', (value) => {
+      ValidatorForm.addValidationRule('checkConfirmPassword', (value: string) => {
         const { state } = this;
         return value === state.signUpFormData.password;
       });
@@ -84,7 +85,7 @@ export default compose<React.ComponentClass>(
     };
 
     // 表单数据改变
-    public handleSignUpFormDataChange = (event): void => {
+    public handleSignUpFormDataChange = (event: any): void => {
       const { state } = this;
       this.setState({
         signUpFormData: {
@@ -242,7 +243,6 @@ export default compose<React.ComponentClass>(
               horizontal: 'center'
             }}
             open={state.snackbarStatus}
-            TransitionComponent={Slide}
             autoHideDuration={1000}
             message={<span>{state.snackbarMessage}</span>}
             onClose={() => {

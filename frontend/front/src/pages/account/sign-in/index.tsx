@@ -8,12 +8,13 @@ import Typography from '@material-ui/core/Typography';
 import Link from 'next/link';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+// @ts-ignore
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { AppState } from '../../../type/state';
 import Snackbar from '@material-ui/core/Snackbar';
-import Slide from '@material-ui/core/Slide';
+import { updateAgreePostIdList } from '../../../store/post';
 import { updateUserInfo } from '../../../store/account';
 import NProgress from 'nprogress';
 import Router from 'next/router';
@@ -26,10 +27,10 @@ interface ConnectState {
 
 interface ConnectDispatch {
   updateUserInfo: (data: any) => object;
+  updateAgreePostIdList: (data: any) => object;
 }
 
 interface Props extends ConnectState, ConnectDispatch {
-
 }
 
 interface State {
@@ -47,11 +48,12 @@ interface State {
 // 当前组件类
 export default compose<React.ComponentClass>(
   connect<ConnectState, ConnectDispatch, Props>(
-    (app: AppState) => ({
+    (app: any | AppState) => ({
       userInfo: app.account.userInfo
     }),
     {
-      updateUserInfo
+      updateUserInfo,
+      updateAgreePostIdList
     }
   )
 )(
@@ -70,7 +72,7 @@ export default compose<React.ComponentClass>(
     }
 
     // 表单数据改变
-    public handleSignInFormDataChange = (event): void => {
+    public handleSignInFormDataChange = (event: any): void => {
       const { state } = this;
       this.setState({
         signInFormData: {
@@ -107,6 +109,13 @@ export default compose<React.ComponentClass>(
               ...result2.data
             });
 
+            // 更新用户点赞的文章id
+            let result3: any = await api.post.selectAgreePostList();
+            if (parseInt(result3.code) === 0) {
+              // 保存用户点赞的文章id到 redux
+              props.updateAgreePostIdList(result3.data);
+            }
+
             setTimeout(() => {
               // 跳转至首页
               Router.push({
@@ -114,16 +123,9 @@ export default compose<React.ComponentClass>(
               });
             }, 1000);
           }, 500);
-        } else if (result1.code === 101) {
-          this.setState({
-            snackbarMessage: `用户名或密码不正确`,
-            snackbarStatus: true,
-            signInFormSubmitted: false
-          });
-          NProgress.done();
         } else {
           this.setState({
-            snackbarMessage: `${result1.code}: ${result1.message}`,
+            snackbarMessage: `用户名或密码不正确`,
             snackbarStatus: true,
             signInFormSubmitted: false
           });
@@ -197,7 +199,6 @@ export default compose<React.ComponentClass>(
               horizontal: 'center'
             }}
             open={state.snackbarStatus}
-            TransitionComponent={Slide}
             autoHideDuration={1000}
             message={<span>{state.snackbarMessage}</span>}
             onClose={() => {

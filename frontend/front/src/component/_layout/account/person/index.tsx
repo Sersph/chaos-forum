@@ -59,7 +59,7 @@ interface State {
 // 当前组件类
 export default compose<React.ComponentClass>(
   connect<ConnectState, ConnectDispatch, Props>(
-    (state: AppState) => ({
+    (state: any | AppState) => ({
       userInfo: state.account.userInfo
     }),
     {
@@ -69,7 +69,7 @@ export default compose<React.ComponentClass>(
   withRouter
 )(
   class LayoutMaster extends React.Component<Props, State> {
-    public constructor(props) {
+    public constructor(props: Props) {
       super(props);
       this.state = {
         menuList: [
@@ -89,7 +89,7 @@ export default compose<React.ComponentClass>(
     }
 
     // 监听用户状态 添加动画效果
-    public shouldComponentUpdate = (nextProps, nextState): boolean => {
+    public shouldComponentUpdate = (nextProps: Props): boolean => {
       const { props } = this;
       if (props.userInfo.buddha !== nextProps.userInfo.buddha) {
         this.setState({
@@ -369,7 +369,6 @@ export default compose<React.ComponentClass>(
                 horizontal: 'center'
               }}
               open={state.snackbarStatus}
-              TransitionComponent={Slide}
               autoHideDuration={1000}
               message={<span>{state.snackbarMessage}</span>}
               onClose={() => {

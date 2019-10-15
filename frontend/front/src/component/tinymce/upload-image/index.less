@@ -7,6 +7,10 @@
 
 .MuiDialogContent-root.upload-img-dialog-content {
   padding: 51px;
+
+  .MuiSnackbar-root {
+    display: none;
+  }
 }
 
 .upload-drop-zone {
@@ -14,6 +18,29 @@
     & > p {
       font-size: 15px;
       padding: 23px;
+    }
+  }
+
+  .MuiGrid-container {
+    width: 100%;
+    margin: 0;
+
+    .MuiGrid-item {
+      flex-grow: 0;
+      flex-basis: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      max-width: 100%;
+      height: 201px;
+      padding: 0;
+
+      img {
+        height: auto;
+        max-height: 200px;
+        margin-top: 0;
+        margin-right: 0;
+      }
     }
   }
 }

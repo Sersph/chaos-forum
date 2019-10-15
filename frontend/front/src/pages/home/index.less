@@ -114,11 +114,46 @@
 // 移动端适配
 @media (max-width: 600px) {
   .home-container {
-    .post-select-condition {
-      form {
-        .MuiFormControl-root {
-          width: 110px;
+    .MuiContainer-root {
+      padding: 0;
+
+      .post-select-condition {
+        form {
+          .MuiFormControl-root {
+            width: 110px;
+          }
         }
+      }
+
+      .post-loading-container {
+
+        .loading-item-container {
+          & > div:first-child {
+            justify-content: initial;
+            width: 53px;
+            padding-left: 1px;
+
+            div {
+              width: 35px !important;
+              height: 21px !important;
+            }
+          }
+
+          & > div:last-child {
+            & > div:first-child {
+              height: 21px !important;;
+            }
+          }
+        }
+      }
+    }
+
+
+    .MuiDialogContent-root.insert-post-dialog-content {
+      padding: 5px;
+
+      .insert-post-container {
+        padding: 5px;
       }
     }
   }

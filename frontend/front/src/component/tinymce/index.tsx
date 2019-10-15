@@ -12,7 +12,7 @@ interface Props {
 
 interface State {
   // 富文本的值
-  value: string;
+  value: any;
 }
 
 // 当前组件类
@@ -27,7 +27,7 @@ export default class Tinymce extends React.Component<Props, State> {
   public componentDidMount = (): void => {
     const { props } = this;
     this.setState({
-      value: props.initialValue
+      value: props.initialValue || ''
     });
   };
 
@@ -63,9 +63,7 @@ export default class Tinymce extends React.Component<Props, State> {
             language: 'zh_CN',
             height: 350,
             fontsize_formats: "8px 10px 12px 14px 18px 24px 36px 48px 60px",
-            paste_as_text: true,
-            paste_preprocess: (pl, o) => {
-            }
+            paste_as_text: true
           }}
         />
         {/* 图片上传组件 */}

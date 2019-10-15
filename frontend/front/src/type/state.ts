@@ -10,9 +10,12 @@ export interface PostState {
   allPostCategoryList: any;
   // 文章详情
   postDetail: any;
+  // 文章点赞id
+  agreePostIdList: any;
 }
 
 // 整合所有状态
 export interface AppState {
   account: AccountState;
+  post: PostState;
 }
