@@ -17,6 +17,16 @@ spring:
     multipart:
       max-file-size: 2MB
       max-request-size: 2MB
+  redis:
+    host: 114.55.35.77
+      port: 6379
+      timeout: 1
+        pool:
+          minIdle: 1
+          maxIdle: 10
+          maxWait: 3
+          maxActive: 8
+
 mybatis-plus:
   mapper-locations: classpath:mapper/*.xml
   configuration:
@@ -28,4 +38,6 @@ forum:
   file:
     upload: /etc/nginx/www/chaos-forum/upload/
     static-url: http://114.55.35.77/images/
+
+
 

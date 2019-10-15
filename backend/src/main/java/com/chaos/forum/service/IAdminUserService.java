@@ -25,4 +25,6 @@ public interface IAdminUserService extends IService<AdminUser> {
      * @param session 状态（用户）
      * */
     ResultVO logIn(AdminUser user, HttpSession session);
+
+    ResultVO selectAll();
 }

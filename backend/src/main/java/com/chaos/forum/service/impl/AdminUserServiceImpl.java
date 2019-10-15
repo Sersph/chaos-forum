@@ -3,17 +3,19 @@ package com.chaos.forum.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.chaos.forum.entity.AdminUser;
+import com.chaos.forum.entity.PersonUser;
 import com.chaos.forum.exception.DataException;
 import com.chaos.forum.mapper.AdminUserMapper;
 import com.chaos.forum.returnx.enumx.ResultEnum;
 import com.chaos.forum.service.IAdminUserService;
-import com.chaos.forum.tools.DatabaseTools;
 import com.chaos.forum.vo.ResultVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 
 /**
@@ -27,8 +29,9 @@ import javax.servlet.http.HttpSession;
 @Service
 public class AdminUserServiceImpl extends ServiceImpl<AdminUserMapper, AdminUser> implements IAdminUserService {
 
-
     private Logger logger = LoggerFactory.getLogger(this.getClass());
+
+
 
     /**
      * 管理员用户登陆
@@ -62,5 +65,21 @@ public class AdminUserServiceImpl extends ServiceImpl<AdminUserMapper, AdminUser
         this.logger.info("login SUCCESS");
         return new ResultVO(ResultEnum.SUCCESS);
     }
+
+    /**
+     * 查询所用用户列表
+     *
+     * @return
+     */
+    @Override
+    public ResultVO selectAll() {
+        List list = this.list();
+        if (list == null) {
+            throw new DataException(ResultEnum.SELECT_ERROR);
+        }
+        return new ResultVO(ResultEnum.SUCCESS);
+    }
+
+
 
 }

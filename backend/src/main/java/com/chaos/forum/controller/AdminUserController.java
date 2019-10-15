@@ -64,4 +64,12 @@ public class AdminUserController {
         return new ResultVO(ResultEnum.SUCCESS,userInfo.getName());
     }
 
+    /**
+     *
+     */
+    @GetMapping("/selectAll")
+    public ResultVO selectAll() {
+        return this.adminUserService.selectAll();
+    }
+
 }
