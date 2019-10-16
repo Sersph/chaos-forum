@@ -68,10 +68,27 @@ export default compose<React.ComponentClass>(
             ]
           },
           {
+            key: '2',
+            icon: 'user',
+            name: '账户管理',
+            children: [
+              {
+                key: '2-1',
+                name: '个人用户',
+                path: '/system/account/person-user/list'
+              }
+            ]
+          },
+          {
             key: '3',
             icon: 'desktop',
             name: '内容管理',
             children: [
+              {
+                key: '3-1',
+                name: '帖子',
+                path: '/system/feature/post/list'
+              },
               {
                 key: '3-2',
                 name: '帖子分类',
@@ -80,7 +97,7 @@ export default compose<React.ComponentClass>(
             ]
           }
         ]
-      }
+      };
     }
 
 

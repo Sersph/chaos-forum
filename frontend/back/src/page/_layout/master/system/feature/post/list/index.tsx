@@ -1,7 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { compose } from 'redux';
-import { Divider, Table, Modal, Button, Col, Form, Row, Input, Tag } from 'antd';
+import { Table, Modal, Form, Tag } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
 import api from '../../../../../../../api';
 
@@ -38,14 +37,13 @@ export default compose<React.ComponentClass>(
             dataIndex: 'id',
             render: (text: any, record: any, index: number) => `${index + 1}`,
           },
-          { title: '名称', dataIndex: 'name', sorter: true },
+          { title: '标题', dataIndex: 'title', sorter: true },
+          { title: '点赞数量', dataIndex: 'leaveWords' },
           { title: '创建日期', dataIndex: 'createTime', sorter: true },
           { title: '最后修改日期', dataIndex: 'updateTime', sorter: true },
           {
             title: '操作', dataIndex: 'action', render: (text: any, record: any) => (
               <div className="table-data-action-container">
-                <Link to={`/system/feature/postCategory/operator/${record.id}`}>编辑</Link>
-                <Divider type="vertical"/>
                 <span onClick={() => this.deleteData(record)}>删除</span>
               </div>
             )
@@ -91,7 +89,7 @@ export default compose<React.ComponentClass>(
       }
 
       // 获取表格数据
-      const result: any = await api.postCategory.selectPostCategoryList(searchInfo);
+      const result: any = await api.post.selectPostList(searchInfo);
 
       // 获取成功, 刷新数据
       this.setState({
@@ -116,62 +114,16 @@ export default compose<React.ComponentClass>(
         okText: '确认',
         cancelText: '取消',
         title: '确认删除此条记录？',
-        content: <Tag color="#f50">{record.name}</Tag>,
+        content: <Tag color="#f50">{record.title}</Tag>,
         onOk: async () => {
           // loading
           this.setState({ loading: true });
-          await api.postCategory.deletePostCategoryById(record.id);
+          await api.post.deletePostById(record.id);
           // 刷新表格数据
           this.refreshData();
         },
         onCancel() {
         },
-      });
-    };
-
-    /**
-     * 搜索表格数据
-     *
-     */
-    public handleSearch = (e: React.FormEvent): void => {
-      e.preventDefault();
-      const { state, props } = this;
-      props.form.validateFields(async (error, valueList) => {
-        if (!error) {
-          // 保存搜索条件
-          this.setState({
-            pagination: {
-              ...state.pagination,
-              current: 1,
-              pageSize: 10
-            },
-            searchCondition: valueList
-          }, () => {
-            // 刷新表格数据
-            this.refreshData();
-          });
-        }
-      });
-    };
-
-    /**
-     * 重置搜索参数
-     *
-     */
-    public handleReset = (): void => {
-      const { props } = this;
-      // 保存搜索条件
-      this.setState({
-        pagination: {
-          current: 1,
-          pageSize: 10
-        },
-        searchCondition: {}
-      }, () => {
-        // 清空表单
-        props.form.resetFields();
-        // 刷新表格数据
-        this.refreshData();
       });
     };
 
@@ -214,34 +166,8 @@ export default compose<React.ComponentClass>(
      *
      */
     public getOperationContainer = (): JSX.Element => {
-      const { props } = this;
       return (
-        <section className="data-operation-container">
-          <section className="search-container">
-            <Form onSubmit={this.handleSearch}>
-              <Row className="search-field-container">
-                <Col md={5}>
-                  <Form.Item label="分类名称">
-                    {props.form.getFieldDecorator('name', {
-                      rules: []
-                    })(
-                      <Input/>
-                    )}
-                  </Form.Item>
-                </Col>
-                <Col md={5} className="search-action-container">
-                  <Button type="primary" htmlType="submit">搜索</Button>
-                  <Button onClick={this.handleReset}>清空</Button>
-                </Col>
-              </Row>
-            </Form>
-          </section>
-          <section className="data-action-container">
-            <Link to="/system/feature/postCategory/operator">
-              <Button icon="plus" type="primary">添加</Button>
-            </Link>
-          </section>
-        </section>
+        <section className="data-operation-container"/>
       );
     };
 
