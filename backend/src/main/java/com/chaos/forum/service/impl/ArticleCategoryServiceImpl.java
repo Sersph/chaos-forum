@@ -13,6 +13,7 @@ import com.chaos.forum.tools.DatabaseTools;
 import com.chaos.forum.tools.PageTools;
 import com.chaos.forum.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
@@ -66,6 +67,7 @@ public class ArticleCategoryServiceImpl extends ServiceImpl<ArticleCategoryMappe
      * @param articleListPage
      * @return
      */
+    @Cacheable(value = "ResultVO")
     @Override
     public ResultVO selectCategory(ArticleListPage articleListPage) {
         PageTools pageTools = new PageTools<ArticleCategory>(articleListPage);
@@ -79,6 +81,7 @@ public class ArticleCategoryServiceImpl extends ServiceImpl<ArticleCategoryMappe
      *
      * @return
      */
+    @Cacheable(value = "ResultVO")
     @Override
     public ResultVO selectArticleAll() {
         List list = this.list(new QueryWrapper<>());

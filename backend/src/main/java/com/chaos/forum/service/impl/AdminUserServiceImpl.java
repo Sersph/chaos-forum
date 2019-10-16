@@ -98,7 +98,7 @@ public class AdminUserServiceImpl extends ServiceImpl<AdminUserMapper, AdminUser
     }
 
     @Override
-    public ResultVO delectArticke(int id) {
+    public ResultVO deleteArticle(int id) {
         if (this.articleService.removeById(id)) {
             return new ResultVO(ResultEnum.SUCCESS);
         }

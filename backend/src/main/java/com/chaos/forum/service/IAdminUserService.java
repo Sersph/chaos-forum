@@ -31,5 +31,5 @@ public interface IAdminUserService extends IService<AdminUser> {
 
     ResultVO selectAllArticle(ArticleListPage articleListPage);
 
-    ResultVO delectArticke(int id);
+    ResultVO deleteArticle(int id);
 }

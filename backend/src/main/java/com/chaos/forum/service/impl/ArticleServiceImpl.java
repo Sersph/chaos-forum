@@ -60,6 +60,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
      * @param articleListPage
      * @return
      */
+    @Cacheable(value = "ResultVO")
     @Override
     public ResultVO selectArticle(int id, ArticleListPage articleListPage) {
         PageTools<Article> pageTools = new PageTools<>(articleListPage);
