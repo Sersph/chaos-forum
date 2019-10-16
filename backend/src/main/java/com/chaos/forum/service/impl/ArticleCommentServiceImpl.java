@@ -14,6 +14,7 @@ import com.chaos.forum.service.IArticleCommentService;
 import com.chaos.forum.tools.PageTools;
 import com.chaos.forum.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
@@ -59,6 +60,7 @@ public class ArticleCommentServiceImpl extends ServiceImpl<ArticleCommentMapper,
      * @param articleListPage
      * @return
      */
+    @Cacheable(value = "ResultVO")
     @Override
     public ResultVO getComment(int id, ArticleListPage articleListPage) {
         PageTools<ArticleComment> pageTools = new PageTools<>(articleListPage);
