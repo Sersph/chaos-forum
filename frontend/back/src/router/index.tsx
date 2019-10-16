@@ -19,17 +19,32 @@ import LayoutMasterSystem from '../page/_layout/master/system';
 // 工作台
 import LayoutMasterSystemHomeWelcome from '../page/_layout/master/system/home/welcome';
 
+// 个人用户
+import LayoutMasterSystemAccountPersonUser from '../page/_layout/master/system/account/person-user';
+import LayoutMasterSystemAccountPersonUserList from '../page/_layout/master/system/account/person-user/list';
+
 // 帖子分类
 import LayoutMasterSystemFeaturePostCategory from '../page/_layout/master/system/feature/post-category';
 import LayoutMasterSystemFeaturePostCategoryList from '../page/_layout/master/system/feature/post-category/list';
 import LayoutMasterSystemFeaturePostCategoryOperator
   from '../page/_layout/master/system/feature/post-category/operator';
 
+// 帖子
+import LayoutMasterSystemFeaturePost from '../page/_layout/master/system/feature/post';
+import LayoutMasterSystemFeaturePostList from '../page/_layout/master/system/feature/post/list';
+
 
 // 懒加载模块
 // 仪表盘
 const LayoutMasterSystemHome = Loadable({
   loader: () => import('../page/_layout/master/system/home'),
+  loading: () => <Loading/>
+});
+
+
+// 账户
+const LayoutMasterSystemAccount = Loadable({
+  loader: () => import('../page/_layout/master/system/account'),
   loading: () => <Loading/>
 });
 
@@ -99,6 +114,26 @@ export default class Router extends React.Component<Props, State> {
                     }
                   ]
                 },
+                // 用户模块
+                {
+                  path: '/system/account',
+                  component: LayoutMasterSystemAccount,
+                  breadcrumb: '账户管理',
+                  routes: [
+                    {
+                      path: '/system/account/person-user',
+                      component: LayoutMasterSystemAccountPersonUser,
+                      breadcrumb: '个人用户',
+                      routes: [
+                        {
+                          path: '/system/account/person-user',
+                          component: LayoutMasterSystemAccountPersonUserList,
+                          breadcrumb: '列表'
+                        }
+                      ]
+                    }
+                  ]
+                },
                 // 功能模块
                 {
                   path: '/system/feature',
@@ -118,12 +153,24 @@ export default class Router extends React.Component<Props, State> {
                         {
                           path: '/system/feature/postCategory/operator/:id',
                           component: LayoutMasterSystemFeaturePostCategoryOperator,
-                          breadcrumb: '修改'
+                          breadcrumb: '编辑'
                         },
                         {
                           path: '/system/feature/postCategory/operator',
                           component: LayoutMasterSystemFeaturePostCategoryOperator,
                           breadcrumb: '添加'
+                        }
+                      ]
+                    },
+                    {
+                      path: '/system/feature/post',
+                      component: LayoutMasterSystemFeaturePost,
+                      breadcrumb: '帖子',
+                      routes: [
+                        {
+                          path: '/system/feature/post/list',
+                          component: LayoutMasterSystemFeaturePostList,
+                          breadcrumb: '列表'
                         }
                       ]
                     }
