@@ -135,7 +135,7 @@
 
 - 请求方式 - 请求 URL
 
-  - `Delet` - `/backend/manager/delectArticle/:1`
+  - `Delet` - `/backend/manager/deleteArticle/:1`
 
 - 请求参数
 

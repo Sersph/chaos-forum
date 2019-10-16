@@ -1,6 +1,5 @@
 package com.chaos.forum.controller;
 
-import com.chaos.forum.decorator.Calibrator;
 import com.chaos.forum.decorator.SysdbaCalibrator;
 import com.chaos.forum.entity.AdminUser;
 import com.chaos.forum.entity.ArticleListPage;
@@ -87,8 +86,8 @@ public class AdminUserController {
     }
 
     @SysdbaCalibrator
-    @DeleteMapping("/delectArticke")
-    public ResultVO delectArticke(@PathVariable int id) {
-        return this.adminUserService.delectArticke(id);
+    @DeleteMapping("/deleteArticle/{id}")
+    public ResultVO deleteArticle(@PathVariable int id) {
+        return this.adminUserService.deleteArticle(id);
     }
 }
