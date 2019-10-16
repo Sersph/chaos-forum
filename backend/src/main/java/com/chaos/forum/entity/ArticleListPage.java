@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 
 /**
@@ -15,7 +16,7 @@ import javax.validation.constraints.NotNull;
  * 2019-09-22 21:31
  */
 @Data
-public class ArticleListPage {
+public class ArticleListPage implements Serializable {
 
     @ApiModelProperty(value = " 文章分页的页码 ")
     private Integer page = 1;

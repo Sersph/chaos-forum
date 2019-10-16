@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -18,7 +19,7 @@ import java.util.Date;
  * 2019-10-05 19:18
  */
 @Data
-public class ArticleComment{
+public class ArticleComment  implements Serializable {
 
 
     @ApiModelProperty("文章评论ID")

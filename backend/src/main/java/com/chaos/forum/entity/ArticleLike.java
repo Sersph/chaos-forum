@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -18,7 +19,7 @@ import java.util.Date;
  * 2019-10-04 16:31
  */
 @Data
-public class ArticleLike {
+public class ArticleLike implements Serializable {
 
     @ApiModelProperty("文章点赞ID")
     private int id;

@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -18,7 +19,7 @@ import java.util.Date;
  * 2019-09-20 10:08
  */
 @Data
-public class ArticleCategory {
+public class ArticleCategory implements Serializable {
 
     @NotNull
     @ApiModelProperty(value = " 文章分类ID ")

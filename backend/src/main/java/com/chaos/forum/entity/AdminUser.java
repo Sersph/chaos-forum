@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -17,7 +18,7 @@ import java.util.Date;
  * 2019-09-20 09:46
  */
 @Data
-public class AdminUser {
+public class AdminUser implements Serializable {
 
     @ApiModelProperty(value = " 管理员ID ")
     private int id;

@@ -8,6 +8,7 @@ import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -19,7 +20,7 @@ import java.util.Date;
  * 2019-10-02 14:05
  */
 @Data
-public class PersonUser {
+public class PersonUser implements Serializable {
 
     @ApiModelProperty(value = " 用户ID ")
     private int id;
