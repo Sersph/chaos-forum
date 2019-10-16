@@ -2,6 +2,7 @@ package com.chaos.forum.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.chaos.forum.entity.AdminUser;
+import com.chaos.forum.entity.ArticleListPage;
 import com.chaos.forum.exception.DataException;
 import com.chaos.forum.vo.ResultVO;
 
@@ -26,5 +27,9 @@ public interface IAdminUserService extends IService<AdminUser> {
      * */
     ResultVO logIn(AdminUser user, HttpSession session);
 
-    ResultVO selectAll();
+    ResultVO selectAllUser(ArticleListPage articleListPage);
+
+    ResultVO selectAllArticle(ArticleListPage articleListPage);
+
+    ResultVO delectArticke(int id);
 }

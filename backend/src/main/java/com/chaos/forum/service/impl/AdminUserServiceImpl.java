@@ -1,15 +1,20 @@
 package com.chaos.forum.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.chaos.forum.entity.AdminUser;
+import com.chaos.forum.entity.Article;
+import com.chaos.forum.entity.ArticleListPage;
 import com.chaos.forum.entity.PersonUser;
 import com.chaos.forum.exception.DataException;
 import com.chaos.forum.mapper.AdminUserMapper;
-import com.chaos.forum.mapper.UserMapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.chaos.forum.returnx.enumx.ResultEnum;
 import com.chaos.forum.service.IAdminUserService;
+import com.chaos.forum.service.IArticleService;
 import com.chaos.forum.service.IUserService;
+import com.chaos.forum.tools.PageTools;
 import com.chaos.forum.vo.ResultVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +22,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 
 /**
@@ -35,6 +39,9 @@ public class AdminUserServiceImpl extends ServiceImpl<AdminUserMapper, AdminUser
 
     @Autowired
     private IUserService iUserService;
+
+    @Autowired
+    private IArticleService articleService;
 
     /**
      * 管理员用户登陆
@@ -75,14 +82,36 @@ public class AdminUserServiceImpl extends ServiceImpl<AdminUserMapper, AdminUser
      * @return
      */
     @Override
-    public ResultVO selectAll() {
-        List list = this.iUserService.list();
-        if (list == null) {
-            throw new DataException(ResultEnum.SELECT_ERROR);
+    public ResultVO selectAllUser(ArticleListPage articleListPage) {
+        PageTools<PersonUser> pageTools = new PageTools<>(articleListPage);
+        IPage<PersonUser> iPage = pageTools.autoPaging()
+                .result((this::selectUser));
+        return new ResultVO(ResultEnum.SUCCESS, iPage);
+    }
+
+    @Override
+    public ResultVO selectAllArticle(ArticleListPage articleListPage) {
+        PageTools<Article> pageTools = new PageTools<>(articleListPage);
+        IPage<Article> iPage = pageTools.autoPaging()
+                .result((this::selectArticle));
+        return new ResultVO(ResultEnum.SUCCESS, iPage);
+    }
+
+    @Override
+    public ResultVO delectArticke(int id) {
+        if (this.articleService.removeById(id)) {
+            return new ResultVO(ResultEnum.SUCCESS);
         }
-        return new ResultVO(ResultEnum.SUCCESS, list);
+        throw new DataException(ResultEnum.DELETE_ERROR);
     }
 
 
+    private IPage<PersonUser> selectUser(Page<PersonUser> page) {
+        return this.iUserService.page(page);
+    }
+
+    private IPage<Article> selectArticle(Page<Article> page) {
+        return this.articleService.page(page);
+    }
 
 }

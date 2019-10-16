@@ -79,44 +79,11 @@
   }
   ```
 
-
-
-## 文章
-
-#### 创建文章
+#### 获取所有用户
 
 - 请求方式 - 请求 URL
 
-  - `POST` - `/backend/article`
-
-- 请求参数
-
-  | 参数              | 必填 | 类型   | 备注       |
-  | ----------------- | ---- | ------ | ---------- |
-  | title             | yes  | string | 标题       |
-  | content           | yes  | string | 内容       |
-  | articleCategoryId | yes  | int    | 文章分类id |
-
-- 返回示例
-
-  ```json
-  // 成功
-  {
-      "code": 0
-  }
-  
-  // 失败
-  {
-      "code": 1002,
-      "message": "创建失败"
-  }
-  ```
-
-#### 查询单一文章
-
-- 请求方式 - 请求 URL
-
-  - `GET` - `/backend/article/:id`
+  - `Get` - `/backend/manager/selectAll`
 
 - 请求参数
 
@@ -128,55 +95,21 @@
   // 成功
   {
       "code": 0,
-      "data": {
-          "id": 1,
-          "title": "2132131",
-          "content": "12312",
-          ...
-      }
+      "data": "xxx"
   }
   
   // 失败
   {
-      "code": 1002,
-      "message": "登录信息已过期，请登录后重试！"
+      "code": 1001,
+      "message": "登录状态已失效，请重新登录"
   }
   ```
 
-#### 修改文章
+#### 获取所有文章
 
 - 请求方式 - 请求 URL
 
-  - `PUT` - `/backend/article/:id`
-
-- 请求参数
-
-  | 参数                | 必填 | 类型   | 备注       |
-  | ------------------- | ---- | ------ | ---------- |
-  | title               | yes  | string | 标题       |
-  | content             | yes  | string | 内容       |
-  | article_category_id | yes  | int    | 文章分类id |
-
-- 返回示例
-
-  ```json
-  // 成功
-  {
-      "code": 0
-  }
-  
-  // 失败
-  {
-      "code": 1002,
-      "message": "修改失败"
-  }
-  ```
-
-#### 删除文章
-
-- 请求方式 - 请求 URL
-
-  - `DELETE ` - `/backend/article/:id`
+  - `Get` - `/backend/manager/selectAllArticle`
 
 - 请求参数
 
@@ -187,43 +120,41 @@
   ```json
   // 成功
   {
-      "code": 0
+      "code": 0,
+      "data": "xxx"
   }
   
   // 失败
   {
-      "code": 1002,
-      "message": "删除失败"
+      "code": 1001,
+      "message": "登录状态已失效，请重新登录"
   }
   ```
 
-#### 查询文章
+#### 删除文章
 
 - 请求方式 - 请求 URL
 
-  - `GET` - `/backend/article`
+  - `Delet` - `/backend/manager/selectArticle`/：1
 
 - 请求参数
 
-  | 参数      | 必填 | 类型   | 备注                   |
-  | --------- | ---- | ------ | ---------------------- |
-  | page      | no   | int    | 页码                   |
-  | pageSize  | no   | int    | 一页多少条             |
-  | sortField | no   | string | 排序的字段(数据库)     |
-  | sortOrder | no   | string | 排序的顺序(倒序，正序) |
+  | 参数 | 必填 | 类型 | 备注    |
+  | ---- | ---- | ---- | ------- |
+  | id   | yes  | int  | w文章id |
 
 - 返回示例
 
   ```json
   // 成功
   {
-      "code": 0
+      "code": 0,
   }
   
   // 失败
   {
-      "code": 1002,
-      "message": "查询失败"
+      "code": 1001,
+      "message": "登录状态已失效，请重新登录"
   }
   ```
 

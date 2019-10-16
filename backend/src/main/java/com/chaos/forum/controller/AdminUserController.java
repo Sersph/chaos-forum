@@ -1,7 +1,9 @@
 package com.chaos.forum.controller;
 
 import com.chaos.forum.decorator.Calibrator;
+import com.chaos.forum.decorator.SysdbaCalibrator;
 import com.chaos.forum.entity.AdminUser;
+import com.chaos.forum.entity.ArticleListPage;
 import com.chaos.forum.returnx.enumx.ResultEnum;
 import com.chaos.forum.service.IAdminUserService;
 import com.chaos.forum.vo.ResultVO;
@@ -43,7 +45,7 @@ public class AdminUserController {
      *
      * @param session 用户会话
      * */
-    @Calibrator
+    @SysdbaCalibrator
     @DeleteMapping("/logOut")
     public ResultVO logOut(HttpSession session) {
         session.removeAttribute("adminUser");
@@ -56,7 +58,7 @@ public class AdminUserController {
      *
      * @param session 用户登陆信息
      * */
-    @Calibrator
+    @SysdbaCalibrator
     @GetMapping("/getUserName")
     public ResultVO getUserName(HttpSession session) {
         AdminUser userInfo = (AdminUser) session.getAttribute("adminUser");
@@ -68,12 +70,25 @@ public class AdminUserController {
     }
 
     /**
+     * 获取所有用户列表
      *
+     * @return
      */
-    @Calibrator
+    @SysdbaCalibrator
     @GetMapping("/selectAll")
-    public ResultVO selectAll() {
-        return this.adminUserService.selectAll();
+    public ResultVO selectAll(ArticleListPage articleListPage) {
+        return this.adminUserService.selectAllUser(articleListPage);
     }
 
+    @SysdbaCalibrator
+    @GetMapping("/selectAllArticle")
+    public ResultVO selectAllArticle(ArticleListPage articleListPage) {
+        return this.adminUserService.selectAllArticle(articleListPage);
+    }
+
+    @SysdbaCalibrator
+    @DeleteMapping("/delectArticke")
+    public ResultVO delectArticke(@PathVariable int id) {
+        return this.adminUserService.delectArticke(id);
+    }
 }

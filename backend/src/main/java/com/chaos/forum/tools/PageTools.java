@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.chaos.forum.entity.ArticleListPage;
 import com.chaos.forum.tools.lambda.PageMapperLambda;
 import com.chaos.forum.tools.lambda.PageMapperLambdaBada;
+import com.chaos.forum.tools.lambda.PageMapperLambdaOne;
 
 /**
  * { mybatis-plus 分页工具类}
@@ -33,13 +34,10 @@ public class PageTools<T> {
     public PageTools<T> autoPaging() {
 
         if (this.articleListPage.getName() != null) {
-            System.out.println("xxxxxx");
             this.like("name", this.articleListPage.getName());
         }
 
         if (this.articleListPage.getTitle() != null) {
-            System.out.println("ssssss");
-
             this.like("title", this.articleListPage.getTitle());
         }
 
@@ -115,6 +113,10 @@ public class PageTools<T> {
      * */
     public IPage<T> result(PageMapperLambda<T> pageMapperLambda) {
         return pageMapperLambda.select(this.page, this.wrapper);
+    }
+
+    public IPage<T> result(PageMapperLambdaOne<T> pageMapperLambda) {
+        return pageMapperLambda.select(this.page);
     }
 
     public IPage<T> result(PageMapperLambdaBada<T> pageMapperLambda) {
