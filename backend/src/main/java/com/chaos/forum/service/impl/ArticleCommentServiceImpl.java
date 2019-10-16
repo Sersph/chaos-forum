@@ -60,7 +60,7 @@ public class ArticleCommentServiceImpl extends ServiceImpl<ArticleCommentMapper,
      * @param articleListPage
      * @return
      */
-    @Cacheable(value = "ResultVO")
+    @Cacheable(value = "selectArticleComment")
     @Override
     public ResultVO getComment(int id, ArticleListPage articleListPage) {
         PageTools<ArticleComment> pageTools = new PageTools<>(articleListPage);

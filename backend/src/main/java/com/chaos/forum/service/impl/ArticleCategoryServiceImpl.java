@@ -67,7 +67,7 @@ public class ArticleCategoryServiceImpl extends ServiceImpl<ArticleCategoryMappe
      * @param articleListPage
      * @return
      */
-    @Cacheable(value = "ResultVO")
+    @Cacheable(value = "selectArticleCommentOne")
     @Override
     public ResultVO selectCategory(ArticleListPage articleListPage) {
         PageTools pageTools = new PageTools<ArticleCategory>(articleListPage);
@@ -81,7 +81,7 @@ public class ArticleCategoryServiceImpl extends ServiceImpl<ArticleCategoryMappe
      *
      * @return
      */
-    @Cacheable(value = "ResultVO")
+    @Cacheable(value = "selectArticleCommentAll")
     @Override
     public ResultVO selectArticleAll() {
         List list = this.list(new QueryWrapper<>());

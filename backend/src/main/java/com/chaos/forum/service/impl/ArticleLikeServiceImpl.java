@@ -67,7 +67,7 @@ public class ArticleLikeServiceImpl extends ServiceImpl<ArticleLikeMapper, Artic
      * @param articleLike
      * @return
      */
-    @Cacheable(value = "ResultVO")
+    @Cacheable(value = "selectArticleLike")
     @Override
     public ResultVO selectLikeAllUser(HttpSession session, ArticleLike articleLike) {
         PersonUser userIn = (PersonUser) session.getAttribute("personUser");

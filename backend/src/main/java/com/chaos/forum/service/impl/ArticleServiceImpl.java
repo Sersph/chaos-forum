@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.chaos.forum.decorator.Calibrator;
 import com.chaos.forum.entity.Article;
 import com.chaos.forum.entity.ArticleListPage;
 import com.chaos.forum.entity.PersonUser;
@@ -60,7 +61,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
      * @param articleListPage
      * @return
      */
-    @Cacheable(value = "ResultVO")
+    @Cacheable(value = "selectArticleOne")
     @Override
     public ResultVO selectArticle(int id, ArticleListPage articleListPage) {
         PageTools<Article> pageTools = new PageTools<>(articleListPage);
@@ -75,7 +76,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
      *
      * @return SUCCESS, Date / SELECT_ERROR
      */
-    @Cacheable(value = "ResultVO")
+    @Cacheable(value = "selectArticleAll")
     @Override
     public ResultVO getArticleCategory(ArticleListPage articleListPage) {
         /** 分页 */
