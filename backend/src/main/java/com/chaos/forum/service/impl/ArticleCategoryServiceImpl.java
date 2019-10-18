@@ -62,7 +62,7 @@ public class ArticleCategoryServiceImpl extends ServiceImpl<ArticleCategoryMappe
     }
 
     /**
-     * 查询单一文章分类
+     * 查询所有文章分类，并分页
      *
      * @param articleListPage
      * @return
@@ -77,7 +77,7 @@ public class ArticleCategoryServiceImpl extends ServiceImpl<ArticleCategoryMappe
     }
 
     /**
-     * 查询所有文章分类
+     * 查询所有文章分类，不分页
      *
      * @return
      */

@@ -41,5 +41,7 @@ forum:
     upload: /etc/nginx/www/chaos-forum/upload/
     static-url: http://114.55.35.77/images/
 
+swagger:
+  show: true
 
 

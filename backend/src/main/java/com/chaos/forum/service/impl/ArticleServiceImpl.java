@@ -16,6 +16,7 @@ import com.chaos.forum.tools.DatabaseTools;
 import com.chaos.forum.tools.PageTools;
 import com.chaos.forum.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -94,6 +95,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
      * @param session
      * @return
      */
+    @CacheEvict(value = "selectArticleAll")
     @Override
     public ResultVO delectArticle(int id, HttpSession session) {
 

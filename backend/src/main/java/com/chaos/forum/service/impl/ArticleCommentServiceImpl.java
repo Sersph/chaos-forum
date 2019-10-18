@@ -14,6 +14,7 @@ import com.chaos.forum.service.IArticleCommentService;
 import com.chaos.forum.tools.PageTools;
 import com.chaos.forum.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -76,6 +77,7 @@ public class ArticleCommentServiceImpl extends ServiceImpl<ArticleCommentMapper,
      * @param session
      * @return
      */
+    @CacheEvict(value = "selectArticleComment")
     @Override
     public ResultVO delectComment(int id, HttpSession session) {
         PersonUser userIn = (PersonUser) session.getAttribute("personUser");

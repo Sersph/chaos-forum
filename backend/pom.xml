@@ -70,6 +70,7 @@
             <version>1.2.24</version>
         </dependency>
 
+        <!-- Aop -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
@@ -95,6 +96,8 @@
     </dependencies>
 
     <build>
+        <!-- 设置打包名 -->
+        <finalName>forum</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
