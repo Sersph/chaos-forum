@@ -5,6 +5,7 @@ import com.chaos.forum.entity.ArticleListPage;
 import com.chaos.forum.returnx.enumx.ResultEnum;
 import com.chaos.forum.service.IArticleCategoryService;
 import com.chaos.forum.vo.ResultVO;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/backend")
+@Api(value = "文章分类管理器", description = "用于管理后台分类的基本操作")
 public class ArticleCategoryController {
 
     @Autowired

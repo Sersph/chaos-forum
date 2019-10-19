@@ -5,11 +5,14 @@ import com.chaos.forum.entity.PersonUser;
 import com.chaos.forum.returnx.enumx.ResultEnum;
 import com.chaos.forum.service.IUserService;
 import com.chaos.forum.vo.ResultVO;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-
 
 /**
  * <p>
@@ -21,65 +24,55 @@ import javax.servlet.http.HttpSession;
  */
 @RestController
 @RequestMapping("/frontend/user")
+@Api(value = "普通用户管理器", description = "用于普通用户基本操作")
 public class UserController {
 
     @Autowired
     IUserService userService;
 
-    /**
-     * 用户注册
-     *
-     * @param user
-     * @return
-     */
+    @ApiOperation(value = "普通用户注册")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "name", value = "用户名", required = true, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "password", value = "密码", required = true, dataType = "String", paramType = "query")
+    })
     @PostMapping("/register")
     public ResultVO signIn(PersonUser user) {
         return this.userService.signIn(user);
     }
 
-    /**
-     * 用户登陆
-     *
-     * @param user
-     * @return
-     */
+    @ApiOperation(value = "普通用户登陆")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "name", value = "用户名", required = true, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "password", value = "密码", required = true, dataType = "String", paramType = "query")
+    })
     @PostMapping("/logIn")
     public ResultVO logIn(PersonUser user, HttpSession session) {
         return this.userService.logIn(user, session);
     }
 
-    /**
-     * 用户退出
-     *
-     * @return
-     */
     @Calibrator
+    @ApiOperation(value = "普通用户退出")
     @GetMapping("/logOut")
     public ResultVO logOut(HttpSession session) {
         session.removeAttribute("personUser");
         return new ResultVO(ResultEnum.SUCCESS);
     }
 
-    /**
-     * 用户修改信息
-     *
-     * @param user
-     * @return
-     */
     @Calibrator
+    @ApiOperation(value = "用户修改")
     @PutMapping("/alter")
     public ResultVO alter(PersonUser user,HttpSession session) {
         return this.userService.alter(session, user);
     }
 
-    /**
-     * 用户信息查询
-     *
-     * @return 头像默认返回‘ko1’
-     */
     @Calibrator
+    @ApiOperation(value = "查询用户详情")
     @GetMapping("/userCase")
     public ResultVO getUserName(HttpSession session) {
         return this.userService.getUserName(session);
     }
 }
+
+
+
+

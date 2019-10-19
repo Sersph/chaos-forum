@@ -5,6 +5,9 @@ import com.chaos.forum.entity.Article;
 import com.chaos.forum.entity.ArticleListPage;
 import com.chaos.forum.service.IArticleService;
 import com.chaos.forum.vo.ResultVO;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,53 +24,37 @@ import javax.servlet.http.HttpSession;
  */
 @RequestMapping("/frontend/article")
 @RestController
+@Api(value = "文章管理器", description = "用于文章的基本操作")
 public class ArticleController {
 
     @Autowired
     IArticleService articleService;
 
-    /**
-     * 创建文章
-     *
-     * @param article 文章实体
-     * @return SUCCESS / CREATE_ERROR
-     * */
+    @ApiOperation(value = "创建文章")
     @Calibrator
     @PostMapping("/sava")
     public ResultVO createArticle(Article article, HttpSession session) {
         return this.articleService.createArticle(article,session);
     }
 
-    /**
-     * 删除文章
-     *
-     * @param id 删除文章的对应ID
-     * @return SUCCESS / DELETE_ERROR
-     * */
     @Calibrator
+    @ApiOperation(value = "删除文章")
+    @ApiImplicitParam(name = "id", value = "文章ID", required = true, dataType = "int", paramType = "path")
     @DeleteMapping("/delete/{id}")
     public ResultVO deleteArticle(@PathVariable int id, HttpSession session) {
         return this.articleService.delectArticle(id, session);
     }
 
-    /**
-     * 查询单一文章
-     * @param id 查询文章的对应ID
-     * @return SUCCESS,Date / SELECT_ERROR
-     * */
+    @ApiOperation(value = "查询单一文章")
+    @ApiImplicitParam(name = "id", value = "文章ID", required = true, dataType = "int", paramType = "path")
     @GetMapping("/getOne/{id}")
     public ResultVO selectArticle(@PathVariable int id, ArticleListPage articleListPage) {
         return this.articleService.selectArticle(id, articleListPage);
     }
 
-    /**
-     * 查询所有文章
-     *
-     * @return SUCCESS,Date / SELECT_ERROR
-     * */
+    @ApiOperation(value = "查询所有文章")
     @GetMapping("/getAll")
     public ResultVO getArticleCategory(ArticleListPage articleListPage) {
         return this.articleService.getArticleCategory(articleListPage);
     }
-
 }
